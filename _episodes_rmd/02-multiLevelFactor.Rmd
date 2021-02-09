@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Linear regression with a single predictor"
+title: "Linear regression with more than two study groups"
 objectives:
   - "ABD"
 keypoints:
@@ -13,5 +13,5 @@ execises: 10
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("01-")
+knitr_fig_path("02-")
 ```
