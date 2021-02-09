@@ -4,7 +4,7 @@
 source: Rmd
 title: "Linear regression with more than two study groups"
 objectives:
-  - "ABC"
+  - "ABD"
 keypoints:
   - "DEF"
 questions:

@@ -4,7 +4,7 @@
 source: Rmd
 title: "Simple linear regression model evaluation and prediction"
 objectives:
-  - "ABC"
+  - "ABD"
 keypoints:
   - "DEF"
 questions:

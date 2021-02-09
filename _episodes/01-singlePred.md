@@ -4,7 +4,7 @@
 source: Rmd
 title: "Linear regression with a single predictor"
 objectives:
-  - "ABC"
+  - "ABD"
 keypoints:
   - "DEF"
 questions:
