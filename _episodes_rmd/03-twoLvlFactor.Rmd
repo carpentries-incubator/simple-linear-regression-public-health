@@ -1,0 +1,17 @@
+---
+source: Rmd
+title: "Linear regression with a two-level factor explanatory variable"
+objectives:
+  - "ABD"
+keypoints:
+  - "DEF"
+questions:
+  - "GHI"
+teaching: 10
+execises: 10
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("03-")
+```
