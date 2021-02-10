@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Linear regression with more than two study groups"
+title: "Assessing simple linear regression model fit and assumptions"
 objectives:
   - "ABD"
 keypoints:
@@ -13,5 +13,5 @@ execises: 10
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("02-")
+knitr_fig_path("05-")
 ```

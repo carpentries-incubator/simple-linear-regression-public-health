@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Simple linear regression model evaluation and prediction"
+title: "Linear regression with one continuous explanatory variable"
 objectives:
   - "ABD"
 keypoints:
@@ -13,5 +13,5 @@ execises: 10
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("03-")
+knitr_fig_path("02-")
 ```

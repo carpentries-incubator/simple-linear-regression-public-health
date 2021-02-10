@@ -1,0 +1,17 @@
+---
+source: Rmd
+title: "Making predictions from a simple linear regression model"
+objectives:
+  - "ABD"
+keypoints:
+  - "DEF"
+questions:
+  - "GHI"
+teaching: 10
+execises: 10
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("06-")
+```
