@@ -2,7 +2,8 @@
 source: Rmd
 title: "Making predictions from a simple linear regression model"
 objectives:
-  - "ABD"
+  - "Understand that the simple linear regression model can be used for prediction."
+  - "Use the predict function to generate predictions from a simple linear regression model."
 keypoints:
   - "DEF"
 questions:
