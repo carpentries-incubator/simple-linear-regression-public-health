@@ -4,7 +4,8 @@
 source: Rmd
 title: "An introduction to linear regression"
 objectives:
-  - "ABD"
+  - "Know what types of questions can be addressed with a simple linear regression."
+  - "Know what types of variables are involved in simple linear regression."
 keypoints:
   - "DEF"
 questions:
