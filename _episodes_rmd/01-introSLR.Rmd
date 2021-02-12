@@ -3,7 +3,7 @@ source: Rmd
 title: "An introduction to linear regression"
 objectives:
   - "Identify questions that can be addressed with a simple linear regression model."
-  - "Describe the types of variables that are involved in simple linear regression."
+  - "Describe the components that are involved in simple linear regression."
 keypoints:
   - "DEF"
 questions:
@@ -17,11 +17,39 @@ source("../bin/chunk-options.R")
 knitr_fig_path("01-")
 ```
 
-```{r load data}
+```{r load data, include=FALSE}
 library(NHANES)
 dat <- NHANES
 ```
 
+
 > ## Exercise  
-> Block quote test
+> A colleague has started working with the NHANES data set. They approach 
+> you for advice on the use of simple linear regression on this data. Which
+> of the following questions could potentially be tackled with a simple 
+> linear regression model?  
+>   
+> A) Does home ownership vary across gender in the NHANES data set?  
+> B) Is there an association between BMI and pulse in the NHANES data set?  
+> C) Do men on average have a higher pulse than women in the NHANES data set?  
 {: .challenge}
+
+
+> ## Exercise  
+> We are asked to study the effect of participant's age on their BMI. We are given the following equation of a simple linear regression to use:  
+> $$y_i = {\beta}_0 + x_i\times{\beta}_1 + \epsilon$$  
+> Match the following components of this simple linear regression model to their disciptions:  
+> 1. $y_i$  
+> 2. ${\beta}_0$  
+> 3. $x_i$
+> 4. ${\beta}_1$  
+> 5. $\epsilon_i$  
+>  
+> A) One participant's observed value for the response.  
+> B) The expected response when the explanatory variable equals 0.    
+> C) The expected change in the response with a one-unit increase in the explanatory variable.  
+> D) The difference between a participant's value for the response and the
+> expected value from the model.  
+> E) One participant's observed value for the explanatory variable.  
+{: .challenge}
+
