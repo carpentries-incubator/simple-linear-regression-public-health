@@ -4,7 +4,11 @@
 source: Rmd
 title: "Linear regression with a two-level factor explanatory variable"
 objectives:
-  - "ABD"
+  - "Appreciate that measuring the relationship between a two-level factor variable and a continuous variable is a regression problem."
+  - "Use the ggplot2 package to explore the relationship between a continuous variable and a two-level factor variable."
+  - "Use the lm command to fit a simple linear regression with a two-level factor explanatory variable."
+  - "Interpret the output given by R after fitting this model."
+  - "Use the ggplot2 package to visualise the resulting model."
 keypoints:
   - "DEF"
 questions:

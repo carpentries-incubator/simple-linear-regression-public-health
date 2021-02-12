@@ -4,7 +4,10 @@
 source: Rmd
 title: "Linear regression with one continuous explanatory variable"
 objectives:
-  - "ABD"
+  - "Use the ggplot2 package to explore the relationship between two continuous variables."
+  - "Use the lm command to fit a simple linear regression with one continuous explanatory variable."
+  - "Interpret the output given by R after fitting this model."
+  - "Use the ggplot2 package to visualise the resulting model."
 keypoints:
   - "DEF"
 questions:
