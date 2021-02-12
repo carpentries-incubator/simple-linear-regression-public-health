@@ -4,14 +4,25 @@
 source: Rmd
 title: "An introduction to linear regression"
 objectives:
-  - "Know what types of questions can be addressed with a simple linear regression."
-  - "Know what types of variables are involved in simple linear regression."
+  - "Identify questions that can be addressed with a simple linear regression model."
+  - "Describe the types of variables that are involved in simple linear regression."
 keypoints:
   - "DEF"
 questions:
-  - "GHI"
+  - "ABC"
 teaching: 10
 execises: 10
 ---
 
 
+
+
+~~~
+library(NHANES)
+dat <- NHANES
+~~~
+{: .language-r}
+
+> ## Exercise  
+> Block quote test
+{: .challenge}
