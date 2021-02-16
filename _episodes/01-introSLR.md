@@ -23,18 +23,18 @@ execises: 10
 > A colleague has started working with the NHANES data set. They approach 
 > you for advice on the use of simple linear regression on this data. Which
 > of the following questions could potentially be tackled with a simple 
-> linearregression model?  
+> linear regression model?  
 >   
 > A) Does home ownership vary across gender in the NHANES data set?  
-> B) Is there an association between BMI and pulse in the NHANES data set?
-> C) Do men tend to have a higher pulse than women in the NHANES data set?  
+> B) Is there an association between BMI and pulse in the NHANES data set?  
+> C) Do men on average have a higher pulse than women in the NHANES data set?  
 {: .challenge}
 
 
 > ## Exercise  
 > We are asked to study the effect of participant's age on their BMI. We are given the following equation of a simple linear regression to use:  
 > $$y_i = {\beta}_0 + x_i\times{\beta}_1 + \epsilon$$  
-> Match the following components of this simple linear regression model the their disciptions:  
+> Match the following components of this simple linear regression model to their disciptions:  
 > 1. $y_i$  
 > 2. ${\beta}_0$  
 > 3. $x_i$
