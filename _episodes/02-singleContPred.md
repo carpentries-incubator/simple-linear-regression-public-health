@@ -17,3 +17,57 @@ execises: 10
 ---
 
 
+
+
+
+> ## Exercise  
+> You have been asked to model the relationship between Total Cholesterol
+> and BMI in the NHANES data. In order to fit a simple linear regression 
+> model, you first need to confirm that the relationship between these
+> variables appears linear. Use the ggplot2 package to create a plot,
+> ensuring that it includes the following elements:  
+> 1. Total cholesterol (`TotChol`) on the y-axis and BMI (`BMI`) on the
+> x-axis, from the NHANES data.  
+> 2. This data shown as a scatterplot.  
+> 3. The y-axis labelled as "Total Cholesterol" and the x-axis labelled
+> as "BMI".  
+{: .challenge}
+
+
+
+
+> ## Exercise  
+> Now that you have confirmed that the relationship between Total Cholesterol
+> and BMI appears linear in the NHANES data, you can proceed to fitting
+> a simple linear regression model.  
+>   
+> 1. Using the `lm()` command, fit a simple linear regression of Total
+> Cholesterol (`TotChol`) as a function of BMI (`BMI`). Name the `lm` 
+> object `TotChol_BMI_lm`.  
+> 2. Using the `summary()` function, answer the following questions:
+>   
+> A) What level of Total Cholesterol does the model predict, on average,
+> for an individual with a BMI of 0?  
+> B) By how much is Total Cholesterol expected to increase, on average, for
+> a one-unit increase in BMI?  
+> C) Given these two values and the names of the response and explanatory
+> variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
+> \times x$ be adapted to represent your model?  
+{: .challenge}
+
+
+
+
+> ## Exercise  
+> You have been asked to report on your simple linear regression model at 
+> the next lab meeting. To help your colleagues interpret the model, you
+> decide to produce a figure. Make this figure now using the ggplot2 package,
+> ensuring that it includes the following elements:  
+> 1. Total cholesterol (`TotChol`) on the y-axis and BMI (`BMI`) on the
+> x-axis, from the NHANES data.  
+> 2. This data shown as a scatterplot.  
+> 3. The y-axis labelled as "Total Cholesterol" and the x-axis labelled
+> as "BMI".  
+> 4. A simple linear regression line.  
+{: .challenge}
+
