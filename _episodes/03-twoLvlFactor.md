@@ -36,19 +36,22 @@ dat %>%
 
 
 ~~~
-Warning: Computation failed in `stat_summary()`:
-Hmisc package required for this function
-~~~
-{: .warning}
-
-
-
-~~~
 Warning: Removed 2 rows containing missing values (geom_segment).
 ~~~
 {: .warning}
 
 <img src="../fig/rmd-03-explore physical activity vs pulse-1.png" title="plot of chunk explore physical activity vs pulse" alt="plot of chunk explore physical activity vs pulse" width="612" style="display: block; margin: auto;" />
+
+> ## Exercise  
+> You have been asked to model the relationship between pulse
+> and physical activity in the NHANES data. Use the ggplot2 package  
+> to create an exploratory plot, ensuring that it includes the following elements:  
+> 1. Pulse (`Pulse`) on the y-axis and physical activity (`PhysActive`) on the
+> x-axis, from the NHANES data.  
+> 2. This data shown as a violin plot.  
+> 3. The y-axis labelled as "Pulse" and the x-axis labelled
+> as "Physically active".  
+{: .challenge}
 
 
 ~~~
@@ -81,6 +84,21 @@ PhysActiveYes         -1.358   -1.885   -0.831    -5.052   0.000
 ~~~
 {: .output}
 
+> ## Exercise  
+> 1. Using the `lm()` command, fit a simple linear regression of pulse (`Pulse`)  
+> as a function of physical activity (`PhysActive`). Name this `lm` 
+> object `Pulse_PhysActive_lm`.  
+> 2. Using the `summary()` function, answer the following questions:
+>   
+> A) What pulse does the model predict, on average,
+> for an individual who is characterised as not physically active?  
+> B) By how much is pulse expected to change, on average, for
+> a physically active individual?  
+> C) Given these two values and the names of the response and explanatory
+> variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
+> \times x$ be adapted to represent this model?  
+{: .challenge}
+
 
 ~~~
 effect_plot(Pulse_PhysActive_lm, pred = PhysActive)
@@ -89,5 +107,9 @@ effect_plot(Pulse_PhysActive_lm, pred = PhysActive)
 
 <img src="../fig/rmd-03-plot pulse vs physactive with model-1.png" title="plot of chunk plot pulse vs physactive with model" alt="plot of chunk plot pulse vs physactive with model" width="612" style="display: block; margin: auto;" />
 
+> ## Exercise  
+> Use the `jtools` package to visualise the model of `Pulse` as a function of `PhysActive`.  
+> How does this plot relate to the output given by `summ`?  
+{: .challenge}
 
 

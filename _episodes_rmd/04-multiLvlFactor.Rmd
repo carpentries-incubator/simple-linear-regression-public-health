@@ -24,6 +24,8 @@ knitr_fig_path("04-")
 library(ggplot2)
 library(jtools)
 library(NHANES)
+library(dplyr)
+library(tidyr)
 dat <- NHANES
 ```
 
@@ -46,3 +48,4 @@ summ(Weight_Depressed_lm, confint = TRUE, digits=3)
 ```{r plot weight vs depressed with model}
 effect_plot(Weight_Depressed_lm, pred = Depressed)
 ```
+
