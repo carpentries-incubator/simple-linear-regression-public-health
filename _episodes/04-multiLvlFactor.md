@@ -18,3 +18,64 @@ execises: 10
 ---
 
 
+
+
+
+
+~~~
+dat %>%
+  drop_na(c("Depressed", "Weight")) %>%
+  ggplot(., aes(x=Depressed, y=Weight)) +
+  geom_violin() +
+  stat_summary(fun = "mean", size = 0.2) +
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in dat %>% drop_na(c("Depressed", "Weight")) %>% ggplot(., aes(x = Depressed, : could not find function "%>%"
+~~~
+{: .error}
+
+
+
+~~~
+Weight_Depressed_lm <- lm(Weight ~ Depressed, data = dat)
+
+summ(Weight_Depressed_lm, confint = TRUE, digits=3)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 6627 (3373 missing obs. deleted)
+Dependent Variable: Weight
+Type: OLS linear regression 
+
+MODEL FIT:
+F(2,6624) = 0.963, p = 0.382
+R² = 0.000
+Adj. R² = -0.000 
+
+Standard errors: OLS
+-------------------------------------------------------------------
+                           Est.     2.5%    97.5%    t val.       p
+---------------------- -------- -------- -------- --------- -------
+(Intercept)              82.397   81.821   82.974   280.328   0.000
+DepressedSeveral          0.855   -0.584    2.293     1.165   0.244
+DepressedMost             0.951   -1.177    3.078     0.876   0.381
+-------------------------------------------------------------------
+~~~
+{: .output}
+
+
+~~~
+effect_plot(Weight_Depressed_lm, pred = Depressed)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-04-plot weight vs depressed with model-1.png" title="plot of chunk plot weight vs depressed with model" alt="plot of chunk plot weight vs depressed with model" width="612" style="display: block; margin: auto;" />

@@ -33,6 +33,67 @@ execises: 10
 {: .challenge}
 
 
+~~~
+TotChol_BMI_lm <- lm(TotChol ~ BMI, data = dat)
+
+summary(TotChol_BMI_lm)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = TotChol ~ BMI, data = dat)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2170 -0.7408 -0.1012  0.6375  8.7384 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 4.263534   0.046555   91.58   <2e-16 ***
+BMI         0.022487   0.001642   13.69   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.063 on 8404 degrees of freedom
+  (1594 observations deleted due to missingness)
+Multiple R-squared:  0.02183,	Adjusted R-squared:  0.02171 
+F-statistic: 187.5 on 1 and 8404 DF,  p-value: < 2.2e-16
+~~~
+{: .output}
+
+
+
+~~~
+summ(TotChol_BMI_lm)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 8406 (1594 missing obs. deleted)
+Dependent Variable: TotChol
+Type: OLS linear regression 
+
+MODEL FIT:
+F(1,8404) = 187.53, p = 0.00
+R² = 0.02
+Adj. R² = 0.02 
+
+Standard errors: OLS
+-----------------------------------------------
+                    Est.   S.E.   t val.      p
+----------------- ------ ------ -------- ------
+(Intercept)         4.26   0.05    91.58   0.00
+BMI                 0.02   0.00    13.69   0.00
+-----------------------------------------------
+~~~
+{: .output}
 
 
 > ## Exercise  
