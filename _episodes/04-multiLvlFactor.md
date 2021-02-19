@@ -35,9 +35,19 @@ dat %>%
 
 
 ~~~
-Error in dat %>% drop_na(c("Depressed", "Weight")) %>% ggplot(., aes(x = Depressed, : could not find function "%>%"
+Warning: Computation failed in `stat_summary()`:
+Hmisc package required for this function
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: Removed 3 rows containing missing values (geom_segment).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-04-explore Weight vs Depressed-1.png" title="plot of chunk explore Weight vs Depressed" alt="plot of chunk explore Weight vs Depressed" width="612" style="display: block; margin: auto;" />
 
 
 
@@ -79,3 +89,4 @@ effect_plot(Weight_Depressed_lm, pred = Depressed)
 {: .language-r}
 
 <img src="../fig/rmd-04-plot weight vs depressed with model-1.png" title="plot of chunk plot weight vs depressed with model" alt="plot of chunk plot weight vs depressed with model" width="612" style="display: block; margin: auto;" />
+
