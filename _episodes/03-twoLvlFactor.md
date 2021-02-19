@@ -28,9 +28,18 @@ dat %>%
   drop_na(c("PhysActive", "Pulse")) %>%
   ggplot(., aes(x=PhysActive, y=Pulse)) +
   geom_violin() +
-  stat_summary(fun = "mean")
+  stat_summary(fun = "mean", size = 0.2) +
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
 ~~~
 {: .language-r}
+
+
+
+~~~
+Warning: Computation failed in `stat_summary()`:
+Hmisc package required for this function
+~~~
+{: .warning}
 
 
 
