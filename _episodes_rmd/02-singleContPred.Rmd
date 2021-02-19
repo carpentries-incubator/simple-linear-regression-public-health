@@ -38,10 +38,12 @@ dat <- NHANES
 > as "BMI".  
 {: .challenge}
 
-```{r TotChol vs BMI model, include = FALSE}
+```{r TotChol vs BMI model}
 TotChol_BMI_lm <- lm(TotChol ~ BMI, data = dat)
 
 summary(TotChol_BMI_lm)
+
+summ(TotChol_BMI_lm)
 ```
 
 
