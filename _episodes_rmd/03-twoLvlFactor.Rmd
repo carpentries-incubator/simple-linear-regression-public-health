@@ -1,16 +1,17 @@
 ---
-source: Rmd
 title: "Linear regression with a two-level factor explanatory variable"
+source: Rmd
 objectives:
-  - "Appreciate that measuring the relationship between a two-level factor variable and a continuous variable is a regression problem."
-  - "Use the ggplot2 package to explore the relationship between a continuous variable and a two-level factor variable."
-  - "Use the lm command to fit a simple linear regression with a two-level factor explanatory variable."
-  - "Interpret the output given by R after fitting this model."
-  - "Use the ggplot2 package to visualise the resulting model."
-keypoints:
-  - "DEF"
-questions:
-  - "GHI"
+- Appreciate that measuring the relationship between a two-level factor variable and
+  a continuous variable is a regression problem.
+- Use the ggplot2 package to explore the relationship between a continuous variable
+  and a two-level factor variable.
+- Use the lm command to fit a simple linear regression with a two-level factor explanatory
+  variable.
+- Use the jtools package to interpret the model output.
+- Use the ggplot2 package to visualise the resulting model.
+keypoints: DEF
+questions: GHI
 teaching: 10
 execises: 10
 ---
@@ -18,4 +19,35 @@ execises: 10
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("03-")
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(jtools)
 ```
+
+```{r load data, include=FALSE}
+library(NHANES)
+dat <- NHANES
+```
+
+```{r explore physical activity vs pulse}
+dat %>%
+  drop_na(c("PhysActive", "Pulse")) %>%
+  ggplot(., aes(x=PhysActive, y=Pulse)) +
+  geom_violin() +
+  stat_summary(fun = "mean", size = 0.2) +
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
+```
+
+```{r PhysActive vs Pulse model}
+Pulse_PhysActive_lm <- lm(Pulse ~ PhysActive, data = dat)
+
+summ(Pulse_PhysActive_lm, confint = TRUE, digits=3)
+```
+
+```{r plot pulse vs physactive with model}
+effect_plot(Pulse_PhysActive_lm, pred = PhysActive)
+```
+
+
+

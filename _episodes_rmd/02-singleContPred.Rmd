@@ -1,15 +1,14 @@
 ---
-source: Rmd
 title: "Linear regression with one continuous explanatory variable"
+source: Rmd
 objectives:
-  - "Use the ggplot2 package to explore the relationship between two continuous variables."
-  - "Use the lm command to fit a simple linear regression with one continuous explanatory variable."
-  - "Interpret the output given by R after fitting this model."
-  - "Use the ggplot2 package to visualise the resulting model."
-keypoints:
-  - "DEF"
-questions:
-  - "GHI"
+- Use the ggplot2 package to explore the relationship between two continuous variables.
+- Use the lm command to fit a simple linear regression with one continuous explanatory
+  variable.
+- Use the jtools package to interpret the model output.
+- Use the ggplot2 package to visualise the resulting model.
+keypoints: DEF
+questions: GHI
 teaching: 10
 execises: 10
 ---
@@ -17,10 +16,11 @@ execises: 10
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("02-")
-library(ggplot2)
 ```
 
 ```{r load data, include=FALSE}
+library(ggplot2)
+library(jtools)
 library(NHANES)
 dat <- NHANES
 ```
@@ -65,12 +65,14 @@ summary(TotChol_BMI_lm)
 {: .challenge}
 
 
-```{r plot pulse vs BMI, include=FALSE}
+```{r plot totchol vs BMI}
 ggplot(dat, aes(x=Weight, y=TotChol)) +
   geom_point() +
   ylab("Total Cholesterol") +
   xlab("BMI") +
   geom_smooth(method="lm")
+
+effect_plot(TotChol_BMI_lm, pred = BMI, plot.points = TRUE, interval = TRUE)
 ```
 
 > ## Exercise  
