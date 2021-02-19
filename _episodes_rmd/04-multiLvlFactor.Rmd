@@ -19,3 +19,30 @@ execises: 10
 source("../bin/chunk-options.R")
 knitr_fig_path("04-")
 ```
+
+```{r load data, include=FALSE}
+library(ggplot2)
+library(jtools)
+library(NHANES)
+dat <- NHANES
+```
+
+```{r explore Weight vs Depressed}
+dat %>%
+  drop_na(c("Depressed", "Weight")) %>%
+  ggplot(., aes(x=Depressed, y=Weight)) +
+  geom_violin() +
+  stat_summary(fun = "mean", size = 0.2) +
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
+```
+
+
+```{r Weight vs Depressed model}
+Weight_Depressed_lm <- lm(Weight ~ Depressed, data = dat)
+
+summ(Weight_Depressed_lm, confint = TRUE, digits=3)
+```
+
+```{r plot weight vs depressed with model}
+effect_plot(Weight_Depressed_lm, pred = Depressed)
+```
