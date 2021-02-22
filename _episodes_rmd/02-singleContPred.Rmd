@@ -6,7 +6,7 @@ objectives:
 - Use the lm command to fit a simple linear regression with one continuous explanatory
   variable.
 - Use the jtools package to interpret the model output.
-- Use the ggplot2 package to visualise the resulting model.
+- Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: DEF
 questions: GHI
 teaching: 10
@@ -41,9 +41,7 @@ dat <- NHANES
 ```{r TotChol vs BMI model}
 TotChol_BMI_lm <- lm(TotChol ~ BMI, data = dat)
 
-summary(TotChol_BMI_lm)
-
-summ(TotChol_BMI_lm)
+summ(TotChol_BMI_lm, confint = TRUE, digits=3)
 ```
 
 
@@ -55,7 +53,7 @@ summ(TotChol_BMI_lm)
 > 1. Using the `lm()` command, fit a simple linear regression of Total
 > Cholesterol (`TotChol`) as a function of BMI (`BMI`). Name this `lm` 
 > object `TotChol_BMI_lm`.  
-> 2. Using the `summary()` function, answer the following questions:
+> 2. Using the `summ` function from the `jtools` package, answer the following questions:
 >   
 > A) What level of Total Cholesterol does the model predict, on average,
 > for an individual with a BMI of 0?  
@@ -68,25 +66,14 @@ summ(TotChol_BMI_lm)
 
 
 ```{r plot totchol vs BMI}
-ggplot(dat, aes(x=Weight, y=TotChol)) +
-  geom_point() +
-  ylab("Total Cholesterol") +
-  xlab("BMI") +
-  geom_smooth(method="lm")
-
-effect_plot(TotChol_BMI_lm, pred = BMI, plot.points = TRUE, interval = TRUE)
+effect_plot(TotChol_BMI_lm, pred = BMI, plot.points = TRUE, interval = TRUE) +
+  ylab("Total Cholesterol")
 ```
 
 > ## Exercise  
 > You have been asked to report on your simple linear regression model at 
 > the next lab meeting. To help your colleagues interpret the model, you
-> decide to produce a figure. Make this figure using the ggplot2 package,
-> ensuring that it includes the following elements:  
-> 1. Total cholesterol (`TotChol`) on the y-axis and BMI (`BMI`) on the
-> x-axis, from the NHANES data.  
-> 2. This data shown as a scatterplot.  
-> 3. The y-axis labelled as "Total Cholesterol" and the x-axis labelled
-> as "BMI".  
-> 4. A simple linear regression line.  
+> decide to produce a figure. Make this figure using the jtools package.
+> Ensure that the y-axis is labelled as "Total Cholesterol" rather than "TotChol".  
 {: .challenge}
 
