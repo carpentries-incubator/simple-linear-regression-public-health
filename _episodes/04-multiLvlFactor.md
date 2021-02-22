@@ -4,11 +4,10 @@
 source: Rmd
 title: "Linear regression with a multi-level factor explanatory variable"
 objectives:
-  - "Extend the simple linear regression model with a two-level factor explanatory variable to the case of more than two levels."
   - "Use the ggplot2 package to explore the relationship between a continuous variable and a factor variable with more than two levels."
   - "Use the lm command to fit a simple linear regression with a factor explanatory variable with more than two levels."
-  - "Interpret the output given by R after fitting this model."
-  - "Use the ggplot2 package to visualise the resulting model."
+  - "Use the jtools package to interpret the model output."
+  - "Use the jtools and ggplot2 packages to visualise the resulting model."
 keypoints:
   - "DEF"
 questions:
@@ -28,7 +27,8 @@ dat %>%
   ggplot(., aes(x=Depressed, y=Weight)) +
   geom_violin() +
   stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+  xlab("Number of days with depressed feelings")
 ~~~
 {: .language-r}
 
@@ -84,7 +84,8 @@ DepressedMost             0.951   -1.177    3.078     0.876   0.381
 
 
 ~~~
-effect_plot(Weight_Depressed_lm, pred = Depressed)
+effect_plot(Weight_Depressed_lm, pred = Depressed) + 
+  xlab("Number of days with depressed feelings")
 ~~~
 {: .language-r}
 
