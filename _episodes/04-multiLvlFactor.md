@@ -4,11 +4,10 @@
 source: Rmd
 title: "Linear regression with a multi-level factor explanatory variable"
 objectives:
-  - "Extend the simple linear regression model with a two-level factor explanatory variable to the case of more than two levels."
   - "Use the ggplot2 package to explore the relationship between a continuous variable and a factor variable with more than two levels."
   - "Use the lm command to fit a simple linear regression with a factor explanatory variable with more than two levels."
-  - "Interpret the output given by R after fitting this model."
-  - "Use the ggplot2 package to visualise the resulting model."
+  - "Use the jtools package to interpret the model output."
+  - "Use the jtools and ggplot2 packages to visualise the resulting model."
 keypoints:
   - "DEF"
 questions:
