@@ -8,7 +8,7 @@ objectives:
 - Use the lm command to fit a simple linear regression with one continuous explanatory
   variable.
 - Use the jtools package to interpret the model output.
-- Use the ggplot2 package to visualise the resulting model.
+- Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: DEF
 questions: GHI
 teaching: 10
@@ -36,39 +36,7 @@ execises: 10
 ~~~
 TotChol_BMI_lm <- lm(TotChol ~ BMI, data = dat)
 
-summary(TotChol_BMI_lm)
-~~~
-{: .language-r}
-
-
-
-~~~
-
-Call:
-lm(formula = TotChol ~ BMI, data = dat)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.2170 -0.7408 -0.1012  0.6375  8.7384 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 4.263534   0.046555   91.58   <2e-16 ***
-BMI         0.022487   0.001642   13.69   <2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 1.063 on 8404 degrees of freedom
-  (1594 observations deleted due to missingness)
-Multiple R-squared:  0.02183,	Adjusted R-squared:  0.02171 
-F-statistic: 187.5 on 1 and 8404 DF,  p-value: < 2.2e-16
-~~~
-{: .output}
-
-
-
-~~~
-summ(TotChol_BMI_lm)
+summ(TotChol_BMI_lm, confint = TRUE, digits=3)
 ~~~
 {: .language-r}
 
@@ -81,17 +49,17 @@ Dependent Variable: TotChol
 Type: OLS linear regression 
 
 MODEL FIT:
-F(1,8404) = 187.53, p = 0.00
-R² = 0.02
-Adj. R² = 0.02 
+F(1,8404) = 187.531, p = 0.000
+R² = 0.022
+Adj. R² = 0.022 
 
 Standard errors: OLS
------------------------------------------------
-                    Est.   S.E.   t val.      p
------------------ ------ ------ -------- ------
-(Intercept)         4.26   0.05    91.58   0.00
-BMI                 0.02   0.00    13.69   0.00
------------------------------------------------
+----------------------------------------------------------
+                     Est.    2.5%   97.5%   t val.       p
+----------------- ------- ------- ------- -------- -------
+(Intercept)         4.264   4.172   4.355   91.581   0.000
+BMI                 0.022   0.019   0.026   13.694   0.000
+----------------------------------------------------------
 ~~~
 {: .output}
 
@@ -104,7 +72,7 @@ BMI                 0.02   0.00    13.69   0.00
 > 1. Using the `lm()` command, fit a simple linear regression of Total
 > Cholesterol (`TotChol`) as a function of BMI (`BMI`). Name this `lm` 
 > object `TotChol_BMI_lm`.  
-> 2. Using the `summary()` function, answer the following questions:
+> 2. Using the `summ` function from the `jtools` package, answer the following questions:
 >   
 > A) What level of Total Cholesterol does the model predict, on average,
 > for an individual with a BMI of 0?  
@@ -118,54 +86,17 @@ BMI                 0.02   0.00    13.69   0.00
 
 
 ~~~
-ggplot(dat, aes(x=Weight, y=TotChol)) +
-  geom_point() +
-  ylab("Total Cholesterol") +
-  xlab("BMI") +
-  geom_smooth(method="lm")
+effect_plot(TotChol_BMI_lm, pred = BMI, plot.points = TRUE, interval = TRUE) +
+  ylab("Total Cholesterol")
 ~~~
 {: .language-r}
-
-
-
-~~~
-`geom_smooth()` using formula 'y ~ x'
-~~~
-{: .output}
-
-
-
-~~~
-Warning: Removed 1589 rows containing non-finite values (stat_smooth).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 1589 rows containing missing values (geom_point).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-02-plot totchol vs BMI-1.png" title="plot of chunk plot totchol vs BMI" alt="plot of chunk plot totchol vs BMI" width="612" style="display: block; margin: auto;" />
-
-~~~
-effect_plot(TotChol_BMI_lm, pred = BMI, plot.points = TRUE, interval = TRUE)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-02-plot totchol vs BMI-2.png" title="plot of chunk plot totchol vs BMI" alt="plot of chunk plot totchol vs BMI" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
 > You have been asked to report on your simple linear regression model at 
 > the next lab meeting. To help your colleagues interpret the model, you
-> decide to produce a figure. Make this figure using the ggplot2 package,
-> ensuring that it includes the following elements:  
-> 1. Total cholesterol (`TotChol`) on the y-axis and BMI (`BMI`) on the
-> x-axis, from the NHANES data.  
-> 2. This data shown as a scatterplot.  
-> 3. The y-axis labelled as "Total Cholesterol" and the x-axis labelled
-> as "BMI".  
-> 4. A simple linear regression line.  
+> decide to produce a figure. Make this figure using the jtools package.
+> Ensure that the y-axis is labelled as "Total Cholesterol" rather than "TotChol".  
 {: .challenge}
 

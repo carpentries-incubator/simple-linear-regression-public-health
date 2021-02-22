@@ -4,14 +4,12 @@
 title: "Linear regression with a two-level factor explanatory variable"
 source: Rmd
 objectives:
-- Appreciate that measuring the relationship between a two-level factor variable and
-  a continuous variable is a regression problem.
 - Use the ggplot2 package to explore the relationship between a continuous variable
   and a two-level factor variable.
 - Use the lm command to fit a simple linear regression with a two-level factor explanatory
   variable.
 - Use the jtools package to interpret the model output.
-- Use the ggplot2 package to visualise the resulting model.
+- Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: DEF
 questions: GHI
 teaching: 10
@@ -29,7 +27,8 @@ dat %>%
   ggplot(., aes(x=PhysActive, y=Pulse)) +
   geom_violin() +
   stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+  xlab("Physically Active")
 ~~~
 {: .language-r}
 
@@ -58,7 +57,7 @@ Warning: Removed 2 rows containing missing values (geom_segment).
 > x-axis, from the NHANES data.  
 > 2. This data shown as a violin plot.  
 > 3. The y-axis labelled as "Pulse" and the x-axis labelled
-> as "Physically active".  
+> as "Physically Active".  
 {: .challenge}
 
 
@@ -109,7 +108,8 @@ PhysActiveYes         -1.358   -1.885   -0.831    -5.052   0.000
 
 
 ~~~
-effect_plot(Pulse_PhysActive_lm, pred = PhysActive)
+effect_plot(Pulse_PhysActive_lm, pred = PhysActive) +
+  xlab("Physically Active")
 ~~~
 {: .language-r}
 
@@ -117,6 +117,7 @@ effect_plot(Pulse_PhysActive_lm, pred = PhysActive)
 
 > ## Exercise  
 > Use the `jtools` package to visualise the model of `Pulse` as a function of `PhysActive`.  
+> Ensure that the x-axis is labelled as "Physically active" rather than "PhysActive".  
 > How does this plot relate to the output given by `summ`?  
 {: .challenge}
 
