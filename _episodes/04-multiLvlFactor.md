@@ -27,7 +27,8 @@ dat %>%
   ggplot(., aes(x=Depressed, y=Weight)) +
   geom_violin() +
   stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) 
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+  xlab("Number of days with depressed feelings")
 ~~~
 {: .language-r}
 
@@ -75,7 +76,8 @@ DepressedMost             0.951   -1.177    3.078     0.876   0.381
 
 
 ~~~
-effect_plot(Weight_Depressed_lm, pred = Depressed)
+effect_plot(Weight_Depressed_lm, pred = Depressed) + 
+  xlab("Number of days with depressed feelings")
 ~~~
 {: .language-r}
 
