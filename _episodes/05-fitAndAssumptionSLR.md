@@ -18,3 +18,12 @@ execises: 10
 ---
 
 
+
+
+Assumptions of the simple linear regression model:  
+1. **Validity**: the model is appropriate for the research question. This sounds obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to take the model, which was constructed using people of all ages, as representative of the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the question.  
+2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to inlde `Age` as an explanatory variable to meet the representativeness assumption.
+
