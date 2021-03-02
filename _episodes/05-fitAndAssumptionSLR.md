@@ -20,8 +20,6 @@ execises: 10
 
 
 
-
-
 Assumptions of the simple linear regression model:  
 1. **Validity**: the model is appropriate for the research question. This sounds obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  

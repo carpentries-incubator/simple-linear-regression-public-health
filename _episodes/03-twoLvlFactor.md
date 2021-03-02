@@ -19,8 +19,6 @@ execises: 10
 
 
 
-
-
 ~~~
 dat %>%
   drop_na(c("PhysActive", "Pulse")) %>%
@@ -72,21 +70,21 @@ summ(Pulse_PhysActive_lm, confint = TRUE, digits=3)
 
 ~~~
 MODEL INFO:
-Observations: 8039 (1961 missing obs. deleted)
+Observations: 6796 (3204 missing obs. deleted)
 Dependent Variable: Pulse
 Type: OLS linear regression 
 
 MODEL FIT:
-F(1,8037) = 25.523, p = 0.000
-R² = 0.003
-Adj. R² = 0.003 
+F(1,6794) = 33.116, p = 0.000
+R² = 0.005
+Adj. R² = 0.005 
 
 Standard errors: OLS
 ----------------------------------------------------------------
                         Est.     2.5%    97.5%    t val.       p
 ------------------- -------- -------- -------- --------- -------
-(Intercept)           73.742   73.348   74.136   366.488   0.000
-PhysActiveYes         -1.358   -1.885   -0.831    -5.052   0.000
+(Intercept)           74.181   73.752   74.610   339.155   0.000
+PhysActiveYes         -1.731   -2.320   -1.141    -5.755   0.000
 ----------------------------------------------------------------
 ~~~
 {: .output}

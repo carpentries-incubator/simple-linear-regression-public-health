@@ -16,16 +16,12 @@ execises: 10
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
+source("../bin/obtain_data.R")
 knitr_fig_path("03-")
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(jtools)
-```
-
-```{r load data, include=FALSE}
-library(NHANES)
-dat <- NHANES
 ```
 
 ```{r explore physical activity vs pulse}
