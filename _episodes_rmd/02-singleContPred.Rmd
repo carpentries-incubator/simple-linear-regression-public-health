@@ -15,14 +15,13 @@ execises: 10
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
+source("../bin/obtain_data.R")
 knitr_fig_path("02-")
 ```
 
 ```{r load data, include=FALSE}
 library(ggplot2)
 library(jtools)
-library(NHANES)
-dat <- NHANES
 ```
 
 > ## Exercise  

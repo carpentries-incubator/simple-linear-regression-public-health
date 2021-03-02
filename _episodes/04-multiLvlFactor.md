@@ -54,22 +54,22 @@ summ(Weight_Depressed_lm, confint = TRUE, digits=3)
 
 ~~~
 MODEL INFO:
-Observations: 6627 (3373 missing obs. deleted)
+Observations: 5512 (4488 missing obs. deleted)
 Dependent Variable: Weight
 Type: OLS linear regression 
 
 MODEL FIT:
-F(2,6624) = 0.963, p = 0.382
-R² = 0.000
-Adj. R² = -0.000 
+F(2,5509) = 3.737, p = 0.024
+R² = 0.001
+Adj. R² = 0.001 
 
 Standard errors: OLS
 -------------------------------------------------------------------
                            Est.     2.5%    97.5%    t val.       p
 ---------------------- -------- -------- -------- --------- -------
-(Intercept)              82.397   81.821   82.974   280.328   0.000
-DepressedSeveral          0.855   -0.584    2.293     1.165   0.244
-DepressedMost             0.951   -1.177    3.078     0.876   0.381
+(Intercept)              81.369   80.734   82.005   251.044   0.000
+DepressedSeveral          1.263   -0.262    2.789     1.623   0.105
+DepressedMost             2.647    0.467    4.826     2.381   0.017
 -------------------------------------------------------------------
 ~~~
 {: .output}

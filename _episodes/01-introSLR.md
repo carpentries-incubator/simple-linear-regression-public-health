@@ -17,8 +17,6 @@ execises: 10
 
 
 
-
-
 > ## Exercise  
 > A colleague has started working with the NHANES data set. They approach 
 > you for advice on the use of simple linear regression on this data. Which

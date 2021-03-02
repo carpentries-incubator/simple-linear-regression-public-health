@@ -44,21 +44,21 @@ summ(TotChol_BMI_lm, confint = TRUE, digits=3)
 
 ~~~
 MODEL INFO:
-Observations: 8406 (1594 missing obs. deleted)
+Observations: 7373 (2627 missing obs. deleted)
 Dependent Variable: TotChol
 Type: OLS linear regression 
 
 MODEL FIT:
-F(1,8404) = 187.531, p = 0.000
-R² = 0.022
-Adj. R² = 0.022 
+F(1,7371) = 267.009, p = 0.000
+R² = 0.035
+Adj. R² = 0.035 
 
 Standard errors: OLS
 ----------------------------------------------------------
                      Est.    2.5%   97.5%   t val.       p
 ----------------- ------- ------- ------- -------- -------
-(Intercept)         4.264   4.172   4.355   91.581   0.000
-BMI                 0.022   0.019   0.026   13.694   0.000
+(Intercept)         4.063   3.968   4.157   84.503   0.000
+BMI                 0.028   0.025   0.031   16.340   0.000
 ----------------------------------------------------------
 ~~~
 {: .output}
