@@ -5,8 +5,7 @@ title: "Linear regression with one continuous explanatory variable"
 source: Rmd
 objectives:
 - Use the ggplot2 package to explore the relationship between two continuous variables.
-- Use the lm command to fit a simple linear regression with one continuous explanatory
-  variable.
+- Use the lm command to fit a simple linear regression with one continuous explanatory variable.
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: DEF
@@ -19,24 +18,68 @@ execises: 10
 
 
 
-> ## Exercise  
-> You have been asked to model the relationship between Total Cholesterol
-> and BMI in the NHANES data. In order to fit a simple linear regression 
-> model, you first need to confirm that the relationship between these
-> variables appears linear. Use the ggplot2 package to create a plot,
-> ensuring that it includes the following elements:  
-> 1. Total cholesterol (`TotChol`) on the y-axis and BMI (`BMI`) on the
-> x-axis, from the NHANES data.  
-> 2. This data shown as a scatterplot.  
-> 3. The y-axis labelled as "Total Cholesterol" and the x-axis labelled
-> as "BMI".  
-{: .challenge}
+In this episode we will study linear regression with one continuous explanatory variable. As explained in the previous episode, the explanatory variable is required to have a linear relationship with the outcome variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
+
+Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot`. The filtered data is passed on by `data = .`. We select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Does the relationship look linear to you?
 
 
 ~~~
-TotChol_BMI_lm <- lm(TotChol ~ BMI, data = dat)
+dat %>%
+  filter(Age > 17) %>%
+  ggplot(data = ., aes(x = Height, y = Weight)) +
+  geom_point()
+~~~
+{: .language-r}
 
-summ(TotChol_BMI_lm, confint = TRUE, digits=3)
+<img src="../fig/rmd-02-Height vs Weight plot-1.png" title="plot of chunk Height vs Weight plot" alt="plot of chunk Height vs Weight plot" width="612" style="display: block; margin: auto;" />
+
+> ## Exercise  
+> You have been asked to model the relationship between Urine Flow
+> and Urine Volume in the NHANES data. In order to fit a simple 
+> linear regression model, you first need to confirm 
+> that the relationship between these
+> variables appears linear. Use the ggplot2 package to create a plot,
+> ensuring that it includes the following elements:  
+> 1. Urine Flow (`UrineFlow1`) on the y-axis and Urine Volume
+> (`UrineVol1`) on the x-axis, from the NHANES data.  
+> 2. This data shown as a scatterplot.  
+> 3. The y-axis labelled as "Urine Flow (mL/min)" and the x-axis labelled
+> as "Urine Volume (mL)". 
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > ggplot(dat, aes(x = UrineVol1, y = UrineFlow1)) +
+> >   geom_point(alpha = 0.4) +
+> >   xlab("Urine Volume (mL)") + 
+> >   ylab("Urine Flow (mL/min)")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-02-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
+
+
+
+Since there is no abnormal shape to the scatterplot (e.g. curvature or multiple clusters), we can proceed with fitting our linear regression model. We do this with the `lm()` command. Within the command, the model is denoted by `outcome variable ~ explanatory variable`. Again, we subset our data using `filter()` and refer to this filtered data with `data = .`. See the code below. 
+
+
+~~~
+Weight_Height_lm <- dat %>%
+  filter(Age > 17) %>%
+  lm(Weight ~ Height, data = .)
+~~~
+{: .language-r}
+
+We will interpret our results through a summary table and through a plot. The summary table can be obtained using the `summ` function from the `jtools` package. We provide the function with the name of our model (`Weight_Height_lm`). We can also specify that we want confidence intervals for our parameter estimates using `confint = TRUE`. Finally, we specify that we want estimates with three digits past the decimal with `digits = 3`.  
+
+We will come to interpreting the `Model Fit` section in a later episode. For now, take a look at the parameter estimates at the bottom of the output. How much is an individual's `Weight` expected to increase, on average, for a one centimeter increase in `Height`, according to our model? (FIXME: more details on model output).
+
+
+~~~
+summ(Weight_Height_lm, confint = TRUE, digits = 3)
 ~~~
 {: .language-r}
 
@@ -44,59 +87,112 @@ summ(TotChol_BMI_lm, confint = TRUE, digits=3)
 
 ~~~
 MODEL INFO:
-Observations: 7373 (2627 missing obs. deleted)
-Dependent Variable: TotChol
+Observations: 6177 (320 missing obs. deleted)
+Dependent Variable: Weight
 Type: OLS linear regression 
 
 MODEL FIT:
-F(1,7371) = 267.009, p = 0.000
-R² = 0.035
-Adj. R² = 0.035 
+F(1,6175) = 1398.215, p = 0.000
+R² = 0.185
+Adj. R² = 0.184 
 
 Standard errors: OLS
-----------------------------------------------------------
-                     Est.    2.5%   97.5%   t val.       p
------------------ ------- ------- ------- -------- -------
-(Intercept)         4.063   3.968   4.157   84.503   0.000
-BMI                 0.028   0.025   0.031   16.340   0.000
-----------------------------------------------------------
+-----------------------------------------------------------------
+                       Est.      2.5%     97.5%    t val.       p
+----------------- --------- --------- --------- --------- -------
+(Intercept)         -70.194   -78.152   -62.237   -17.293   0.000
+Height                0.901     0.853     0.948    37.393   0.000
+-----------------------------------------------------------------
 ~~~
 {: .output}
 
-
 > ## Exercise  
-> Now that you have confirmed that the relationship between Total Cholesterol
-> and BMI appears linear in the NHANES data, you can proceed to fitting
-> a simple linear regression model.  
+> Now that you have confirmed that the relationship between Urine Flow
+> and Urine Volume does not appear to deveate from linearity in the NHANES data, 
+> you can proceed to fitting a simple linear regression model.  
 >   
-> 1. Using the `lm()` command, fit a simple linear regression of Total
-> Cholesterol (`TotChol`) as a function of BMI (`BMI`). Name this `lm` 
-> object `TotChol_BMI_lm`.  
+> 1. Using the `lm()` command, fit a simple linear regression of Urine Flow
+> (`UrineFlow1`) as a function of Urine Volume (`UrineVol1`). 
+> Name this `lm` object `UrineFlow_UrineVol_lm`.  
 > 2. Using the `summ` function from the `jtools` package, answer the following questions:
 >   
-> A) What level of Total Cholesterol does the model predict, on average,
-> for an individual with a BMI of 0?  
-> B) By how much is Total Cholesterol expected to increase, on average, for
-> a one-unit increase in BMI?  
+> A) What Urine Flow does the model predict, on average,
+> for an individual with a Urine Volume of 0?  
+> B) By how much is Urine Flow expected to change, on average, for
+> a one-unit increase in Urine Volume?  
 > C) Given these two values and the names of the response and explanatory
 > variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
-> \times x$ be adapted to represent your model?  
+> \times x$ be adapted to represent your model? 
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > UrineFlow_UrineVol_lm <- lm(UrineFlow1 ~ UrineVol1, data = dat)
+> > 
+> > summ(UrineFlow_UrineVol_lm, confint = TRUE, digits=3)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > MODEL INFO:
+> > Observations: 7454 (2546 missing obs. deleted)
+> > Dependent Variable: UrineFlow1
+> > Type: OLS linear regression 
+> > 
+> > MODEL FIT:
+> > F(1,7452) = 3101.032, p = 0.000
+> > R² = 0.294
+> > Adj. R² = 0.294 
+> > 
+> > Standard errors: OLS
+> > ----------------------------------------------------------
+> >                      Est.    2.5%   97.5%   t val.       p
+> > ----------------- ------- ------- ------- -------- -------
+> > (Intercept)         0.222   0.189   0.254   13.435   0.000
+> > UrineVol1           0.006   0.006   0.007   55.687   0.000
+> > ----------------------------------------------------------
+> > ~~~
+> > {: .output}
+> > 
+> > A) 0.257 mL/min  
+> > B) Increase by 0.006 mL/min  
+> > C) $E(\text{Urine Flow}) = 0.257 + 0.006 \times \text{Urine Volume}$
+> {: .solution}
 {: .challenge}
 
+We can also interpret the model through a line overlayed onto the previous scatterplot. We can obtain such a plot using `effect_plot()` from the `jtools` package. We provide the name of our model, followed by a specification of the explanatory variable of interest with `pred = Height`. Our current model has one explanatory variable, but in later lessons we will work with multiple explanatory variables. We also include a confidence interval around our line using `interval = TRUE` and include the original data using `plot.points = TRUE`. Finally, we specify a red color for our line using `colors = "red"`. 
 
 
 ~~~
-effect_plot(TotChol_BMI_lm, pred = BMI, plot.points = TRUE, interval = TRUE) +
-  ylab("Total Cholesterol")
+effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
+            interval = TRUE, colors = "red")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-plot totchol vs BMI-1.png" title="plot of chunk plot totchol vs BMI" alt="plot of chunk plot totchol vs BMI" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-effect plot weight vs height-1.png" title="plot of chunk effect plot weight vs height" alt="plot of chunk effect plot weight vs height" width="612" style="display: block; margin: auto;" />
+
 
 > ## Exercise  
 > You have been asked to report on your simple linear regression model at 
 > the next lab meeting. To help your colleagues interpret the model, you
 > decide to produce a figure. Make this figure using the jtools package.
-> Ensure that the y-axis is labelled as "Total Cholesterol" rather than "TotChol".  
+> Ensure that the x and y axes are correctly labelled.
+>
+> > ## Solution
+> > 
+> > ~~~
+> > effect_plot(UrineFlow_UrineVol_lm, pred = UrineVol1, plot.points = TRUE,
+> >             interval = TRUE, colors = "red") +
+> >   xlab("Urine Volume (mL)") + 
+> >   ylab("Urine Flow (mL/min)")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-02-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+> {: .solution}
 {: .challenge}
+
 
