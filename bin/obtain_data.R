@@ -16,6 +16,7 @@ dat <- NHANESraw %>%
                             Race1 == "White" ~ prop[4],
                             Race1 == "Other" ~ prop[5])) %>%
   group_by(Race1) %>%
-  sample_n(10000 * weight) #sample from each according to prop to obtain 10000 obvs in total
+  sample_n(10000 * weight) %>% #sample from each according to prop to obtain 10000 obvs in total
+  select(-weight) #remove weighting column
 
-
+rm(prop)
