@@ -18,97 +18,118 @@ execises: 10
 
 
 
-
-~~~
-dat %>%
-  drop_na(c("PhysActive", "Pulse")) %>%
-  ggplot(., aes(x=PhysActive, y=Pulse)) +
-  geom_violin() +
-  stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
-  xlab("Physically Active")
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Removed 2 rows containing missing values (geom_segment).
-~~~
-{: .warning}
-
-<img src="../fig/rmd-03-explore physical activity vs pulse-1.png" title="plot of chunk explore physical activity vs pulse" alt="plot of chunk explore physical activity vs pulse" width="612" style="display: block; margin: auto;" />
-
 > ## Exercise  
-> You have been asked to model the relationship between pulse
-> and physical activity in the NHANES data. Use the ggplot2 package  
-> to create an exploratory plot, ensuring that it includes the following elements:  
-> 1. Pulse (`Pulse`) on the y-axis and physical activity (`PhysActive`) on the
-> x-axis, from the NHANES data.  
+> You have been asked to model the relationship between average systolic
+> blood pressure and physical activity in the NHANES data. Use the ggplot2
+> package to create an exploratory plot, 
+> ensuring that it includes the following elements:  
+> 1. Average Systolic Blood Pressure (`BPSysAve`) on the y-axis and physical activity (`PhysActive`) on the x-axis, from the NHANES data.  
 > 2. This data shown as a violin plot.  
-> 3. The y-axis labelled as "Pulse" and the x-axis labelled
-> as "Physically Active".  
+> 3. The y-axis labelled as "Average Systolic Blood Pressure" and the x-axis labelled as "Physically Active".
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > dat %>%
+> >   drop_na(c("PhysActive", "BPSysAve")) %>%
+> >   ggplot(., aes(x=PhysActive, y=BPSysAve)) +
+> >   geom_violin() +
+> >   stat_summary(fun = "mean", size = 0.2) +
+> >   stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+> >   xlab("Physically Active")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-03-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> {: .solution}
 {: .challenge}
 
-
-~~~
-Pulse_PhysActive_lm <- lm(Pulse ~ PhysActive, data = dat)
-
-summ(Pulse_PhysActive_lm, confint = TRUE, digits=3)
-~~~
-{: .language-r}
-
-
-
-~~~
-MODEL INFO:
-Observations: 6796 (3204 missing obs. deleted)
-Dependent Variable: Pulse
-Type: OLS linear regression 
-
-MODEL FIT:
-F(1,6794) = 33.116, p = 0.000
-R² = 0.005
-Adj. R² = 0.005 
-
-Standard errors: OLS
-----------------------------------------------------------------
-                        Est.     2.5%    97.5%    t val.       p
-------------------- -------- -------- -------- --------- -------
-(Intercept)           74.181   73.752   74.610   339.155   0.000
-PhysActiveYes         -1.731   -2.320   -1.141    -5.755   0.000
-----------------------------------------------------------------
-~~~
-{: .output}
-
 > ## Exercise  
-> 1. Using the `lm()` command, fit a simple linear regression of pulse (`Pulse`)  
+> 1. Using the `lm()` command, fit a simple linear regression of Average 
+> Systolic Blood Pressure (`BPSysAve`)  
 > as a function of physical activity (`PhysActive`). Name this `lm` 
-> object `Pulse_PhysActive_lm`.  
-> 2. Using the `summary()` function, answer the following questions:
+> object `BPSysAve_PhysActive_lm`.  
+> 2. Using the `summ()` function from the `jtools` package,
+> answer the following questions:
 >   
-> A) What pulse does the model predict, on average,
+> A) What average systolic blood pressure does the model predict, 
+> on average,
 > for an individual who is characterised as not physically active?  
-> B) By how much is pulse expected to change, on average, for
-> a physically active individual?  
+> B) By how much is average systolic blood pressure expected to change, 
+> on average, for a physically active individual?  
 > C) Given these two values and the names of the response and explanatory
 > variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
-> \times x$ be adapted to represent this model?  
+> \times x$ be adapted to represent this model?
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > BPSysAve_PhysActive_lm <- lm(BPSysAve ~ PhysActive, data = dat)
+> > 
+> > summ(BPSysAve_PhysActive_lm, confint = TRUE, digits=3)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > MODEL INFO:
+> > Observations: 6781 (3219 missing obs. deleted)
+> > Dependent Variable: BPSysAve
+> > Type: OLS linear regression 
+> > 
+> > MODEL FIT:
+> > F(1,6779) = 133.611, p = 0.000
+> > R² = 0.019
+> > Adj. R² = 0.019 
+> > 
+> > Standard errors: OLS
+> > -------------------------------------------------------------------
+> >                          Est.      2.5%     97.5%    t val.       p
+> > ------------------- --------- --------- --------- --------- -------
+> > (Intercept)           122.892   122.275   123.509   390.285   0.000
+> > PhysActiveYes          -5.002    -5.851    -4.154   -11.559   0.000
+> > -------------------------------------------------------------------
+> > ~~~
+> > {: .output}
+> > 
+> > A) 122.892  
+> > B) Decrease by 5.002  
+> > C) $E(\text{BPSysAve}) = 122.892 - 5.002 \times \text{PhysActive}$, 
+> > where $\text{PhysActive} = 0$ if an individual is not physically active
+> > and $\text{PhysActive} = 1$ if an individual is physically active. 
+> {: .solution}
 {: .challenge}
-
-
-~~~
-effect_plot(Pulse_PhysActive_lm, pred = PhysActive) +
-  xlab("Physically Active")
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-03-plot pulse vs physactive with model-1.png" title="plot of chunk plot pulse vs physactive with model" alt="plot of chunk plot pulse vs physactive with model" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
-> Use the `jtools` package to visualise the model of `Pulse` as a function of `PhysActive`.  
-> Ensure that the x-axis is labelled as "Physically active" rather than "PhysActive".  
-> How does this plot relate to the output given by `summ`?  
+> Use the `jtools` package to visualise the model of `BPSysAve` as a 
+> function of `PhysActive`.  
+> Ensure that the x-axis is labelled as "Physically active" and the y-axis
+> is labelled as "Average Systolic Blood Pressure".
+> How does this plot relate to the output given by `summ`?
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > effect_plot(BPSysAve_PhysActive_lm, pred = PhysActive,
+> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+> >   xlab("Physically Active") +
+> >   ylab("Average Systolic Blood Pressure")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-03-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+> > 
+> > This plot shows the mean estimates for `BPSysAve` for the two groups, 
+> > alongside their 95% confidence intervals. The mean estimates are 
+> > represented by the `Intercept` for the non-physically active group and 
+> > by `Intercept` + `PhysActiveYes` for the physically active group. 
+> {: .solution}
 {: .challenge}
+
+
 
 
