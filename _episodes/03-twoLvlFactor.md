@@ -18,6 +18,26 @@ execises: 10
 
 
 
+In this episode we will study linear regression with one two-level categorical variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
+
+Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether someone who has smoked > 100 cigarettes in their life is currently smoking. `TotChol` describes the total HDL cholesterol in someone's blood. In the code below, we first remove rows with missing values using `drop_na()` from the `tidyr` package. We then initiate a plotting object using `ggplot`. The filtered data is passed on by `data = .`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `TotChol` in the two groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()`.
+
+
+~~~
+dat %>%
+  drop_na(c("SmokeNow", "TotChol")) %>%
+  ggplot(., aes(x=SmokeNow, y=TotChol)) +
+  geom_violin() +
+  stat_summary(fun = "mean", size = 0.2) +
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) + 
+  xlab("Participant has not given up smoking") +
+  ylab("Total HDL Cholesterol")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-SmokeNow vs TotChol violin-1.png" title="plot of chunk SmokeNow vs TotChol violin" alt="plot of chunk SmokeNow vs TotChol violin" width="612" style="display: block; margin: auto;" />
+
+
 > ## Exercise  
 > You have been asked to model the relationship between average systolic
 > blood pressure and physical activity in the NHANES data. Use the ggplot2
