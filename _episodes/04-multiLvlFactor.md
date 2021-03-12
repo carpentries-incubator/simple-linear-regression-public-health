@@ -35,14 +35,6 @@ dat %>%
 
 
 ~~~
-Warning: Computation failed in `stat_summary()`:
-Hmisc package required for this function
-~~~
-{: .warning}
-
-
-
-~~~
 Warning: Removed 3 rows containing missing values (geom_segment).
 ~~~
 {: .warning}
