@@ -4,10 +4,8 @@
 title: "Linear regression with a two-level factor explanatory variable"
 source: Rmd
 objectives:
-- Use the ggplot2 package to explore the relationship between a continuous variable
-  and a two-level factor variable.
-- Use the lm command to fit a simple linear regression with a two-level factor explanatory
-  variable.
+- Use the ggplot2 package to explore the relationship between a continuous variable and a two-level factor variable.
+- Use the lm command to fit a simple linear regression with a two-level factor explanatory variable.
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: DEF
@@ -64,6 +62,40 @@ dat %>%
 > > <img src="../fig/rmd-03-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
+
+We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. (FIXME: more details on model output).
+
+
+~~~
+TotChol_SmokeNow_lm <- lm(TotChol ~ SmokeNow, data = dat)
+
+summ(TotChol_SmokeNow_lm, confint = TRUE, digits = 3)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 2741 (7259 missing obs. deleted)
+Dependent Variable: TotChol
+Type: OLS linear regression 
+
+MODEL FIT:
+F(1,2739) = 0.031, p = 0.861
+R² = 0.000
+Adj. R² = -0.000 
+
+Standard errors: OLS
+------------------------------------------------------------
+                     Est.     2.5%   97.5%    t val.       p
+----------------- ------- -------- ------- --------- -------
+(Intercept)         5.053    4.995   5.111   170.707   0.000
+SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
+------------------------------------------------------------
+~~~
+{: .output}
+
 
 > ## Exercise  
 > 1. Using the `lm()` command, fit a simple linear regression of Average 
@@ -122,6 +154,20 @@ dat %>%
 > > and $\text{PhysActive} = 1$ if an individual is physically active. 
 > {: .solution}
 {: .challenge}
+
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.1` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
+
+
+~~~
+effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
+            plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+  xlab("Participant has not given up smoking") +
+  ylab("Total HDL Cholesterol")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot" alt="plot of chunk SmokeNow vs TotChol effect_plot" width="612" style="display: block; margin: auto;" />
+
 
 > ## Exercise  
 > Use the `jtools` package to visualise the model of `BPSysAve` as a 
