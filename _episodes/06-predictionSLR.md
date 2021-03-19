@@ -15,3 +15,45 @@ execises: 10
 ---
 
 
+
+
+>## Exercise
+>Given the `summ` output from our `UrineFlow_UrineVol_lm` model, 
+>the model can be described
+>as $E(\text{UrineFlow}_i) = \beta_0 + \beta_1 \times \text{UrineVol}_i = 0.222 + 0.006 \times \text{UrineVol}_i$. 
+>What level of Urine Flow does the model predict, on average, 
+>for an individual with a Urine Volume of 100 mL?
+> > ## Solution
+> > $0.222 + 100 * 0.006 = 0.822 mL/min$.
+> {: .solution}
+{: .challenge}
+
+>## Exercise
+>Using the `predict` function, obtain the expected mean Urine Flow levels
+>predicted by the `UrineFlow_UrineVol_lm` model for individuals with a Urine Volume
+> of 50, 100, 150 and 200 mL. Obtain confidence intervals for these predictions. 
+How are these confidence intervals interpreted?
+> > ## Solution
+> > 
+> > ~~~
+> > UrineFlow_UrineVol_lm <- lm(UrineFlow1 ~ UrineVol1, data = dat)
+> > 
+> > UrineVolumes <- data.frame(UrineVol1 = c(50, 100, 150, 200))
+> > 
+> > predict(UrineFlow_UrineVol_lm, newdata = UrineVolumes, interval = "confidence")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >         fit       lwr       upr
+> > 1 0.5385081 0.5139938 0.5630224
+> > 2 0.8552720 0.8351781 0.8753658
+> > 3 1.1720359 1.1506992 1.1933725
+> > 4 1.4887998 1.4613149 1.5162846
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
