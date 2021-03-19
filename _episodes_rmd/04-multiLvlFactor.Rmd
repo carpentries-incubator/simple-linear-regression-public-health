@@ -18,34 +18,142 @@ execises: 10
 source("../bin/chunk-options.R")
 source("../bin/obtain_data.R")
 knitr_fig_path("04-")
-```
-
-```{r load data, include=FALSE}
 library(ggplot2)
 library(jtools)
 library(dplyr)
 library(tidyr)
 ```
 
-```{r explore Weight vs Depressed}
+In this episode we will study linear regression with one categorical variable with more than two levels. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
+
+Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()`. We then initiate a plotting object using `ggplot()`. The filtered data is passed on by `data = .`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
+
+```{r explore Work vs Age, warning = FALSE}
 dat %>%
-  drop_na(c("Depressed", "Weight")) %>%
-  ggplot(., aes(x=Depressed, y=Weight)) +
-  geom_violin() +
+  filter(Age>15 & Age<65) %>%
+  ggplot(., aes(x = Work, y = Age)) +
+  geom_violin() + 
   stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
-  xlab("Number of days with depressed feelings")
+  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) + 
+  xlab("Working status") + 
+  scale_x_discrete(labels = c('Looking','Not Working','Working'))
 ```
 
+> ## Exercise  
+> You have been asked to model the relationship between frequency of
+> days where individuals feel depressed and weight in the NHANES data.
+> Use the ggplot2 package to create an exploratory plot, 
+> ensuring that it includes the following elements:  
+> 1. Weight (`Weight`) on the y-axis and number of days with
+> depressed feelings (`Depressed`) on the x-axis, from the NHANES data.  
+> 2. This data shown as a violin plot.  
+> 3. The y-axis labelled as "Age" and the x-axis labelled as 
+> "Number of days a week with depressed feelings".
+>
+> > ## Solution
+> > 
+> > ```{r, warning = FALSE}
+> > dat %>%
+> >   drop_na(c("Depressed", "Weight")) %>%
+> >   ggplot(., aes(x=Depressed, y=Weight)) +
+> >   geom_violin() +
+> >   stat_summary(fun = "mean", size = 0.2) +
+> >   stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+> >   xlab("Number of days a week with depressed feelings")
+> > ```
+> {: .solution}
+{: .challenge}
 
-```{r Weight vs Depressed model}
-Weight_Depressed_lm <- lm(Weight ~ Depressed, data = dat)
+We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. (FIXME: more details on model output).
 
-summ(Weight_Depressed_lm, confint = TRUE, digits=3)
+```{r Age vs Work lm}
+Age_Work_lm <- dat %>%
+  filter(Age>15 & Age<65) %>%
+  lm(Age ~ Work, data = .)
+
+summ(Age_Work_lm)
 ```
 
-```{r plot weight vs depressed with model}
-effect_plot(Weight_Depressed_lm, pred = Depressed) + 
-  xlab("Number of days with depressed feelings")
+> ## Exercise  
+> 1. Using the `lm()` command, fit a simple linear regression of Weight 
+> as a function of number of days a week feeling depressed (`Depressed`). 
+> Name this `lm` object `Weight_Depressed_lm`.  
+> 2. Using the `summ()` function from the `jtools` package,
+> answer the following questions:
+>   
+> A) What average weight does the model predict, on average,
+> for an individual who is characterised as not experiencing depressed days?  
+> B) By how much is weight expected to change, 
+> on average, for each other level of `Depressed`?  
+> C) Given these two values and the names of the response and explanatory
+> variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
+> \times x_1 + {\beta}_2 \times x_2$ be adapted to represent this model?
+> 
+> > ## Solution
+> > 
+> > ```{r}
+> > Weight_Depressed_lm <- dat %>%
+> >   drop_na(c("Depressed", "Weight")) %>%
+> >   lm(Weight ~ Depressed, data = .)
+> > 
+> > summ(Weight_Depressed_lm, confint = TRUE, digits=3)
+> > ```
+> > 
+> > A) 81.37  
+> > B) Increase by 1.26 and 2.65 for several depressed days and most 
+> > depressed days, respectively.
+> > C) $E(\text{BPSysAve}) = 81.37 + 1.26 \times \text{depressedSeveral} + 
+> > 2.65 \times \text{depressedMost}$, 
+> > where $\text{depressedSeveral} = 1$ if an individual belongs to this group
+> > and $\text{depressedSeveral} = 0$ otherwise. Analogously, 
+> > $\text{depressedMost} = 1$ if an individual belongs to this group and 
+> > $\text{depressedMost} = 0$ otherwise.
+> {: .solution}
+{: .challenge}
+
+
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.1` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean Age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
+
+```{r effect_plot age vs work}
+effect_plot(Age_Work_lm, pred = Work,
+            plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+  xlab("Working status") + 
+  scale_x_discrete(labels = c('Looking','Not Working','Working'))
 ```
+
+> ## Exercise  
+> Use the `jtools` package to visualise the model of `Weight` as a 
+> function of `Depressed`.  
+> Ensure that the x-axis is labelled as "Number of days feeling depressed" 
+> and the y-axis is labelled as "Weight".
+> How does this plot relate to the output given by `summ`?
+>
+> > ## Solution
+> > 
+> > ```{r}
+> > effect_plot(Weight_Depressed_lm, pred = Depressed, 
+> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+> >   xlab("Number of days with depressed feelings")
+> > ```
+> > 
+> > This plot shows the mean estimates for `Weight` for the three groups, 
+> > alongside their 95% confidence intervals. The mean estimates are 
+> > represented by the `Intercept` for the non-depressed group and 
+> > by `Intercept` + `DepressedSeveral` and `Intercept` + `DepressedMost` for 
+> > the other groups. 
+> {: .solution}
+{: .challenge}
+
+```{r explore residuals, include = FALSE}
+Weight_Depressed_lm <- dat %>%
+ drop_na(c("Depressed", "Weight")) %>%
+ lm(Weight ~ Depressed, data = .)
+
+data.frame(depressed = Weight_Depressed_lm$model$Depressed, res = resid(Weight_Depressed_lm)) %>%
+  ggplot(., aes(x = res)) +
+  geom_histogram() + 
+  facet_wrap(~depressed)
+
+```
+
 
