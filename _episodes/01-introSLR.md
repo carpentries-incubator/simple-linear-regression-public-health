@@ -9,7 +9,8 @@ objectives:
 keypoints:
   - "DEF"
 questions:
-  - "ABC"
+  - What type of variables are required for simple linear regression?
+  - What do each of the componenets in the equation of a simple linear regression model represent?
 teaching: 10
 execises: 10
 ---

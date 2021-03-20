@@ -9,7 +9,10 @@ objectives:
 keypoints:
   - "DEF"
 questions:
-  - "GHI"
+- How can we assess whether one continuous variable and one multi-level categorical variable may be suitable for simple linear regression?
+- How is a simple linear regression model with one multi-level categorical explanatory variable fit in R?
+- How can the parameters of this model interpreted in R?
+- How can this model be visualised in R?
 teaching: 10
 execises: 10
 ---
