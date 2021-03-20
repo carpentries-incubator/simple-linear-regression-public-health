@@ -6,8 +6,12 @@ objectives:
 - Use the lm command to fit a simple linear regression with one continuous explanatory variable.
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
-keypoints: DEF
-questions: GHI
+keypoints: 
+questions: 
+- How can we assess whether two continuous variables may be suitable for simple linear regression?
+- How is a simple linear regression model with one continuous explanatory variable fit in R?
+- How can the parameters of this model be interpreted in R?
+- How can this model be visualised in R?
 teaching: 10
 execises: 10
 ---

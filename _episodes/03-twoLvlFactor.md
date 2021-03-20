@@ -9,7 +9,11 @@ objectives:
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: DEF
-questions: GHI
+questions: 
+- How can we assess whether one continuous variable and one two-level categorical variable may be suitable for simple linear regression?
+- How is a simple linear regression model with one two-level categorical explanatory variable fit in R?
+- How can the parameters of this model interpreted in R?
+- How can this model be visualised in R?
 teaching: 10
 execises: 10
 ---
