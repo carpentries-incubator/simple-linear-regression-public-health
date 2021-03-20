@@ -18,34 +18,110 @@ source("../bin/obtain_data.R")
 knitr_fig_path("01-")
 ```
 
+Simple linear regression is commonly used, but when is it appropriate to apply this method? Broadly speaking, simple linear regression may be suitable when the following conditions hold:
+
+* You seek a *model* of the relationship between one *continuous* dependent variable and one *continuous* or *categorical* explanatory variable. 
+* Your data and simple linear regression model do not violate the assumptions of the simple linear regression model. We will cover these assumptions in the final episode of this lesson.
 
 > ## Exercise  
 > A colleague has started working with the NHANES data set. They approach 
-> you for advice on the use of simple linear regression on this data. Which
+> you for advice on the use of simple linear regression on this data. 
+> Assuming that the assumptions of the simple linear regression model hold, which
 > of the following questions could potentially be tackled with a simple 
-> linear regression model?  
+> linear regression model? Think closely about the outcome and explanatory
+> variables, between which a relationship will be modelled to answer the 
+> research questions.
 >   
-> A) Does home ownership vary across gender in the NHANES data set?  
-> B) Is there an association between BMI and pulse in the NHANES data set?  
-> C) Do men on average have a higher pulse than women in the NHANES data set?  
+> A) Does home ownership (whether a participant's home is owned or rented)
+> vary across income bracket in the general US population?  
+> B) Is there an association between BMI and pulse in the general US population?  
+> C) Do teenagers on average have a higher pulse than adults in the 
+> general US population?
+> 
+> > ## Solution
+> > A) The outcome variable is home ownership and the explanatory variable is 
+> > income bracket.
+> > Since home ownership is a categorical outcome variable, this question is not 
+> > suited for simple linear regression.  
+> > B) Since both variables are continous, this question may be suited 
+> > for simple linear regression.  
+> > C) The outcome variable is pulse and rhe explanatory variable is age group
+> > (teenager vs adult). Since the outcome variable is 
+> > continuous and the explanatory variable is categorical, 
+> > this question may be suited to simple linear regression.
+> {: .solution}
 {: .challenge}
 
+The simple linear regression model can be described by the following equation:
+
+$$
+E(y) = \beta_0 + \beta_1 \times x_1
+$$.
+
+The outcome variable is denoted by $y$ and the explanatory variable is denoted by $x_1$. Simple linear regression models the *expectation* of $y$, i.e. $E(y)$. This is another way of referring to the *mean* of $y$. The expectation of $y$ is a function of $\beta_0$ and $\beta_1 \times x_1$. The intercept is denoted by $\beta_0$ - this is the value of $E(y)$ when the explanatory variable, $x_1$, equals 0. The effect of our explanatory variable is denoted by $\beta_1$ - for every one-unit increase in $x_1$, $E(y)$ changes by $\beta_1$.
+
+
+Before fitting the model, we have access to $y$ and $x_1$ values for each observation in our data. For example, we may want to model the relationship between weight and height. $y$ would represent weight and $x_1$ would represent height. After we fit the model, R will return to us values of $\beta_0$ and $beta_1$ - these are *estimated* using our data. 
 
 > ## Exercise  
 > We are asked to study the effect of participant's age on their BMI. We are given the following equation of a simple linear regression to use:  
-> $$y_i = {\beta}_0 + x_i\times{\beta}_1 + \epsilon$$  
-> Match the following components of this simple linear regression model to their disciptions:  
+> $$E(y) = \beta_0 + \beta_1 \times x_1$$.    
+> Match the following components of this simple linear regression model to their
+> descriptions:  
+> 1. $E(y)$  
+> 2. ${\beta}_0$  
+> 3. $x_1$
+> 4. ${\beta}_1$  
+>  
+> A) Mean BMI at a particular value of age.   
+> B) The expected BMI when the age equals 0.    
+> C) The expected change in BMI with a one-unit increase in age.  
+> D) A specific value of age.
+>  
+> > ## Solution
+> > A) 1   
+> > B) 2  
+> > C) 4  
+> > D) 3  
+> {: .solution}
+{: .challenge}
+
+An alternative way of writing the same simple linear regression model is:
+
+$$
+y_i = \beta_0 + \beta_1 \times {x_1}_i + \epsilon_i
+$$.
+
+The following elements have changed:
+* Instead of $E(y)$, we have $y_i$. This is the observed value of the response for participant $i$.
+* Instead of $x_1$, we have ${x_1}_i$. This is the observed value of the explanatory variable for participant $i$. 
+* In addition, we have $\epsilon_i$. This is also known as the *residual* for participant $i$. The residual equals the difference between the outcome expected for participant $i$ by the model and the true observed value, i.e. $\epsilon_i = E(y_i) - y_i$. We will return to residuals in the final episode of this lesson, where they will play a role in assessing the assumptions of the simple linear regression model. 
+
+> ## Exercise  
+> Staying with our model of the effect of participant's age on their BMI, 
+> we are now given the alternative equation of a simple linear regression to use: 
+> $$y_i = \beta_0 + \beta_1 \times {x_1}_i + \epsilon_i$$.    
+> Match the following components of this simple linear regression model to their
+> descriptions:  
 > 1. $y_i$  
 > 2. ${\beta}_0$  
-> 3. $x_i$
-> 4. ${\beta}_1$  
-> 5. $\epsilon_i$  
+> 3. ${x_1}_i$
+> 4. ${\beta}_1$
+> 5. $\epsilon_i$
 >  
-> A) One participant's observed value for the response.  
-> B) The expected response when the explanatory variable equals 0.    
-> C) The expected change in the response with a one-unit increase in the explanatory variable.  
-> D) The difference between a participant's value for the response and the
-> expected value from the model.  
-> E) One participant's observed value for the explanatory variable.  
+>    
+> A) The mean change in BMI following a one-unit increase in age.   
+> B) The mean BMI when age equals 0.      
+> C) A participant's BMI.  
+> D) The difference between the expected and observed BMI values.  
+> E) A participant's age.  
+>  
+> > ## Solution
+> > A) 4   
+> > B) 2  
+> > C) 1  
+> > D) 5  
+> > E) 3
+> {: .solution}
 {: .challenge}
 
