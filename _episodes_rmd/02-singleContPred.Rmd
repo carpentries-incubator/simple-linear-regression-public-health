@@ -7,6 +7,10 @@ objectives:
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: 
+- As a first check of suitability, construct a scatterplot between the continuous variables.
+- Use `lm()` to fit the simple linear regression model.
+- Use `summ()` to obtain parameter estimates for the model.
+- Use `effect_plot()` to visualise the model. 
 questions: 
 - How can we assess whether two continuous variables may be suitable for simple linear regression?
 - How is a simple linear regression model with one continuous explanatory variable fit in R?
@@ -73,9 +77,19 @@ Weight_Height_lm <- dat %>%
   lm(Weight ~ Height, data = .)
 ```
 
-We will interpret our results through a summary table and through a plot. The summary table can be obtained using the `summ` function from the `jtools` package. We provide the function with the name of our model (`Weight_Height_lm`). We can also specify that we want confidence intervals for our parameter estimates using `confint = TRUE`. Finally, we specify that we want estimates with three digits past the decimal with `digits = 3`.  
+We will interpret our results through a summary table and through a plot. The summary table can be obtained using the `summ()` function from the `jtools` package. We provide the function with the name of our model (`Weight_Height_lm`). We can also specify that we want confidence intervals for our parameter estimates using `confint = TRUE`. Finally, we specify that we want estimates with three digits past the decimal with `digits = 3`.  
 
-We will come to interpreting the `Model Fit` section in a later episode. For now, take a look at the parameter estimates at the bottom of the output. How much is an individual's `Weight` expected to increase, on average, for a one centimeter increase in `Height`, according to our model? (FIXME: more details on model output).
+We will come to interpreting the `Model Fit` section in a later episode. For now, take a look at the parameter estimates at the bottom of the output. We see that the intercept (i.e. $\beta_0$) is estimated at -70.19 and the effect of `Height` (i.e. $\beta_1$) is estimated at 0.901. The model therefore predicts an average increase in `Weight` of 0.901 kg for every cm increase in `Height`.   
+
+> ## Interpretation of the 95% CI and p-value of `Height`
+> 
+> If *prior to fitting our model* we were interested in testing the hypotheses 
+> $H_0: \beta_1 > = 0$ vs $H_1: \beta \neq 0$, we could interpret the 95% CI 
+> for `Height`. Recall that 95% of 95% CIs are expected to contain the true population 
+> mean. Since this 95% CI does not contain 0, we would be fairly confident in rejecting 
+> $H_0$ in favour of $H_1$. Alternatively, since the p-value is less than 0.05, 
+> we could reject $H_0$ on those grounds. 
+{: .callout}
 
 ```{r summ Weight_Height_lm}
 summ(Weight_Height_lm, confint = TRUE, digits = 3)
