@@ -4,12 +4,19 @@ source: Rmd
 objectives:
 - Use the ggplot2 package to explore the relationship between a continuous variable and a two-level factor variable.
 - Use the lm command to fit a simple linear regression with a two-level factor explanatory variable.
+- Distinguish between the baseline and contrast levels of the categorical variable.
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
-keypoints: DEF
+keypoints: 
+- As a first exploration of the data, construct a violin plot between the continuous variables.
+- Use `lm()` to fit the simple linear regression model.
+- Use `summ()` to obtain parameter estimates for the model.
+- The intercept estimates the mean in the outcome variable for the baseline group. The other parameter estimates the difference in the means in the outcome variable between the baseline and contrast group.
+- Use `effect_plot()` to visualise the model. 
 questions: 
 - How can we assess whether one continuous variable and one two-level categorical variable may be suitable for simple linear regression?
 - How is a simple linear regression model with one two-level categorical explanatory variable fit in R?
+- How does the use of the simple linear regression equation differ between the continuous and categorical explanatory variable cases?
 - How can the parameters of this model interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
@@ -67,7 +74,15 @@ dat %>%
 > {: .solution}
 {: .challenge}
 
-We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. (FIXME: more details on model output).
+We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. 
+
+Note that even though we are using the same equation of the simple linear regression model ($E(y) = \beta_0 + \beta_1 \times x_1$), our interpretation of the `summ()` output differs slightly from our interpretation in the previous episode. Recall that our categorical explanatory variable has two levels, `"No"` and `"Yes"`. One of these is taken by the model as the baseline (`"No"`), the other as the contrast (`"Yes"`). The first level alphabetically is chosen by R as the baseline, unless specified otherwise. 
+
+The intercept in the `summ()` output is the estimated mean for the baseline, i.e. for participants that stopped smoking. The `SmokeNowYes` estimate is the estimated average difference in `TotChol` between participants that stopped smoking and participants that did not stop smoking. We can therefore write the equation for this model as:
+
+$$E(\text{Total cholesterol}) = 5.053 + 0.008 \times x_1$$,
+
+where $x_1 = 1$ if a participant has continued to smoke and 0 otherwise (i.e. the participant stopped smoking). 
 
 ```{r SmokeNow vs TotChol lm}
 TotChol_SmokeNow_lm <- lm(TotChol ~ SmokeNow, data = dat)
