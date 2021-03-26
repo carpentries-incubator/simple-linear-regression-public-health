@@ -21,7 +21,6 @@ knitr_fig_path("05-")
 library(ggplot2)
 library(dplyr)
 library(jtools)
-library(cowplot)
 ```
 
 One of the features of linear regression is prediction: a model presents predicted mean values for the outcome variable for any values of the explanatory variables. We have already seen this in the previous episodes through our `effect_plot()` outputs, which showed mean predicted responses as straight lines (episode 2) or individual points for levels of a categorical variable (episodes 3 & 4). Here, we will see how to obtain predicted values and the uncertainty surrounding them.
