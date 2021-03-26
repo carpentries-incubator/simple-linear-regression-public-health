@@ -18,7 +18,7 @@ execises: 10
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 source("../bin/obtain_data.R")
-knitr_fig_path("05-")
+knitr_fig_path("06-")
 library(ggplot2)
 library(dplyr)
 library(jtools)
