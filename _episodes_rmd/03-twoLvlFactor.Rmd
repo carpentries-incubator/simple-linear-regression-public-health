@@ -8,13 +8,13 @@ objectives:
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: 
-- As a first exploration of the data, construct a violin plot between the continuous variables.
+- As a first exploration of the data, construct a violin plot between the two variables.
 - Use `lm()` to fit the simple linear regression model.
 - Use `summ()` to obtain parameter estimates for the model.
 - The intercept estimates the mean in the outcome variable for the baseline group. The other parameter estimates the difference in the means in the outcome variable between the baseline and contrast group.
-- Use `effect_plot()` to visualise the model. 
+- Use `effect_plot()` to visualise the estimated means per group along with their 95% CIs. 
 questions: 
-- How can we assess whether one continuous variable and one two-level categorical variable may be suitable for simple linear regression?
+- How can we explore the relationship between one continuous variable and one multi-level categorical variable prior to fitting a simple linear regression?
 - How is a simple linear regression model with one two-level categorical explanatory variable fit in R?
 - How does the use of the simple linear regression equation differ between the continuous and categorical explanatory variable cases?
 - How can the parameters of this model interpreted in R?

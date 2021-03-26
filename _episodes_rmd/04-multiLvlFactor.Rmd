@@ -7,9 +7,13 @@ objectives:
   - "Use the jtools package to interpret the model output."
   - "Use the jtools and ggplot2 packages to visualise the resulting model."
 keypoints:
-  - "DEF"
+- As a first exploration of the data, construct a violin plot between the two variables.
+- Use `lm()` to fit the simple linear regression model.
+- Use `summ()` to obtain parameter estimates for the model.
+- The intercept estimates the mean in the outcome variable for the baseline group. The other parameters estimate the differences in the means in the outcome variable between the baseline and contrast groups.
+- Use `effect_plot()` to visualise the estimated means per group along with their 95% CIs.
 questions:
-- How can we assess whether one continuous variable and one multi-level categorical variable may be suitable for simple linear regression?
+- How can we explore the relationship between one continuous variable and one multi-level categorical variable prior to fitting a simple linear regression?
 - How is a simple linear regression model with one multi-level categorical explanatory variable fit in R?
 - How can the parameters of this model interpreted in R?
 - How can this model be visualised in R?
@@ -67,7 +71,7 @@ dat %>%
 > {: .solution}
 {: .challenge}
 
-We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. (FIXME: more details on model output).
+We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. The intercept in the `summ()` output is the estimated mean for the baseline, i.e. for participants that are looking for work. The `WorkNotWorking` estimate is the estimated average difference in `Age` between participants that are not working and are looking for work. Similarly, the `WorkWorking` is the estimated average difference in `Age` between participants that are working and are looking for work.
 
 ```{r Age vs Work lm}
 Age_Work_lm <- dat %>%
