@@ -27,16 +27,16 @@ execises: 10
 
 In this episode we will study linear regression with one categorical variable with more than two levels. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
-Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()`. We then initiate a plotting object using `ggplot()`. The filtered data is passed on by `data = .`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
+Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()`. We then initiate a plotting object using `ggplot()`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
 
 
 ~~~
 dat %>%
-  filter(Age>15 & Age<65) %>%
-  ggplot(., aes(x = Work, y = Age)) +
+  filter(Age > 15 & Age < 65) %>%
+  ggplot(aes(x = Work, y = Age)) +
   geom_violin() + 
   stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) + 
+  stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) + 
   xlab("Working status") + 
   scale_x_discrete(labels = c('Looking','Not Working','Working'))
 ~~~
@@ -61,10 +61,10 @@ dat %>%
 > > ~~~
 > > dat %>%
 > >   drop_na(c("Depressed", "Weight")) %>%
-> >   ggplot(., aes(x=Depressed, y=Weight)) +
+> >   ggplot(aes(x = Depressed, y = Weight)) +
 > >   geom_violin() +
 > >   stat_summary(fun = "mean", size = 0.2) +
-> >   stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+> >   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) +
 > >   xlab("Number of days a week with depressed feelings")
 > > ~~~
 > > {: .language-r}
@@ -78,8 +78,8 @@ We proceed to fit a linear regression model using the `lm()` command, as we did 
 
 ~~~
 Age_Work_lm <- dat %>%
-  filter(Age>15 & Age<65) %>%
-  lm(Age ~ Work, data = .)
+  filter(Age > 15 & Age < 65) %>%
+  lm(formula = Age ~ Work)
 
 summ(Age_Work_lm)
 ~~~
@@ -130,9 +130,9 @@ WorkWorking             5.62   0.90     6.26   0.00
 > > ~~~
 > > Weight_Depressed_lm <- dat %>%
 > >   drop_na(c("Depressed", "Weight")) %>%
-> >   lm(Weight ~ Depressed, data = .)
+> >   lm(formula = Weight ~ Depressed)
 > > 
-> > summ(Weight_Depressed_lm, confint = TRUE, digits=3)
+> > summ(Weight_Depressed_lm, confint = TRUE, digits = 3)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -212,7 +212,5 @@ effect_plot(Age_Work_lm, pred = Work,
 > > the other groups. 
 > {: .solution}
 {: .challenge}
-
-
 
 

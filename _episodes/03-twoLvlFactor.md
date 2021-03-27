@@ -29,16 +29,16 @@ execises: 10
 
 In this episode we will study linear regression with one two-level categorical variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
-Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether someone who has smoked > 100 cigarettes in their life is currently smoking. `TotChol` describes the total HDL cholesterol in someone's blood. In the code below, we first remove rows with missing values using `drop_na()` from the `tidyr` package. We then initiate a plotting object using `ggplot`. The filtered data is passed on by `data = .`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `TotChol` in the two groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()`.
+Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether someone who has smoked > 100 cigarettes in their life is currently smoking. `TotChol` describes the total HDL cholesterol in someone's blood. In the code below, we first remove rows with missing values using `drop_na()` from the `tidyr` package. We then initiate a plotting object using `ggplot`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `TotChol` in the two groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()`.
 
 
 ~~~
 dat %>%
   drop_na(c("SmokeNow", "TotChol")) %>%
-  ggplot(., aes(x=SmokeNow, y=TotChol)) +
+  ggplot(aes(x = SmokeNow, y = TotChol)) +
   geom_violin() +
   stat_summary(fun = "mean", size = 0.2) +
-  stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) + 
+  stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) + 
   xlab("Participant has not given up smoking") +
   ylab("Total HDL Cholesterol")
 ~~~
@@ -62,10 +62,10 @@ dat %>%
 > > ~~~
 > > dat %>%
 > >   drop_na(c("PhysActive", "BPSysAve")) %>%
-> >   ggplot(., aes(x=PhysActive, y=BPSysAve)) +
+> >   ggplot(aes(x = PhysActive, y = BPSysAve)) +
 > >   geom_violin() +
 > >   stat_summary(fun = "mean", size = 0.2) +
-> >   stat_summary(fun.data = "mean_cl_normal", geom="errorbar", width=0.2) +
+> >   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) +
 > >   xlab("Physically Active")
 > > ~~~
 > > {: .language-r}
@@ -86,7 +86,7 @@ where $x_1 = 1$ if a participant has continued to smoke and 0 otherwise (i.e. th
 
 
 ~~~
-TotChol_SmokeNow_lm <- lm(TotChol ~ SmokeNow, data = dat)
+TotChol_SmokeNow_lm <- lm(formula = TotChol ~ SmokeNow, data = dat)
 
 summ(TotChol_SmokeNow_lm, confint = TRUE, digits = 3)
 ~~~
@@ -137,9 +137,9 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 > > 
 > > 
 > > ~~~
-> > BPSysAve_PhysActive_lm <- lm(BPSysAve ~ PhysActive, data = dat)
+> > BPSysAve_PhysActive_lm <- lm(formula = BPSysAve ~ PhysActive, data = dat)
 > > 
-> > summ(BPSysAve_PhysActive_lm, confint = TRUE, digits=3)
+> > summ(BPSysAve_PhysActive_lm, confint = TRUE, digits = 3)
 > > ~~~
 > > {: .language-r}
 > > 
