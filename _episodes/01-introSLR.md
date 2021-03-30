@@ -45,7 +45,7 @@ Simple linear regression is commonly used, but when is it appropriate to apply t
 > > suited for simple linear regression.  
 > > B) Since both variables are continous, this question may be suited 
 > > for simple linear regression.  
-> > C) The outcome variable is pulse and rhe explanatory variable is age group
+> > C) The outcome variable is pulse and the explanatory variable is age group
 > > (teenager vs adult). Since the outcome variable is 
 > > continuous and the explanatory variable is categorical, 
 > > this question may be suited to simple linear regression.
