@@ -16,7 +16,7 @@ keypoints:
 - Use `effect_plot()` to visualise the estimated means per group along with their 95% CIs.
 questions:
 - How can we explore the relationship between one continuous variable and one multi-level categorical variable prior to fitting a simple linear regression?
-- How is a simple linear regression model with one multi-level categorical explanatory variable fit in R?
+- How can we fit a simple linear regression model with one multi-level categorical explanatory variable in R?
 - How can the parameters of this model interpreted in R?
 - How can this model be visualised in R?
 teaching: 10

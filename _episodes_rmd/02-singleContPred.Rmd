@@ -13,7 +13,7 @@ keypoints:
 - Use `effect_plot()` to visualise the model. 
 questions: 
 - How can we assess whether two continuous variables may be suitable for simple linear regression?
-- How is a simple linear regression model with one continuous explanatory variable fit in R?
+- How can we fit a simple linear regression model with one continuous explanatory variable in R?
 - How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
