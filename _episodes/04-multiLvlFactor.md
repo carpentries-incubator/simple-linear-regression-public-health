@@ -27,12 +27,12 @@ execises: 10
 
 In this episode we will study linear regression with one categorical variable with more than two levels. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
-Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()`. We then initiate a plotting object using `ggplot()`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
+Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()` and `between()`. We then initiate a plotting object using `ggplot()`, with the data passed on by the pipe. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
 
 
 ~~~
 dat %>%
-  filter(Age > 15 & Age < 65) %>%
+  filter(between(Age, 16, 64)) %>%
   ggplot(aes(x = Work, y = Age)) +
   geom_violin() + 
   stat_summary(fun = "mean", size = 0.2) +
@@ -60,7 +60,7 @@ dat %>%
 > > 
 > > ~~~
 > > dat %>%
-> >   drop_na(c("Depressed", "Weight")) %>%
+> >   drop_na(c(Depressed, Weight)) %>%
 > >   ggplot(aes(x = Depressed, y = Weight)) +
 > >   geom_violin() +
 > >   stat_summary(fun = "mean", size = 0.2) +
@@ -78,10 +78,10 @@ We proceed to fit a linear regression model using the `lm()` command, as we did 
 
 ~~~
 Age_Work_lm <- dat %>%
-  filter(Age > 15 & Age < 65) %>%
+  filter(between(Age, 16, 64)) %>%
   lm(formula = Age ~ Work)
 
-summ(Age_Work_lm)
+summ(Age_Work_lm, confint = TRUE, digits = 3)
 ~~~
 {: .language-r}
 
@@ -94,18 +94,18 @@ Dependent Variable: Age
 Type: OLS linear regression 
 
 MODEL FIT:
-F(2,5146) = 21.27, p = 0.00
-R² = 0.01
-Adj. R² = 0.01 
+F(2,5146) = 21.267, p = 0.000
+R² = 0.008
+Adj. R² = 0.008 
 
 Standard errors: OLS
----------------------------------------------------
-                        Est.   S.E.   t val.      p
--------------------- ------- ------ -------- ------
-(Intercept)            34.21   0.86    39.70   0.00
-WorkNotWorking          4.40   0.93     4.74   0.00
-WorkWorking             5.62   0.90     6.26   0.00
----------------------------------------------------
+----------------------------------------------------------------
+                         Est.     2.5%    97.5%   t val.       p
+-------------------- -------- -------- -------- -------- -------
+(Intercept)            34.208   32.519   35.897   39.702   0.000
+WorkNotWorking          4.398    2.577    6.218    4.735   0.000
+WorkWorking             5.620    3.859    7.380    6.258   0.000
+----------------------------------------------------------------
 ~~~
 {: .output}
 
@@ -129,7 +129,7 @@ WorkWorking             5.62   0.90     6.26   0.00
 > > 
 > > ~~~
 > > Weight_Depressed_lm <- dat %>%
-> >   drop_na(c("Depressed", "Weight")) %>%
+> >   drop_na(c(Depressed, Weight)) %>%
 > >   lm(formula = Weight ~ Depressed)
 > > 
 > > summ(Weight_Depressed_lm, confint = TRUE, digits = 3)
@@ -179,8 +179,8 @@ Finally, we visually inspect the parameter estimates provided by our model. Agai
 ~~~
 effect_plot(Age_Work_lm, pred = Work,
             plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
-  xlab("Working status") + 
-  scale_x_discrete(labels = c('Looking','Not Working','Working'))
+  scale_x_discrete(name = "Working status",
+    labels = c('Looking','Not Working','Working'))
 ~~~
 {: .language-r}
 
