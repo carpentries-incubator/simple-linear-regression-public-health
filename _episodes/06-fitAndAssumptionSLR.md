@@ -70,7 +70,19 @@ Assumptions of the simple linear regression model:
 
 ~~~
 BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths , data = dat)
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in eval(predvars, data, env): object 'AgeMonths' not found
+~~~
+{: .error}
+
+
+
+~~~
 p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
                   plot.points = TRUE, interval = TRUE,
                   colors = c("red")) +
@@ -78,9 +90,33 @@ p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths,
   xlab("Age in Months") +
   ggtitle("Not a linear relationship") +
   theme_bw()
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in "svyglm" %in% class(model): object 'BPDiaAve_AgeMonths_lm' not found
+~~~
+{: .error}
+
+
+
+~~~
 BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in eval(predvars, data, env): object 'AgeMonths' not found
+~~~
+{: .error}
+
+
+
+~~~
 p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
                   plot.points = TRUE, interval = TRUE,
                   colors = c("red")) +
@@ -88,12 +124,29 @@ p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
   xlab("Age in Months") +
   ggtitle("Non-linear relationship modelled \nusing an appropriate \nsimple linear regression model") +
   theme_bw()
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in "svyglm" %in% class(model): object 'BPDiaAve_AgeMonthsSQ_lm' not found
+~~~
+{: .error}
+
+
+
+~~~
 plot_grid(p1, p2, labels = c("A)", "B)"))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-non-linearity example-1.png" title="plot of chunk non-linearity example" alt="plot of chunk non-linearity example" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in plot_grid(p1, p2, labels = c("A)", "B)")): object 'p1' not found
+~~~
+{: .error}
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *additivity* component means that the effect of any explanatory variable on the outcome variable does not depend on another explanatory variable in the model. When this assumption is violated, it can be mitigated by including an interaction term in the model. We will cover interaction terms in the [multiple linear regression for public health lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/).  
 4. **Independent errors**: the residuals must be independent of one another. This assumption is violated when observations are not a random sample of the population. For example, if we measure individual's weights four times over the course of a year, then our data will contain four non-independent observations per individual. As a result, the residuals will also not be independent. This can be overcome using random effects, which we will cover in the [linear mixed effects models for public health lesson] (https://carpentries-incubator.github.io/linear-mixed-models-public-health/).  
