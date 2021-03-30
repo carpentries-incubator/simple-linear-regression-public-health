@@ -34,7 +34,7 @@ Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether
 
 ~~~
 dat %>%
-  drop_na(c("SmokeNow", "TotChol")) %>%
+  drop_na(c(SmokeNow, TotChol)) %>%
   ggplot(aes(x = SmokeNow, y = TotChol)) +
   geom_violin() +
   stat_summary(fun = "mean", size = 0.2) +
@@ -61,7 +61,7 @@ dat %>%
 > > 
 > > ~~~
 > > dat %>%
-> >   drop_na(c("PhysActive", "BPSysAve")) %>%
+> >   drop_na(c(PhysActive, BPSysAve)) %>%
 > >   ggplot(aes(x = PhysActive, y = BPSysAve)) +
 > >   geom_violin() +
 > >   stat_summary(fun = "mean", size = 0.2) +
