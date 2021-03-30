@@ -15,7 +15,7 @@ keypoints:
 - Use `effect_plot()` to visualise the model. 
 questions: 
 - How can we assess whether two continuous variables may be suitable for simple linear regression?
-- How is a simple linear regression model with one continuous explanatory variable fit in R?
+- How can we fit a simple linear regression model with one continuous explanatory variable in R?
 - How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
@@ -28,13 +28,13 @@ execises: 10
 
 In this episode we will study linear regression with one continuous explanatory variable. As explained in the previous episode, the explanatory variable is required to have a linear relationship with the outcome variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
-Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot`. The filtered data is passed on by `data = .`. We select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Does the relationship look linear to you?
+Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot`. We select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Does the relationship look linear to you?
 
 
 ~~~
 dat %>%
   filter(Age > 17) %>%
-  ggplot(data = ., aes(x = Height, y = Weight)) +
+  ggplot(aes(x = Height, y = Weight)) +
   geom_point()
 ~~~
 {: .language-r}
@@ -71,13 +71,13 @@ dat %>%
 
 
 
-Since there is no abnormal shape to the scatterplot (e.g. curvature or multiple clusters), we can proceed with fitting our linear regression model. We do this with the `lm()` command. Within the command, the model is denoted by `outcome variable ~ explanatory variable`. Again, we subset our data using `filter()` and refer to this filtered data with `data = .`. See the code below. 
+Since there is no abnormal shape to the scatterplot (e.g. curvature or multiple clusters), we can proceed with fitting our linear regression model. First, we subset our data using `filter()`. We then fit the simple linear regression model with the `lm()` command. Within the command, the model is denoted by `formula = outcome variable ~ explanatory variable`. 
 
 
 ~~~
 Weight_Height_lm <- dat %>%
   filter(Age > 17) %>%
-  lm(Weight ~ Height, data = .)
+  lm(formula = Weight ~ Height)
 ~~~
 {: .language-r}
 
@@ -154,7 +154,7 @@ Height                0.901     0.853     0.948    37.393   0.000
 > > 
 > > 
 > > ~~~
-> > UrineFlow_UrineVol_lm <- lm(UrineFlow1 ~ UrineVol1, data = dat)
+> > UrineFlow_UrineVol_lm <- lm(formula = UrineFlow1 ~ UrineVol1, data = dat)
 > > 
 > > summ(UrineFlow_UrineVol_lm, confint = TRUE, digits=3)
 > > ~~~

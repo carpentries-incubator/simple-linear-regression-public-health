@@ -27,9 +27,9 @@ execises: 10
 
 
 ~~~
-TotChol_BMI_lm <- lm(TotChol ~ BMI, data = dat)
+TotChol_BMI_lm <- lm(formula = TotChol ~ BMI, data = dat)
 
-summ(TotChol_BMI_lm, confint = TRUE, digits=3)
+summ(TotChol_BMI_lm, confint = TRUE, digits = 3)
 ~~~
 {: .language-r}
 
@@ -65,13 +65,13 @@ Assumptions of the simple linear regression model:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to take the model, which was constructed using people of all ages, as representative of the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the question.  
 2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to inlde `Age` as an explanatory variable to meet the representativeness assumption.  
 3. **Linearity and additivity**: our outcome variable has a linear, additive relationship with the explanatory variables.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modelled through a linear relationship with the outcome variable. For example, see plot **A** below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see plot **B**). Thus, the model `lm(BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modelled through a linear relationship with the outcome variable. For example, see plot **A** below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(formula = BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see plot **B**). Thus, the model `lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
 
 
 ~~~
-BPDiaAve_AgeMonths_lm <- lm(BPDiaAve ~ AgeMonths , data=dat)
+BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths , data = dat)
 
-p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred=AgeMonths, 
+p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
                   plot.points = TRUE, interval = TRUE,
                   colors = c("red")) +
   ylab("Combined diastolic blood pressure") +
@@ -79,9 +79,9 @@ p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred=AgeMonths,
   ggtitle("Not a linear relationship") +
   theme_bw()
 
-BPDiaAve_AgeMonthsSQ_lm <- lm(BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)
+BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)
 
-p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred=AgeMonths, 
+p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
                   plot.points = TRUE, interval = TRUE,
                   colors = c("red")) +
   ylab("Combined diastolic blood pressure") +
@@ -89,7 +89,7 @@ p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred=AgeMonths,
   ggtitle("Non-linear relationship modelled \nusing an appropriate \nsimple linear regression model") +
   theme_bw()
 
-plot_grid(p1, p2, labels=c("A)", "B)"))
+plot_grid(p1, p2, labels = c("A)", "B)"))
 ~~~
 {: .language-r}
 
@@ -101,7 +101,7 @@ plot_grid(p1, p2, labels=c("A)", "B)"))
 
 
 ~~~
-test <- lm(SexNumPartYear ~ SexOrientation, data = dat)
+test <- lm(formula = SexNumPartYear ~ SexOrientation, data = dat)
 
 effect_plot(test, pred = SexOrientation, interval = TRUE, partial.residuals = TRUE, jitter = c(0.2, 0))
 ~~~

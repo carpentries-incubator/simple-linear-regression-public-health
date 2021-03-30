@@ -26,7 +26,7 @@ First, we can calculate a predicted value manually. From the `summ()` output ass
 ~~~
 Weight_Height_lm <- dat %>%
   filter(Age > 17) %>%
-  lm(Weight ~ Height, data = .)
+  lm(formula = Weight ~ Height)
 
 summ(Weight_Height_lm)
 ~~~
@@ -74,22 +74,18 @@ We see that the model predicts and average weight of 64.88 kg for an individual 
 
 
 ~~~
-Heights <- data.frame(Height = c(150, 160, 170, 180))
+Heights <- tibble(Height = c(150, 160, 170, 180))
 
-predict(Weight_Height_lm, newdata = Heights, interval = "confidence")
+predict(Weight_Height_lm, newdata = test, interval = "confidence")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-       fit      lwr      upr
-1 64.88400 63.89927 65.86874
-2 73.88923 73.27338 74.50509
-3 82.89446 82.41009 83.37883
-4 91.89969 91.16776 92.63163
+Error in predict.lm(Weight_Height_lm, newdata = test, interval = "confidence"): object 'test' not found
 ~~~
-{: .output}
+{: .error}
 
 
 >## Exercise
@@ -100,7 +96,7 @@ How are these confidence intervals interpreted?
 > > ## Solution
 > > 
 > > ~~~
-> > UrineFlow_UrineVol_lm <- lm(UrineFlow1 ~ UrineVol1, data = dat)
+> > UrineFlow_UrineVol_lm <- lm(formula = UrineFlow1 ~ UrineVol1, data = dat)
 > > 
 > > UrineVolumes <- data.frame(UrineVol1 = c(50, 100, 150, 200))
 > > 
