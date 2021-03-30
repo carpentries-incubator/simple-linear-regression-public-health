@@ -28,7 +28,7 @@ execises: 10
 
 In this episode we will study linear regression with one continuous explanatory variable. As explained in the previous episode, the explanatory variable is required to have a linear relationship with the outcome variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
-Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot`. We select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Does the relationship look linear to you?
+Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot()`. The data is passed on to `ggplot()` using the pipe. We then select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Note that the warning message "Removed 320 rows containing missing values (geom_point)" means that there are participants without recorded height and/or weight data.
 
 
 ~~~
@@ -38,6 +38,13 @@ dat %>%
   geom_point()
 ~~~
 {: .language-r}
+
+
+
+~~~
+Warning: Removed 320 rows containing missing values (geom_point).
+~~~
+{: .warning}
 
 <img src="../fig/rmd-02-Height vs Weight plot-1.png" title="plot of chunk Height vs Weight plot" alt="plot of chunk Height vs Weight plot" width="612" style="display: block; margin: auto;" />
 
