@@ -1,7 +1,7 @@
 ---
 title: Setup
 ---
-Please make sure the folloing packages are loaded before starting this lesson:
+Please make sure the following packages are loaded before starting this lesson:
 
 ~~~
 library(NHANES)
@@ -39,6 +39,9 @@ rm(prop)
 ~~~
 {: .language-r}
 
+Our data comes from the National Health and Nutrition Examination Survey (NHANES), run by the CDC in the US. This data describes the demographics, physical properties, health and lifestyle of children and adults. Every year 5,000 participants are enrolled and the data is used for research and policy-making purposes. We are using data from the 2009-2010 and 2011-2012 editions of this survey. You can find out more about NHANES on the CDC website [here](https://www.cdc.gov/nchs/nhanes/).
+
+In the original data, particular subsets of the population are oversampled, such that conclusions based on the data are also representative of ethnic minorities. This introduces complications into the analysis. Therefore, we are using a subset of the data that can be treated as a simple random sample of the US population. This subset is suitable for educational purposes, but may not be useful for research applications. The subsetting is done by the code above.
 
 
 
