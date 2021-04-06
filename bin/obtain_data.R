@@ -17,6 +17,7 @@ dat <- NHANESraw %>%
                             Race1 == "Other" ~ prop[5])) %>%
   group_by(Race1) %>%
   sample_n(10000 * weight) %>% # sample from each according to prop to obtain 10000 obvs in total
+  rename(Sex = Gender) %>%
   select(-c(weight, 
             WTINT2YR, WTMEC2YR, 
             SDMVPSU, SDMVSTRA)) %>% # remove weighting columns
