@@ -17,6 +17,9 @@ library(Hmisc)
 To obtain the data for this lesson, run the following code:
 
 ~~~
+library(NHANES)
+library(dplyr)
+
 # proportions representing a simple random sample
 prop <- as.numeric(table(NHANES$Race1)/nrow(NHANES))
 
@@ -33,6 +36,7 @@ dat <- NHANESraw %>%
                             Race1 == "Other" ~ prop[5])) %>%
   group_by(Race1) %>%
   sample_n(10000 * weight) %>% # sample from each according to prop to obtain 10000 obvs in total
+  rename(Sex = Gender) %>%
   select(-c(weight, 
             WTINT2YR, WTMEC2YR, 
             SDMVPSU, SDMVSTRA)) %>% # remove weighting columns
@@ -54,6 +58,7 @@ dat <- NHANESraw %>%
 
 rm(prop)
 
+
 ~~~
 {: .language-r}
 
@@ -66,7 +71,7 @@ The variable names and the associated descriptions can be found in the table bel
 | Variable        | Definition                                                                                                                                                                                                                                                                                     |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ID              | A unique sample identifier.                                                                                                                                                                                                                                                                    |
-| Gender          | Gender (sex) of study participant coded as male or female.                                                                                                                                                                                                                                     |
+| Sex          | Sex of study participant coded as male or female.                                                                                                                                                                                                                                     |
 | Age             | Age in years at screening of study participant. Note: Subjects 80 years or older were recorded as 80.                                                                                                                                                                                          |
 | Race1           | Reported race of study participant: Mexican, Hispanic, White, Black, or Other.                                                                                                                                                                                                                 |
 | Education       | Educational level of study participant Reported for participants aged 20 years or older. One of 8thGrade, 9-11thGrade, HighSchool, SomeCollege, or CollegeGrad.                                                                                                                                |
