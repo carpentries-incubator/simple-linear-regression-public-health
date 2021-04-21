@@ -68,7 +68,7 @@ Height                0.90   0.02    37.39   0.00
 
 Using the `predict()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `predict()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
 
-To use `predict()`, we need to create a `data.frame` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `data.frame()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `data.frame` with the values 150, 160, 170 and 180. We then provide `predict` with this `data.frame`, alongside the model from which we wish to have predictions and `interval = "confidence"` to obtain 95% confidence intervals. 
+To use `predict()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `tibble` with the values 150, 160, 170 and 180. We then provide `predict()` with this `tibble`, alongside the model from which we wish to have predictions and `interval = "confidence"` to obtain 95% confidence intervals. 
 
 We see that the model predicts and average weight of 64.88 kg for an individual with a height of 150 cm, with a 95% confidence interval of [63.90, 65.87]. 
 
