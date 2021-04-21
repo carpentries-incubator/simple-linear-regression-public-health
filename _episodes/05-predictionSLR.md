@@ -76,16 +76,20 @@ We see that the model predicts and average weight of 64.88 kg for an individual 
 ~~~
 Heights <- tibble(Height = c(150, 160, 170, 180))
 
-predict(Weight_Height_lm, newdata = test, interval = "confidence")
+predict(Weight_Height_lm, newdata = Heights, interval = "confidence")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in predict.lm(Weight_Height_lm, newdata = test, interval = "confidence"): object 'test' not found
+       fit      lwr      upr
+1 64.88400 63.89927 65.86874
+2 73.88923 73.27338 74.50509
+3 82.89446 82.41009 83.37883
+4 91.89969 91.16776 92.63163
 ~~~
-{: .error}
+{: .output}
 
 
 >## Exercise

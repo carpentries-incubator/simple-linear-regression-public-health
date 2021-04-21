@@ -55,7 +55,7 @@ We see that the model predicts and average weight of 64.88 kg for an individual 
 ```{r Weight_Height_lm predict}
 Heights <- tibble(Height = c(150, 160, 170, 180))
 
-predict(Weight_Height_lm, newdata = test, interval = "confidence")
+predict(Weight_Height_lm, newdata = Heights, interval = "confidence")
 ```
 
 
