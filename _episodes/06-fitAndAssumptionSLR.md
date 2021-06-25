@@ -21,6 +21,59 @@ execises: 10
 
 
 
+In this episode we will learn what is meant my model fit, how to interpret the
+$R^2$ measure of model fit and how to assess whether our model meets the 
+assumptions of simple linear regression. 
+
+## Model fit
+Broadly speaking, when we assess model fit we are checking whether our model
+fits the data sufficiently well. This process is somewhat subjective, in that 
+the majority of our assessments are performed visually. While there are many
+ways to assess model fit, we will cover two main components:
+
+1. Calculation of the variance in the response variable explained by the model, $R^2$.
+2. Assessment of the assumptions of the simple linear regression model. 
+
+Both these components rely on the use of *residuals*. Recall that our model
+is characterised by a line, which predicts a value for the outcome variable
+for each value of the explanatory variable. The *difference* between an observed
+outcome and a predicted outcome is a residual. Therefore, our model has as many
+residuals as the number of observations used in fitting the model. 
+
+For a visual example of residuals, see the plot below. A simple linear regression
+was fit to `Height` and `Weight` data of participants with an `Age` of 25. 
+To the right side, we see a long red vertical line. This is a relatively large
+residual, for an individual with a weight greater than predicted by the model.
+To the left side, we see a shorter red vertical line. This is a relatively small
+residual, for an individual with a weight close to that predicted by the model.
+
+
+~~~
+`geom_smooth()` using formula 'y ~ x'
+~~~
+{: .output}
+
+
+
+~~~
+Warning: Removed 7 rows containing non-finite values (stat_smooth).
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: Removed 7 rows containing missing values (geom_point).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-06-residual example-1.png" title="plot of chunk residual example" alt="plot of chunk residual example" width="612" style="display: block; margin: auto;" />
+
+A commonly used summary statistic for model fit is $R^2$, which quantifies the
+proportion of variation in the outcome variable explained by the explanatory variable. 
+An $R^2$ close to 1 indicates that the model accounts for most of the variation
+in the outcome variable. An $R^2$ close to 0 indicates that most of the variation
+in the outcome variable is not accounted for by the model. 
 
 >## Exercise
 >Find the R-squared value for the `summ` output of our `TotChol_BMI_lm` model from 
