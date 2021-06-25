@@ -47,26 +47,6 @@ residual, for an individual with a weight greater than predicted by the model.
 To the left side, we see a shorter red vertical line. This is a relatively small
 residual, for an individual with a weight close to that predicted by the model.
 
-
-~~~
-`geom_smooth()` using formula 'y ~ x'
-~~~
-{: .output}
-
-
-
-~~~
-Warning: Removed 7 rows containing non-finite values (stat_smooth).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 7 rows containing missing values (geom_point).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-06-residual example-1.png" title="plot of chunk residual example" alt="plot of chunk residual example" width="612" style="display: block; margin: auto;" />
 
 A commonly used summary statistic for model fit is $R^2$, which quantifies the
