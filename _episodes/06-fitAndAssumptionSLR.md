@@ -74,24 +74,12 @@ You are
 
 2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption.  
 3. **Linearity and additivity**: our outcome variable has a linear, additive relationship with the explanatory variables.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. For example, see plot **A** below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(formula = BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see plot **B**). Thus, the model `lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the xploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the left plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(formula = BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see the right     plot). Thus, the model `lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
 
 
 ~~~
 BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths , data = dat)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in eval(predvars, data, env): object 'AgeMonths' not found
-~~~
-{: .error}
-
-
-
-~~~
 p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
                   plot.points = TRUE, interval = TRUE,
                   colors = c("red")) +
@@ -99,33 +87,9 @@ p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths,
   xlab("Age in Months") +
   ggtitle("Not a linear relationship") +
   theme_bw()
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in "svyglm" %in% class(model): object 'BPDiaAve_AgeMonths_lm' not found
-~~~
-{: .error}
-
-
-
-~~~
 BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in eval(predvars, data, env): object 'AgeMonths' not found
-~~~
-{: .error}
-
-
-
-~~~
 p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
                   plot.points = TRUE, interval = TRUE,
                   colors = c("red")) +
@@ -133,29 +97,80 @@ p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
   xlab("Age in Months") +
   ggtitle("Non-linear relationship modelled \nusing an appropriate \nsimple linear regression model") +
   theme_bw()
+
+p1 + p2
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-06-non-linearity example-1.png" title="plot of chunk non-linearity example" alt="plot of chunk non-linearity example" width="612" style="display: block; margin: auto;" />
 
 
-~~~
-Error in "svyglm" %in% class(model): object 'BPDiaAve_AgeMonthsSQ_lm' not found
-~~~
-{: .error}
-
-
-
-~~~
-plot_grid(p1, p2, labels = c("A)", "B)"))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in plot_grid(p1, p2, labels = c("A)", "B)")): object 'p1' not found
-~~~
-{: .error}
+>## Exercise
+> In the example above we saw that squaring an explanatory variable can correct
+> for curvature seen in the outcome variable along the explanatory variable. 
+>
+> In the following example, we will see that taking the log transformation 
+> of the dependent variable can also sometimes be an effective solution
+> to non-linearity.
+> 
+> Firstly, fit a linear regression model of insulin (`Insulin`) as a function
+> of age in months (`AgeMonths`). Create an effect plot using `jtools`, ensuring
+> that `point.alpha` is set to `0.2`. 
+> > ## Solution
+> > 
+> > ~~~
+> > Insulin_AgeMonths_lm <- lm(formula = Insulin ~ AgeMonths, data = dat)
+> > 
+> > effect_plot(Insulin_AgeMonths_lm, pred = AgeMonths, 
+> >             plot.points = TRUE, interval = TRUE,
+> >             colors = c("red"), 
+> >             point.alpha = 0.2) +
+> >   ylab("Insulin") +
+> >   xlab("Age in Months")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-non-linearity challenge part 1-1.png" title="plot of chunk non-linearity challenge part 1" alt="plot of chunk non-linearity challenge part 1" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+> 
+> Since the majority of points appear to lie in a slight  curve below the regression
+> line, the lineasrity assumption appears to have been violated. 
+> 
+> We will explore the log transformation as a potential solution. Fit a linear
+> regression model as before, however change `Insulin` in the `lm()` command
+> to `log(Insulin)`. Then create an effect plot using `jtools`, ensuring that 
+> `point.alpha` is set to `0.2`. Is the relationship between `log(Insulin)` and 
+> `AgeMonths` different from the relationship between `Insulin` and `AgeMonths`?
+> > ## Solution
+> > 
+> > ~~~
+> > LogInsulin_AgeMonths_lm <- lm(formula = log(Insulin) ~ AgeMonths , 
+> >                               data = dat)
+> > 
+> > effect_plot(LogInsulin_AgeMonths_lm, pred = AgeMonths, 
+> >             plot.points = TRUE, interval = TRUE,
+> >             colors = c("red"), 
+> >             point.alpha = 0.2) +
+> >   ylab("Log(Insulin)") +
+> >   xlab("Age in Months")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Using data dat from global environment. This could cause incorrect results
+> > if dat has been altered since the model was fit. You can manually provide
+> > the data to the "data =" argument.
+> > ~~~
+> > {: .output}
+> > 
+> > <img src="../fig/rmd-06-non-linearity challenge part 2-1.png" title="plot of chunk non-linearity challenge part 2" alt="plot of chunk non-linearity challenge part 2" width="612" style="display: block; margin: auto;" />
+> > 
+> > The non-linear relationship has now been transformed into a linear 
+> > relationship by taking the log transformation of the response. 
+> {: .solution}
+{: .challenge}
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *additivity* component means that the effect of any explanatory variable on the outcome variable does not depend on another explanatory variable in the model. When this assumption is violated, it can be mitigated by including an interaction term in the model. We will cover interaction terms in the [multiple linear regression for public health lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/).  
 4. **Independent errors**: the residuals must be independent of one another. This assumption is violated when observations are not a random sample of the population, i.e. when observations are non-independent. For example, if we measure individual's weights four times over the course of a year, then our data will contain four non-independent observations per individual. As a result, the residuals will also not be independent. This can be overcome using random effects, which we will cover in the [linear mixed effects models for public health lesson] (https://carpentries-incubator.github.io/linear-mixed-models-public-health/).  
@@ -175,54 +190,90 @@ Error in plot_grid(p1, p2, labels = c("A)", "B)")): object 'p1' not found
 > {: .solution}
 {: .challenge}
 
-5. **Equal variance of errors (heteroscedasticity)**: the magnitude of variation in the residuals is not different across an explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed here).  
+5. **Equal variance of errors (heteroscedasticity)**: the magnitude of variation in the residuals is not different across the fitted values or any explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
+
+For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model. We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
+
+We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`.These are brought together using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
 
 ~~~
-test <- lm(formula = SexNumPartYear ~ SexOrientation, data = dat)
+residualData <- tibble(resid = resid(Weight_Height_lm),
+                    fitted = fitted(Weight_Height_lm),
+                    height = Weight_Height_lm$model$Height)
 
-effect_plot(test, pred = SexOrientation, interval = TRUE, partial.residuals = TRUE, jitter = c(0.2, 0))
+p1 <- ggplot(residualData, aes(x = fitted, y = resid)) +
+  geom_point(alpha = 0.03) +
+  geom_smooth() +
+  ylab("Residual") +
+  xlab("Fitted values")
+
+p2 <- ggplot(residualData, aes(x = height, y = resid)) +
+  geom_point(alpha = 0.03) +
+  geom_smooth() +
+  ylab("Residuals") +
+  xlab("Height")
+
+p1 + p2
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
-
-~~~
-summ(test)
-~~~
-{: .language-r}
-
 
 
 ~~~
-MODEL INFO:
-Observations: 3561 (6439 missing obs. deleted)
-Dependent Variable: SexNumPartYear
-Type: OLS linear regression 
-
-MODEL FIT:
-F(2,3558) = 17.87, p = 0.00
-R² = 0.01
-Adj. R² = 0.01 
-
-Standard errors: OLS
----------------------------------------------------------------
-                                    Est.   S.E.   t val.      p
--------------------------------- ------- ------ -------- ------
-(Intercept)                         2.49   0.25    10.00   0.00
-SexOrientationHeterosexual         -1.16   0.25    -4.60   0.00
-SexOrientationHomosexual           -2.40   0.41    -5.80   0.00
----------------------------------------------------------------
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ~~~
 {: .output}
 
+<img src="../fig/rmd-06-heteroscedasticity example-1.png" title="plot of chunk heteroscedasticity example" alt="plot of chunk heteroscedasticity example" width="612" style="display: block; margin: auto;" />
+
+Since there is no obvious pattern in the residuals along the fitted values or
+the explanatory variable, there is no reason to suspect that the equal variance
+assumption has been violated. 
 
 
-~~~
-#predict(test)
-~~~
-{: .language-r}
-
+>## Exercise
+> Create diagnistic plots to check for heteroscedasticity in our `UrineFlow_UrineVol_lm` model. Do you believe the equal variance assumption has been violated?
+>
+> > ## Solution
+> > 
+> > ~~~
+> > residualData <- tibble(resid = resid(UrineFlow_UrineVol_lm),
+> >                     fitted = fitted(UrineFlow_UrineVol_lm),
+> >                     urinevol = UrineFlow_UrineVol_lm$model$UrineVol1)
+> > 
+> > p1 <- ggplot(residualData, aes(x = fitted, y = resid)) +
+> >   geom_point(alpha = 0.03) +
+> >   geom_smooth() +
+> >   ylab("Residual") +
+> >   xlab("Fitted values") +
+> >   ylim(-5,10)
+> > 
+> > p2 <- ggplot(residualData, aes(x = urinevol, y = resid)) +
+> >   geom_point(alpha = 0.03) +
+> >   geom_smooth() +
+> >   ylab("Residuals") +
+> >   xlab("Urine Volume") +
+> >   ylim(-5,10)
+> > 
+> > p1 + p2
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+> > `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+> > ~~~
+> > {: .output}
+> > 
+> > <img src="../fig/rmd-06-heteroscedasticity challenge-1.png" title="plot of chunk heteroscedasticity challenge" alt="plot of chunk heteroscedasticity challenge" width="612" style="display: block; margin: auto;" />
+> > 
+> > Since the variation in the residuals appears to increase with an increase in fitted values and urine volume, the equal variance assumption appears to have been violated. 
+> {: .solution}
+{: .challenge}
 
 6. **Normality of errors**: the errors follow a Normal distribution. When this assumption is strongly violated, predictions from the model are less reliable. Small deviations from normality may pose less of an issue. One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
 
