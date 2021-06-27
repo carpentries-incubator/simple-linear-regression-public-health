@@ -25,7 +25,7 @@ In this episode we will learn what is meant my model fit, how to interpret the
 $R^2$ measure of model fit and how to assess whether our model meets the 
 assumptions of simple linear regression. 
 
-## Model fit
+## Using residuals to assess model fit
 Broadly speaking, when we assess model fit we are checking whether our model
 fits the data sufficiently well. This process is somewhat subjective, in that 
 the majority of our assessments are performed visually. While there are many
@@ -35,7 +35,7 @@ ways to assess model fit, we will cover two main components:
 2. Assessment of the assumptions of the simple linear regression model. 
 
 Both these components rely on the use of *residuals*. Recall that our model
-is characterised by a line, which predicts a value for the outcome variable
+is characterized by a line, which predicts a value for the outcome variable
 for each value of the explanatory variable. The *difference* between an observed
 outcome and a predicted outcome is a residual. Therefore, our model has as many
 residuals as the number of observations used in fitting the model. 
@@ -49,11 +49,24 @@ residual, for an individual with a weight close to that predicted by the model.
 
 <img src="../fig/rmd-06-residual example-1.png" title="plot of chunk residual example" alt="plot of chunk residual example" width="612" style="display: block; margin: auto;" />
 
+## Measuring model fit using $R^2$
 A commonly used summary statistic for model fit is $R^2$, which quantifies the
 proportion of variation in the outcome variable explained by the explanatory variable. 
 An $R^2$ close to 1 indicates that the model accounts for most of the variation
 in the outcome variable. An $R^2$ close to 0 indicates that most of the variation
 in the outcome variable is not accounted for by the model. 
+
+Let's break this down. The $R^2$ statistic is calculated using two components:
+the variation in the data and the variation in the residuals. We will inspect
+both of these components visually, before returning to the calculation of $R^2$.
+
+The variation in the outcome variable is quantified by $s_y^2$. The plots below
+show scenarios in which $s_y^2$ is lower or higher, as there is less or more
+variation in the outcome variable. The total spread in the outcome variable is 
+shown with the red arrows. 
+
+<img src="../fig/rmd-06-variation in outcome-1.png" title="plot of chunk variation in outcome" alt="plot of chunk variation in outcome" width="612" style="display: block; margin: auto;" />
+
 
 >## Exercise
 >Find the R-squared value for the `summ` output of our `TotChol_BMI_lm` model from 
@@ -107,7 +120,7 @@ You are
 
 2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption.  
 3. **Linearity and additivity**: our outcome variable has a linear, additive relationship with the explanatory variables.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the xploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the left plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(formula = BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see the right     plot). Thus, the model `lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the xploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the left plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(formula = BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see the right plot). Thus, the model `lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
 
 
 ~~~
@@ -137,7 +150,6 @@ p1 + p2
 
 <img src="../fig/rmd-06-non-linearity example-1.png" title="plot of chunk non-linearity example" alt="plot of chunk non-linearity example" width="612" style="display: block; margin: auto;" />
 
-
 >## Exercise
 > In the example above we saw that squaring an explanatory variable can correct
 > for curvature seen in the outcome variable along the explanatory variable. 
@@ -146,62 +158,60 @@ p1 + p2
 > of the dependent variable can also sometimes be an effective solution
 > to non-linearity.
 > 
-> Firstly, fit a linear regression model of insulin (`Insulin`) as a function
-> of age in months (`AgeMonths`). Create an effect plot using `jtools`, ensuring
+> Firstly, fit a linear regression model of Weight (`Weight`) as a function
+> of Height (`Height`) in individuals with an Age (`Age`) below 19. 
+> Create an effect plot using `jtools`, ensuring
 > that `point.alpha` is set to `0.2`. 
 > > ## Solution
 > > 
 > > ~~~
-> > Insulin_AgeMonths_lm <- lm(formula = Insulin ~ AgeMonths, data = dat)
+> > child_Weight_Height_lm <- dat %>%
+> >   filter(Age < 19) %>%
+> >   lm(formula = Weight ~ Height)
 > > 
-> > effect_plot(Insulin_AgeMonths_lm, pred = AgeMonths, 
-> >             plot.points = TRUE, interval = TRUE,
-> >             colors = c("red"), 
-> >             point.alpha = 0.2) +
-> >   ylab("Insulin") +
-> >   xlab("Age in Months")
+> > effect_plot(child_Weight_Height_lm, pred = Height, 
+> >                   plot.points = TRUE, interval = TRUE,
+> >                   colors = c("red")) 
 > > ~~~
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-non-linearity challenge part 1-1.png" title="plot of chunk non-linearity challenge part 1" alt="plot of chunk non-linearity challenge part 1" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 > 
-> Since the majority of points appear to lie in a slight  curve below the regression
-> line, the lineasrity assumption appears to have been violated. 
+> There is curvature in the data, which makes a straight line unsuitable. 
 > 
 > We will explore the log transformation as a potential solution. Fit a linear
-> regression model as before, however change `Insulin` in the `lm()` command
-> to `log(Insulin)`. Then create an effect plot using `jtools`, ensuring that 
-> `point.alpha` is set to `0.2`. Is the relationship between `log(Insulin)` and 
-> `AgeMonths` different from the relationship between `Insulin` and `AgeMonths`?
+> regression model as before, however change `Weight` in the `lm()` command
+> to `log(Weight)`. Then create an effect plot using `jtools`, ensuring that 
+> `point.alpha` is set to `0.2`. Is the relationship between `log(Weight)` and 
+> `Height` different from the relationship between `Weight` and `Height` in 
+> individuals with an age below 19?
 > > ## Solution
 > > 
 > > ~~~
-> > LogInsulin_AgeMonths_lm <- lm(formula = log(Insulin) ~ AgeMonths , 
-> >                               data = dat)
+> > child_logWeight_Height_lm <- dat %>%
+> >   filter(Age < 19) %>%
+> >   lm(formula = log(Weight) ~ Height)
 > > 
-> > effect_plot(LogInsulin_AgeMonths_lm, pred = AgeMonths, 
-> >             plot.points = TRUE, interval = TRUE,
-> >             colors = c("red"), 
-> >             point.alpha = 0.2) +
-> >   ylab("Log(Insulin)") +
-> >   xlab("Age in Months")
+> > effect_plot(child_logWeight_Height_lm, pred = Height, 
+> >                   plot.points = TRUE, interval = TRUE,
+> >                   colors = c("red")) 
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Using data dat from global environment. This could cause incorrect results
-> > if dat has been altered since the model was fit. You can manually provide
-> > the data to the "data =" argument.
+> > Using data . from global environment. This could cause incorrect results if
+> > . has been altered since the model was fit. You can manually provide the
+> > data to the "data =" argument.
 > > ~~~
 > > {: .output}
 > > 
 > > <img src="../fig/rmd-06-non-linearity challenge part 2-1.png" title="plot of chunk non-linearity challenge part 2" alt="plot of chunk non-linearity challenge part 2" width="612" style="display: block; margin: auto;" />
 > > 
-> > The non-linear relationship has now been transformed into a linear 
-> > relationship by taking the log transformation of the response. 
+> > The non-linear relationship has now been transformed into a more linear 
+> > relationship by taking the log transformation of the response variable. 
 > {: .solution}
 {: .challenge}
 
@@ -228,6 +238,8 @@ p1 + p2
 For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model. We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
 
 We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`.These are brought together using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
+
+TRY teenager log(height) vs weight or hormonal over age.
 
 
 ~~~
