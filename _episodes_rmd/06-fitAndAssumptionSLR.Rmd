@@ -2,15 +2,18 @@
 source: Rmd
 title: "Assessing simple linear regression model fit and assumptions"
 objectives:
-  - "Understand what is meant by model fit."
-  - "Use the R squared value as a measure of model fit."
+  - "Explain what is meant by model fit."
+  - "Use the $R^2$ value as a measure of model fit."
   - "Describe the assumptions of the simple linear regression model."
   - "Assess whether the assumptions of the simple linear regression model have been violated."
-  - "Become aware of alternative regression method that can be used when the simple linear regression assumptions are violated."
 keypoints:
-  - "DEF"
+  - "Assessing model fit is the process of visually checking whether the model fits the data sufficiently well."
+  - "$R^2$ quantifies the proportion of variation in the response variable explained by the explanatory variable. An $R^2$ close to 1 indicates that most variation is accounted for by the model, while an $R^2$ close to 0 indicates that the model does not perform much better than predicting the mean of the response."
+  - "The six assumptions of the simple linear regression model are validity, representativeness, linearity and additivity, independence of errors, homoscedasticity of the residuals and normality of the residuals."
 questions:
-  - "GHI"
+  - "What does it mean to assess model fit?"
+  - "What does $R^2$ quantify and how is it interpreted?"
+  - "What are the six assumptions of simple linear regression?"
 teaching: 10
 execises: 10
 ---
@@ -46,7 +49,7 @@ test_lm2 <- lm(formula = UrineFlow1 ~ UrineVol1 + I(UrineVol1^2), data = dat)
 BPSysAve_AgeMonths_lm <- dat %>% lm(formula = BPSysAve ~ AgeMonths)
 ```
 
-In this episode we will learn what is meant my model fit, how to interpret the
+In this episode we will learn what is meant by model fit, how to interpret the
 $R^2$ measure of model fit and how to assess whether our model meets the 
 assumptions of simple linear regression. 
 
@@ -154,13 +157,16 @@ account for much of the variation in the explanatory variable.
 {: .challenge}
 
 
+## Assessing the assumptions of simple linear regression
+Simple linear regression has six assumptions. We will discuss these below 
+and explore an application of each through a challenge.
 
+### 1. Validity 
+The validity assumption states that the model is appropriate for the research question. This may sound obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
 
-Assumptions of the simple linear regression model:  
-1. **Validity**: the model is appropriate for the research question. This sounds obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable. While not discussed in this lesson, inclusion of more than one explanatory variable is covered in the [multiple linear regression for public health](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/) lesson.   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to take the model, which was constructed using people of all ages, as representative of the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the question.  
+A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
+B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable. While not discussed in this lesson, inclusion of more than one explanatory variable is covered in the [multiple linear regression for public health](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/) lesson.   
+C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to take the model, which was constructed using people of all ages, as representative of the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the question.  
 
 >## Exercise
 > You are asked to model the effect of age on general health of South-Americans. 
@@ -176,10 +182,13 @@ Assumptions of the simple linear regression model:
 {: .challenge}
 
 
-2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption. 
+### 2. Representativeness
+The representativeness assumption states that the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption. 
 
-3. **Linearity and additivity**: our outcome variable has a linear, additive relationship with the explanatory variables.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the exploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
+### 3. Linearity and additivity
+This assumption states that our outcome variable has a linear, additive relationship with the explanatory variables.  
+
+The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the exploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
 
 ```{r non-linearity example part 1}
 BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths, data = dat)
@@ -251,8 +260,10 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > {: .solution}
 {: .challenge}
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *additivity* component means that the effect of any explanatory variable on the outcome variable does not depend on another explanatory variable in the model. When this assumption is violated, it can be mitigated by including an interaction term in the model. We will cover interaction terms in the [multiple linear regression for public health lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/).  
-4. **Independent errors**: the residuals must be independent of one another. This assumption is violated when observations are not a random sample of the population, i.e. when observations are non-independent. For example, if we measure individual's weights four times over the course of a year, then our data will contain four non-independent observations per individual. As a result, the residuals will also not be independent. This can be overcome using random effects, which we will cover in the [linear mixed effects models for public health lesson] (https://carpentries-incubator.github.io/linear-mixed-models-public-health/).  
+The *additivity* component means that the effect of any explanatory variable on the outcome variable does not depend on another explanatory variable in the model. When this assumption is violated, it can be mitigated by including an interaction term in the model. We will cover interaction terms in the [multiple linear regression for public health lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/).  
+
+### 4. Independent errors
+This assumption states that the residuals must be independent of one another. This assumption is violated when observations are not a random sample of the population, i.e. when observations are non-independent. For example, if we measure individual's weights four times over the course of a year, then our data will contain four non-independent observations per individual. As a result, the residuals will also not be independent. This can be overcome using random effects, which are a components of mixed effects models (not discussed here).  
 
 >## Exercise
 > In which of the following scenarios would the independent errors assumption likely be violated?
@@ -269,7 +280,8 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > {: .solution}
 {: .challenge}
 
-5. **Equal variance of errors (heteroscedasticity)**: the magnitude of variation in the residuals is not different across the fitted values or any explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
+### 5. Equal variance of errors (homoscedasticity)
+This assumption states that the magnitude of variation in the residuals is not different across the fitted values or any explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
 
 For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model. We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
 
@@ -335,7 +347,8 @@ assumption has been violated.
 > {: .solution}
 {: .challenge}
 
-6. **Normality of errors**: the errors follow a Normal distribution. When this assumption is strongly violated, predictions from the model are less reliable. Small deviations from normality may pose less of an issue. One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
+### 6. Normality of errors
+This assumption states that the errors follow a Normal distribution. When this assumption is strongly violated, predictions from the model are less reliable. Small deviations from normality may pose less of an issue. One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
 
 For example, looking at a histogram of the residuals of out `Height_Weight_lm` model reveals a distribution that is slightly skewed. Since this is not a strong deviation from normality, we do not have to worry about violating the assumption. 
 
