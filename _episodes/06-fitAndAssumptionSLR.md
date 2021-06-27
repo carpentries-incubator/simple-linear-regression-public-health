@@ -131,11 +131,20 @@ account for much of the variation in the explanatory variable.
 Assumptions of the simple linear regression model:  
 1. **Validity**: the model is appropriate for the research question. This sounds obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable. While not discussed in this lesson, inclusion of more than one explanatory variable is covered in the [multiple linear regression for public health](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/) lesson.   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to take the model, which was constructed using people of all ages, as representative of the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the question.  
 
 >## Exercise
-You are   
+> You are asked to model the effect of age on general health of South-Americans. 
+> A colleague proposes that you fit a simple linear regression to the NHANES data,
+> using `BMI` as the outcome variable and `Age` as the explanatory variable.
+> Using the three points above, assess the validity of this model for
+> the research question.
+> > ## Solution
+> A) There is more to general health than `BMI` alone. In this case, we may wish to use a different outcome variable. Alternatively, we could make the research question more specific by specifying that we are studying the effect of `Age` on `BMI` rather than general health.  
+> B) Since we are specifically asked to study the effect of `Age` on general health, we may conclude that no further explanatory variables are relevant to the research question. However, there may still be explanatory variables that are important to include, such as income or sex, if the effect of `Age` on general health depends on other explanatory variables. This will be covered in the [next lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/).  
+> C) Since the NHANES data was collected from individuals in the US, our model may not be representative of individuals in South-America. 
+> {: .solution}
 {: .challenge}
 
 
