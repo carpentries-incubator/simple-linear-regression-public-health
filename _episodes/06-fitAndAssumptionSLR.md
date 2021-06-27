@@ -56,16 +56,24 @@ An $R^2$ close to 1 indicates that the model accounts for most of the variation
 in the outcome variable. An $R^2$ close to 0 indicates that most of the variation
 in the outcome variable is not accounted for by the model. 
 
-Let's break this down. The $R^2$ statistic is calculated using two components:
-the variation in the data and the variation in the residuals. We will inspect
-both of these components visually, before returning to the calculation of $R^2$.
+What does it mean when a model accounts for most of the variation in the outcome
+variable? Or when it does not? Let's look at examples of the two extremes: $R^2=1$ and $R^2=0$.
 
-The variation in the outcome variable is quantified by $s_y^2$. The plots below
-show scenarios in which $s_y^2$ is lower or higher, as there is less or more
-variation in the outcome variable. The total spread in the outcome variable is 
-shown with the red arrows. 
+Below is a plot of hypothetical data, with two regression lines. The blue line goes perfectly 
+through the data points, while the red line is horizontal at the mean of the 
+hypothetical data.
 
-<img src="../fig/rmd-06-variation in outcome-1.png" title="plot of chunk variation in outcome" alt="plot of chunk variation in outcome" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-R squared extremes visualised-1.png" title="plot of chunk R squared extremes visualised" alt="plot of chunk R squared extremes visualised" width="612" style="display: block; margin: auto;" />
+
+When a model accounts for all of the variation in the explanatory variable,
+the line goes perfectly through the data points. When a model does not account
+for any of the variation in the explanatory variable, the model predicts 
+the mean of the outcome variable, regardless of the explanatory variable. 
+
+Usually our $R^2$ value will lie somewhere between these two extremes. An $R^2$
+close to 1 indicates that the data does not scatter much ariound the model
+line, while an $R^2$ close to 0 indicates that our model does not predict much
+better than the mean of the response variable. 
 
 
 >## Exercise

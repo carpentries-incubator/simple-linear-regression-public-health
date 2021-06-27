@@ -25,6 +25,7 @@ library(dplyr)
 library(jtools)
 library(patchwork)
 library(tidyr)
+library(latex2exp)
 ```
 
 ```{r models from previous episodes, echo = FALSE}
@@ -96,66 +97,36 @@ An $R^2$ close to 1 indicates that the model accounts for most of the variation
 in the outcome variable. An $R^2$ close to 0 indicates that most of the variation
 in the outcome variable is not accounted for by the model. 
 
-Let's break this down. The $R^2$ statistic is calculated using two components:
-the variation in the data and the variation in the residuals. We will inspect
-both of these components visually, before returning to the calculation of $R^2$.
+What does it mean when a model accounts for most of the variation in the outcome
+variable? Or when it does not? Let's look at examples of the two extremes: $R^2=1$ and $R^2=0$.
 
-The variation in the outcome variable is quantified by $s_y^2$. The plots below
-show scenarios in which $s_y^2$ is lower or higher, as there is less or more
-variation in the outcome variable. The total spread in the outcome variable is 
-shown with the red arrows. 
+Below is a plot of hypothetical data, with two regression lines. The blue line goes perfectly 
+through the data points, while the red line is horizontal at the mean of the 
+hypothetical data.
 
-```{r variation in outcome, echo = FALSE}
-set.seed(22)
+```{r R squared extremes visualised, echo = FALSE, warning = FALSE, message = FALSE}
+exampleDat <- tibble(response= seq(1:9),
+                     explanatory = seq(5,45,length.out=9))
 
-lowVar <- tibble(Weight = rnorm(50, mean = 80, sd = 5),
-                 Height = rnorm(50, 170, 10)) 
-
-for(i in 1:nrow(lowVar)){
-  ifelse(lowVar$Height[i] > 170,
-         lowVar$Weight[i] <- lowVar$Weight[i] + 5*lowVar$Height[i]/(mean(lowVar$Height)),
-         lowVar$Weight[i] <- lowVar$Weight[i] - 5*lowVar$Height[i]/(mean(lowVar$Height))) 
-}
-
-
-highVar <- tibble(Weight = rnorm(50, mean = 80, sd = 10),
-                 Height = rnorm(50, 170, 10))
-
-for(i in 1:nrow(highVar)){
-  ifelse(highVar$Height[i] > 170,
-         highVar$Weight[i] <- highVar$Weight[i] + 5*highVar$Height[i]/(mean(highVar$Height)),
-         highVar$Weight[i] <- highVar$Weight[i] - 5*highVar$Height[i]/(mean(highVar$Height))) 
-}
-
-lowVarMin <- min(lowVar$Weight)
-lowVarMax <- max(lowVar$Weight)
-highVarMin <- min(highVar$Weight)
-highVarMax <- max(highVar$Weight)
-
-
-p1 <- ggplot(lowVar, aes(x = Height, y = Weight)) +
+ggplot(exampleDat, aes(x = explanatory, y = response)) +
   geom_point() +
-  ylim(40, 115) +
-  xlim(145, 195) +
-  ggtitle('Lower variation in weight') +
-  geom_segment(x = 193, xend = 193, y = lowVarMin, yend = lowVarMax, 
-               arrow = arrow(length = unit(0.1, "inches"), ends = "both",
-                             type = "closed"),
-               linetype = 2, color = "red", size = 1.2)
-
-p2 <- ggplot(highVar, aes(x = Height, y = Weight)) +
-  geom_point() +
-  ylim(40, 115) +
-  xlim(145, 195) +
-  ggtitle('Higher variation in weight') +
-  geom_segment(x = 193, xend = 193, y = highVarMin, yend = highVarMax, 
-               arrow = arrow(length = unit(0.1, "inches"), ends = "both",
-                             type = "closed"),
-               linetype = 2, color = "red", size = 1.2)
-
-p1 + p2
-
+  geom_smooth(method = "lm") +
+  geom_hline(yintercept = 5, color = "red") +
+  geom_label(label = TeX('$R^2 = 1$'), x = 42, y = 7.6, fill = "#69b3a2") +
+  geom_label(label = TeX('$R^2 = 0$'), x = 42, y = 4.5, fill = "#69b3a2") +
+  xlab("Explanatory variable") +
+  ylab("Response variable")
 ```
+
+When a model accounts for all of the variation in the explanatory variable,
+the line goes perfectly through the data points. When a model does not account
+for any of the variation in the explanatory variable, the model predicts 
+the mean of the outcome variable, regardless of the explanatory variable. 
+
+Usually our $R^2$ value will lie somewhere between these two extremes. An $R^2$
+close to 1 indicates that the data does not scatter much ariound the model
+line, while an $R^2$ close to 0 indicates that our model does not predict much
+better than the mean of the response variable. 
 
 
 >## Exercise
