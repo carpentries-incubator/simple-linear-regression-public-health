@@ -148,37 +148,40 @@ Assumptions of the simple linear regression model:
 {: .challenge}
 
 
-2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption.  
+2. **Representativeness**: the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption. 
+
 3. **Linearity and additivity**: our outcome variable has a linear, additive relationship with the explanatory variables.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the xploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the left plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model `lm(formula = BPDiaAve ~ AgeMonths , data=dat)` fails to capture this non-linear relationship. Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship (see the right plot). Thus, the model `lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)` does not violate the linearity assumption.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the exploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
 
 
 ~~~
-BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths , data = dat)
+BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths, data = dat)
 
-p1 <- effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
-                  plot.points = TRUE, interval = TRUE,
-                  colors = c("red")) +
+effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
+            plot.points = TRUE, interval = TRUE,
+            colors = c("red")) +
   ylab("Combined diastolic blood pressure") +
-  xlab("Age in Months") +
-  ggtitle("Not a linear relationship") +
-  theme_bw()
-
-BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)
-
-p2 <- effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
-                  plot.points = TRUE, interval = TRUE,
-                  colors = c("red")) +
-  ylab("Combined diastolic blood pressure") +
-  xlab("Age in Months") +
-  ggtitle("Non-linear relationship modelled \nusing an appropriate \nsimple linear regression model") +
-  theme_bw()
-
-p1 + p2
+  xlab("Age in Months")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-non-linearity example-1.png" title="plot of chunk non-linearity example" alt="plot of chunk non-linearity example" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-non-linearity example part 1-1.png" title="plot of chunk non-linearity example part 1" alt="plot of chunk non-linearity example part 1" width="612" style="display: block; margin: auto;" />
+
+Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship, as the following plot shows. Thus, the model with formula `BPDiaAve ~ AgeMonths + I(AgeMonths^2)` does not appear to violate the linearity assumption.  
+
+
+~~~
+BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), data=dat)
+
+effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
+            plot.points = TRUE, interval = TRUE,
+            colors = c("red")) +
+  ylab("Combined diastolic blood pressure") +
+  xlab("Age in Months") 
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-non-linearity example part 2-1.png" title="plot of chunk non-linearity example part 2" alt="plot of chunk non-linearity example part 2" width="612" style="display: block; margin: auto;" />
 
 >## Exercise
 > In the example above we saw that squaring an explanatory variable can correct
