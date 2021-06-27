@@ -273,7 +273,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 
 For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model. We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
 
-We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. These are brought together using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
+We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. In both of these plots, we add a line that approximately tracks the mean of the residuals across the fitted values and explanatory variable using `geom_smooth()`. The two plots are brought together into one plotting region using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
 ```{r heteroscedasticity example}
 residualData <- tibble(resid = resid(Weight_Height_lm),
