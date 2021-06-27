@@ -57,7 +57,10 @@ in the outcome variable. An $R^2$ close to 0 indicates that most of the variatio
 in the outcome variable is not accounted for by the model. 
 
 What does it mean when a model accounts for most of the variation in the outcome
-variable? Or when it does not? Let's look at examples of the two extremes: $R^2=1$ and $R^2=0$.
+variable? Or when it does not? 
+Let's look at examples of the two extremes: $R^2=1$ and $R^2=0$. In these cases,
+100% and 0% of the variation in the outcome variable is accounted for by the 
+explanatory variable, respectively. 
 
 Below is a plot of hypothetical data, with two regression lines. The blue line goes perfectly 
 through the data points, while the red line is horizontal at the mean of the 
@@ -71,47 +74,57 @@ for any of the variation in the explanatory variable, the model predicts
 the mean of the outcome variable, regardless of the explanatory variable. 
 
 Usually our $R^2$ value will lie somewhere between these two extremes. An $R^2$
-close to 1 indicates that the data does not scatter much ariound the model
-line, while an $R^2$ close to 0 indicates that our model does not predict much
-better than the mean of the response variable. 
+close to 1 indicates that the data does not scatter much around the model
+line. Therefore, our model accounts for most of the variation in the explanatory 
+variable. An $R^2$ close to 0 indicates that our model does not predict much
+better than the mean of the response variable. Therefore, out model does not
+account for much of the variation in the explanatory variable. 
 
 
 >## Exercise
 >Find the R-squared value for the `summ` output of our `TotChol_BMI_lm` model from 
 >[episode 2](https://carpentries-incubator.github.io/simple-linear-regression-public-health/02-singleContPred).
->What proportion of variation in Total Cholesterol is explained by BMI in our model?  
+>What proportion of variation in Total Cholesterol is explained by BMI in our model? 
+>Does our model account for most of the variation in `TotChol`?
+> > ## Solution
+> > 
+> > ~~~
+> > TotChol_BMI_lm <- lm(formula = TotChol ~ BMI, data = dat)
+> > 
+> > summ(TotChol_BMI_lm, confint = TRUE, digits = 3)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > MODEL INFO:
+> > Observations: 7373 (2627 missing obs. deleted)
+> > Dependent Variable: TotChol
+> > Type: OLS linear regression 
+> > 
+> > MODEL FIT:
+> > F(1,7371) = 267.009, p = 0.000
+> > R² = 0.035
+> > Adj. R² = 0.035 
+> > 
+> > Standard errors: OLS
+> > ----------------------------------------------------------
+> >                      Est.    2.5%   97.5%   t val.       p
+> > ----------------- ------- ------- ------- -------- -------
+> > (Intercept)         4.063   3.968   4.157   84.503   0.000
+> > BMI                 0.028   0.025   0.031   16.340   0.000
+> > ----------------------------------------------------------
+> > ~~~
+> > {: .output}
+> > 
+> > Since $R^2 = 0.035$, our model accounts for 3.5% of the variation in
+> > `TotChol`. This is quite close to $0$, so our model does not
+> > perform much better than a model that always predicts the mean
+> > of `TotChol`, regardless of `BMI`. 
+> {: .solution}
 {: .challenge}
 
-
-~~~
-TotChol_BMI_lm <- lm(formula = TotChol ~ BMI, data = dat)
-
-summ(TotChol_BMI_lm, confint = TRUE, digits = 3)
-~~~
-{: .language-r}
-
-
-
-~~~
-MODEL INFO:
-Observations: 7373 (2627 missing obs. deleted)
-Dependent Variable: TotChol
-Type: OLS linear regression 
-
-MODEL FIT:
-F(1,7371) = 267.009, p = 0.000
-R² = 0.035
-Adj. R² = 0.035 
-
-Standard errors: OLS
-----------------------------------------------------------
-                     Est.    2.5%   97.5%   t val.       p
------------------ ------- ------- ------- -------- -------
-(Intercept)         4.063   3.968   4.157   84.503   0.000
-BMI                 0.028   0.025   0.031   16.340   0.000
-----------------------------------------------------------
-~~~
-{: .output}
 
 
 
