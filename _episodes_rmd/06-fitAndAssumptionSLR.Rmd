@@ -236,7 +236,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > `Height` different from the relationship between `Weight` and `Height` in 
 > individuals with an age below 19?
 > > ## Solution
-> > ```{r non-linearity challenge part 2, warning = FALSE}
+> > ```{r non-linearity challenge part 2, warning = FALSE, message = FALSE}
 > > child_logWeight_Height_lm <- dat %>%
 > >   filter(Age < 19) %>%
 > >   lm(formula = log(Weight) ~ Height)
@@ -275,7 +275,7 @@ For example, we can study the relationship between the residuals and the fitted 
 
 We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. In both of these plots, we add a line that approximately tracks the mean of the residuals across the fitted values and explanatory variable using `geom_smooth()`. The two plots are brought together into one plotting region using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
-```{r heteroscedasticity example}
+```{r heteroscedasticity example, message = FALSE}
 residualData <- tibble(resid = resid(Weight_Height_lm),
                     fitted = fitted(Weight_Height_lm),
                     height = Weight_Height_lm$model$Height)

@@ -232,15 +232,6 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Using data . from global environment. This could cause incorrect results if
-> > . has been altered since the model was fit. You can manually provide the
-> > data to the "data =" argument.
-> > ~~~
-> > {: .output}
-> > 
 > > <img src="../fig/rmd-06-non-linearity challenge part 2-1.png" title="plot of chunk non-linearity challenge part 2" alt="plot of chunk non-linearity challenge part 2" width="612" style="display: block; margin: auto;" />
 > > 
 > > The non-linear relationship has now been transformed into a more linear 
@@ -293,14 +284,6 @@ p2 <- ggplot(residualData, aes(x = height, y = resid)) +
 p1 + p2
 ~~~
 {: .language-r}
-
-
-
-~~~
-`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-~~~
-{: .output}
 
 <img src="../fig/rmd-06-heteroscedasticity example-1.png" title="plot of chunk heteroscedasticity example" alt="plot of chunk heteroscedasticity example" width="612" style="display: block; margin: auto;" />
 
