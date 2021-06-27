@@ -237,9 +237,7 @@ p1 + p2
 
 For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model. We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
 
-We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`.These are brought together using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
-
-TRY teenager log(height) vs weight or hormonal over age.
+We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. These are brought together using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
 
 ~~~
@@ -279,44 +277,40 @@ assumption has been violated.
 
 
 >## Exercise
-> Create diagnistic plots to check for heteroscedasticity in our `UrineFlow_UrineVol_lm` model. Do you believe the equal variance assumption has been violated?
+> Create diagnistic plots to check for heteroscedasticity in our `BPSysAve_AgeMonths_lm` model. Do you believe the equal variance assumption has been violated?
 >
 > > ## Solution
 > > 
 > > ~~~
-> > residualData <- tibble(resid = resid(UrineFlow_UrineVol_lm),
-> >                     fitted = fitted(UrineFlow_UrineVol_lm),
-> >                     urinevol = UrineFlow_UrineVol_lm$model$UrineVol1)
+> > residualData <- tibble(resid = resid(BPSysAve_AgeMonths_lm),
+> >                     fitted = fitted(BPSysAve_AgeMonths_lm),
+> >                     agemonths = BPSysAve_AgeMonths_lm$model$AgeMonths)
 > > 
 > > p1 <- ggplot(residualData, aes(x = fitted, y = resid)) +
 > >   geom_point(alpha = 0.03) +
 > >   geom_smooth() +
 > >   ylab("Residual") +
-> >   xlab("Fitted values") +
-> >   ylim(-5,10)
+> >   xlab("Fitted values") 
 > > 
-> > p2 <- ggplot(residualData, aes(x = urinevol, y = resid)) +
+> > p2 <- ggplot(residualData, aes(x = agemonths, y = resid)) +
 > >   geom_point(alpha = 0.03) +
 > >   geom_smooth() +
 > >   ylab("Residuals") +
-> >   xlab("Urine Volume") +
-> >   ylim(-5,10)
+> >   xlab("Age in Months") 
 > > 
 > > p1 + p2
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-> > `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-> > ~~~
-> > {: .output}
-> > 
 > > <img src="../fig/rmd-06-heteroscedasticity challenge-1.png" title="plot of chunk heteroscedasticity challenge" alt="plot of chunk heteroscedasticity challenge" width="612" style="display: block; margin: auto;" />
 > > 
-> > Since the variation in the residuals appears to increase with an increase in fitted values and urine volume, the equal variance assumption appears to have been violated. 
+> > The variation in the residuals does somewhat increase with an increase in
+> > fitted values and an increase in `AgeMonths`. Therefore, this model may
+> > violate the homoscedasticity assumption. Because the majority of residuals
+> > still lie in the central band, we may not worry about this violation much.
+> > However, if we wanted to resolve the increase in residuals, we may choose
+> > to add more variables to our model or to apply a Box-Cox transformation
+> > on `BPSysAve`.  
 > {: .solution}
 {: .challenge}
 
