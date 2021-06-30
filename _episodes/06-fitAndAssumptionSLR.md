@@ -138,7 +138,7 @@ The validity assumption states that the model is appropriate for the research qu
 
 A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
 B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable. While not discussed in this lesson, inclusion of more than one explanatory variable is covered in the [multiple linear regression for public health](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/) lesson.   
-C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to take the model, which was constructed using people of all ages, as representative of the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the question.  
+C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to use the model, which was constructed using people of all ages, if we were specifically interested the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the research question.  
 
 >## Exercise
 > You are asked to model the effect of age on general health of South-Americans. 
@@ -149,13 +149,28 @@ C) Does the model generalise to our *case of interest*? For example, it would no
 > > ## Solution
 > A) There is more to general health than `BMI` alone. In this case, we may wish to use a different outcome variable. Alternatively, we could make the research question more specific by specifying that we are studying the effect of `Age` on `BMI` rather than general health.  
 > B) Since we are specifically asked to study the effect of `Age` on general health, we may conclude that no further explanatory variables are relevant to the research question. However, there may still be explanatory variables that are important to include, such as income or sex, if the effect of `Age` on general health depends on other explanatory variables. This will be covered in the [next lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/).  
-> C) Since the NHANES data was collected from individuals in the US, our model may not be representative of individuals in South-America. 
+> C) Since the NHANES data was collected from individuals in the US, this data may not be suitable for a research question relating to individuals in South-America. 
 > {: .solution}
 {: .challenge}
 
 
 ### 2. Representativeness
-The representativeness assumption states that the *sample* is representative of the *population*. More specifically, the individuals from which our sample is formed are representative of the population of interest. The exception to this requirement is that the sample distribution can differ from the population distribution in the explanatory variables included in the model. For example, let us assume that in the American population, 40% of individuals are physically active. In the NHANES data, ~56% of individuals are physically active. This discrepancy is dealt with by our `Pulse` vs `PhysActive` model, since `PhysActive` is an explanatory variable. However, if the majority of individuals in the NHANES data were over the age of 70, then our `Pulse` vs `PhysActive` model would not be representative of the American population. We would need to include `Age` as an explanatory variable to meet the representativeness assumption. 
+The representativeness assumption states that the *sample* is representative of the *population* to which we are generalising our findings. More specifically, the individuals from which our sample is formed are representative of the population of interest. While validity covered the relationship between our sample and the case of interest, representativeness covers the relationship between our model and another population of interest. For example, let's say we used a subset of the NHANES data to study the relationship between physical activity and pulse in 70+ individuals in the US. Since we used a subset appropriate to our research question, our model has validity. Our model may also be representative of 70+ individuals in the UK, in which case we could generalise our results without violating the representativeness assumption. However, our model is not representative of adults of all ages, so we cannot use it to generalise to that population. 
+
+>## Exercise
+> You are asked to model the effect of age on BMI of individuals in the US. 
+> A colleague proposes that you fit a simple linear regression to the NHANES data,
+> using `BMI` as the outcome variable and `Age` as the explanatory variable.
+>
+> 1. Does the model generalise to your case of interest?  
+> 2. Could you generalise the results of your model to individuals in South-America?  
+> 
+> > ## Solution
+> > 1. Since our case of interest is US adults and our data is a sample from the US population, our model generalises to the case of interest and we are not violating this aspect of the validity assumption.  
+> > 2. Since the relationshop between age and BMI might differ between individuals in the US and South-America, we may not be able to generalise our results in this way. Our model may violate the representativeness assumption if we try to generalise to individuals in South-America. 
+> {: .solution}
+{: .challenge}
+
 
 ### 3. Linearity and additivity
 This assumption states that our outcome variable has a linear, additive relationship with the explanatory variables.  
@@ -282,13 +297,13 @@ residualData <- tibble(resid = resid(Weight_Height_lm),
                     height = Weight_Height_lm$model$Height)
 
 p1 <- ggplot(residualData, aes(x = fitted, y = resid)) +
-  geom_point(alpha = 0.03) +
+  geom_point(alpha = 0.1) +
   geom_smooth() +
   ylab("Residual") +
   xlab("Fitted values")
 
 p2 <- ggplot(residualData, aes(x = height, y = resid)) +
-  geom_point(alpha = 0.03) +
+  geom_point(alpha = 0.1) +
   geom_smooth() +
   ylab("Residuals") +
   xlab("Height")
@@ -315,13 +330,13 @@ assumption has been violated.
 > >                     agemonths = BPSysAve_AgeMonths_lm$model$AgeMonths)
 > > 
 > > p1 <- ggplot(residualData, aes(x = fitted, y = resid)) +
-> >   geom_point(alpha = 0.03) +
+> >   geom_point(alpha = 0.1) +
 > >   geom_smooth() +
 > >   ylab("Residual") +
 > >   xlab("Fitted values") 
 > > 
 > > p2 <- ggplot(residualData, aes(x = agemonths, y = resid)) +
-> >   geom_point(alpha = 0.03) +
+> >   geom_point(alpha = 0.1) +
 > >   geom_smooth() +
 > >   ylab("Residuals") +
 > >   xlab("Age in Months") 
