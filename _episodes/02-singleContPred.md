@@ -49,30 +49,32 @@ Warning: Removed 320 rows containing missing values (geom_point).
 <img src="../fig/rmd-02-Height vs Weight plot-1.png" title="plot of chunk Height vs Weight plot" alt="plot of chunk Height vs Weight plot" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
-> You have been asked to model the relationship between Urine Flow
-> and Urine Volume in the NHANES data. In order to fit a simple 
+> You have been asked to model the relationship between average systolic blood pressure
+> and age in adults in the NHANES data. In order to fit a simple 
 > linear regression model, you first need to confirm 
 > that the relationship between these
 > variables appears linear. Use the ggplot2 package to create a plot,
 > ensuring that it includes the following elements:  
-> 1. Urine Flow (`UrineFlow1`) on the y-axis and Urine Volume
-> (`UrineVol1`) on the x-axis, from the NHANES data.  
+> 1. average systolic blood pressure (`BPSysAve`) on the y-axis and age
+> (`AgeMonths`) on the x-axis, from the NHANES data, only including data from individuals over the age of 17.  
 > 2. This data shown as a scatterplot.  
-> 3. The y-axis labelled as "Urine Flow (mL/min)" and the x-axis labelled
-> as "Urine Volume (mL)". 
+> 3. The y-axis labelled as "Average systolic blood pressure (mmHg)" and the x-axis labelled
+> as "Age (months)". 
 >
 > > ## Solution
 > > 
 > > 
 > > ~~~
-> > ggplot(dat, aes(x = UrineVol1, y = UrineFlow1)) +
+> > dat %>%
+> >   filter(Age > 17) %>%
+> >   ggplot(aes(x = AgeMonths, y = BPSysAve)) +
 > >   geom_point(alpha = 0.4) +
-> >   xlab("Urine Volume (mL)") + 
-> >   ylab("Urine Flow (mL/min)")
+> >   ylab("Average systolic blood pressure (mmHg)") +
+> >   xlab("Age (months)")
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-explore BPSysAve vs AgeMonths-1.png" title="plot of chunk explore BPSysAve vs AgeMonths" alt="plot of chunk explore BPSysAve vs AgeMonths" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -140,19 +142,19 @@ Height                0.901     0.853     0.948    37.393   0.000
 {: .output}
 
 > ## Exercise  
-> Now that you have confirmed that the relationship between Urine Flow
-> and Urine Volume does not appear to deveate from linearity in the NHANES data, 
+> Now that you have confirmed that the relationship between `BPSysAve`
+> and `AgeMonths` does not appear to deveate from linearity in the NHANES data, 
 > you can proceed to fitting a simple linear regression model.  
 >   
-> 1. Using the `lm()` command, fit a simple linear regression of Urine Flow
-> (`UrineFlow1`) as a function of Urine Volume (`UrineVol1`). 
-> Name this `lm` object `UrineFlow_UrineVol_lm`.  
+> 1. Using the `lm()` command, fit a simple linear regression of average systolic blood pressure
+> (`BPSysAve`) as a function of age in months (`AgeMonths`). 
+> Name this `lm` object `BPSysAve_AgeMonths_lm`.  
 > 2. Using the `summ` function from the `jtools` package, answer the following questions:
 >   
-> A) What Urine Flow does the model predict, on average,
-> for an individual with a Urine Volume of 0?  
-> B) By how much is Urine Flow expected to change, on average, for
-> a one-unit increase in Urine Volume?  
+> A) What average systolic blood pressure does the model predict, on average,
+> for an individual with an age of 0 months?  
+> B) By how much is average systolic blood pressure expected to change, on average, for
+> a one-unit increase in age?  
 > C) Given these two values and the names of the response and explanatory
 > variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
 > \times x$ be adapted to represent your model? 
@@ -161,9 +163,11 @@ Height                0.901     0.853     0.948    37.393   0.000
 > > 
 > > 
 > > ~~~
-> > UrineFlow_UrineVol_lm <- lm(formula = UrineFlow1 ~ UrineVol1, data = dat)
+> > BPSysAve_AgeMonths_lm <- dat %>% 
+> >   filter(Age > 17) %>%
+> >   lm(formula = BPSysAve ~ AgeMonths)
 > > 
-> > summ(UrineFlow_UrineVol_lm, confint = TRUE, digits=3)
+> > summ(BPSysAve_AgeMonths_lm, confint = TRUE, digits=3)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -171,28 +175,28 @@ Height                0.901     0.853     0.948    37.393   0.000
 > > 
 > > ~~~
 > > MODEL INFO:
-> > Observations: 7454 (2546 missing obs. deleted)
-> > Dependent Variable: UrineFlow1
+> > Observations: 3084 (3413 missing obs. deleted)
+> > Dependent Variable: BPSysAve
 > > Type: OLS linear regression 
 > > 
 > > MODEL FIT:
-> > F(1,7452) = 3101.032, p = 0.000
-> > R² = 0.294
-> > Adj. R² = 0.294 
+> > F(1,3082) = 556.405, p = 0.000
+> > R² = 0.153
+> > Adj. R² = 0.153 
 > > 
 > > Standard errors: OLS
-> > ----------------------------------------------------------
-> >                      Est.    2.5%   97.5%   t val.       p
-> > ----------------- ------- ------- ------- -------- -------
-> > (Intercept)         0.222   0.189   0.254   13.435   0.000
-> > UrineVol1           0.006   0.006   0.007   55.687   0.000
-> > ----------------------------------------------------------
+> > -----------------------------------------------------------------
+> >                        Est.      2.5%     97.5%    t val.       p
+> > ----------------- --------- --------- --------- --------- -------
+> > (Intercept)         101.812   100.166   103.458   121.276   0.000
+> > AgeMonths             0.033     0.030     0.035    23.588   0.000
+> > -----------------------------------------------------------------
 > > ~~~
 > > {: .output}
 > > 
-> > A) 0.257 mL/min  
-> > B) Increase by 0.006 mL/min  
-> > C) $E(\text{Urine Flow}) = 0.257 + 0.006 \times \text{Urine Volume}$
+> > A) 101.8 mmHg.  
+> > B) Increase by 0.033 mmHg/month.    
+> > C) $E(\text{Average systolic blood pressure}) = 101.8 + 0.033 \times \text{Age in Months}$.  
 > {: .solution}
 {: .challenge}
 
@@ -217,14 +221,14 @@ effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
 > > ## Solution
 > > 
 > > ~~~
-> > effect_plot(UrineFlow_UrineVol_lm, pred = UrineVol1, plot.points = TRUE,
+> > effect_plot(BPSysAve_AgeMonths_lm, pred = AgeMonths, plot.points = TRUE,
 > >             interval = TRUE, colors = "red") +
-> >   xlab("Urine Volume (mL)") + 
-> >   ylab("Urine Flow (mL/min)")
+> >   xlab("Average systolic blood pressure (mmHg)") + 
+> >   ylab("Age (months)")
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
