@@ -1,5 +1,4 @@
 library(NHANES)
-library(RNHANES)
 library(dplyr)
 
 # proportions representing a simple random sample
@@ -39,18 +38,6 @@ dat <- NHANESraw %>%
             CompHrsDayChild)) %>% # remove data which was only recorded for 
   # one out of two survey rounds
   ungroup(Race1)
-
-# Add LBXHGB variable (Blood hemoglobin, g/dL)
-dat <- nhanes_load_data(c("GLU_F"), "2009-2010") %>%
-  select(SEQN, LBXIN) %>%
-  bind_rows(nhanes_load_data(c("GLU_G"), "2011-2012") %>% 
-              select(SEQN, LBXIN)) %>%
-  filter(SEQN %in% dat$ID) %>%
-  rename(Insulin = LBXIN) %>%
-  right_join(dat, by = c("SEQN" = "ID")) %>%
-  rename(ID = SEQN)
-
-
 
 rm(prop)
 
