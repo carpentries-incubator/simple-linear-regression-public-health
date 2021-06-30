@@ -6,7 +6,7 @@ Please make sure the following packages are loaded before starting this lesson:
 ~~~
 library(NHANES)
 library(ggplot2)
-library(cowplot)
+library(patchwork)
 library(jtools)
 library(dplyr)
 library(tidyr)
@@ -49,16 +49,16 @@ dat <- NHANESraw %>%
             UrineVol2,
             UrineFlow2,
             PregnantNow)) %>% # remove variables which will not be used
-  select(-c(AgeMonths, Race3, 
+  select(-c(Race3, 
             Testosterone,
             TVHrsDay, 
             CompHrsDay,
             TVHrsDayChild,
-            CompHrsDayChild)) # remove data which was only recorded for one out of two survey rounds
+            CompHrsDayChild)) %>% # remove data which was only recorded for 
+  # one out of two survey rounds
+  ungroup(Race1)
 
 rm(prop)
-
-
 ~~~
 {: .language-r}
 
