@@ -83,6 +83,14 @@ variable. An $R^2$ close to 0 indicates that our model does not predict much
 better than the mean of the response variable. Therefore, our model does not
 account for much of the variation in the explanatory variable. 
 
+The cut-off for a "good" $R^2$ value varies by research question and data set.
+There are scenarios in which explaining 10% of the variation in an outcome
+variable is "good", while there are others where we may only be satisfied with
+much higher $R^2$ values. The most important thing is to not blindly rely on
+$R^2$ as a measure of model fit. While it is a useful assessment, it needs 
+to be interpreted in the context of the research question and the assumptions
+of the model used. 
+
 
 >## Exercise
 >Find the R-squared value for the `summ` output of our `BPSysAve_AgeMonths_lm` model from 
@@ -122,8 +130,8 @@ account for much of the variation in the explanatory variable.
 > > {: .output}
 > > 
 > > Since $R^2 = 0.269$, our model accounts for approximately 27% of the variation in
-> > `BPSysAve`. Our model performs better than a model that always predicts
-> > the mean, but not much better. 
+> > `BPSysAve`. Our model explains 27% of the variation on `BPSysAve`, which
+> > a model that always predicts the mean would not. 
 > {: .solution}
 {: .challenge}
 
