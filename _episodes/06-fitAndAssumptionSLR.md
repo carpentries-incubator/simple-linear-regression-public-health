@@ -80,21 +80,21 @@ Usually our $R^2$ value will lie somewhere between these two extremes. An $R^2$
 close to 1 indicates that the data does not scatter much around the model
 line. Therefore, our model accounts for most of the variation in the explanatory 
 variable. An $R^2$ close to 0 indicates that our model does not predict much
-better than the mean of the response variable. Therefore, out model does not
+better than the mean of the response variable. Therefore, our model does not
 account for much of the variation in the explanatory variable. 
 
 
 >## Exercise
->Find the R-squared value for the `summ` output of our `TotChol_BMI_lm` model from 
+>Find the R-squared value for the `summ` output of our `BPSysAve_AgeMonths_lm` model from 
 >[episode 2](https://carpentries-incubator.github.io/simple-linear-regression-public-health/02-singleContPred).
->What proportion of variation in Total Cholesterol is explained by BMI in our model? 
->Does our model account for most of the variation in `TotChol`?
+>What proportion of variation in average systolic blood pressure is explained by age in our model? 
+>Does our model account for most of the variation in `BPSysAve`?
 > > ## Solution
 > > 
 > > ~~~
-> > TotChol_BMI_lm <- lm(formula = TotChol ~ BMI, data = dat)
+> > BPSysAve_AgeMonths_lm <- lm(formula = BPSysAve ~ AgeMonths, data = dat)
 > > 
-> > summ(TotChol_BMI_lm, confint = TRUE, digits = 3)
+> > summ(BPSysAve_AgeMonths_lm, confint = TRUE, digits = 3)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -102,29 +102,28 @@ account for much of the variation in the explanatory variable.
 > > 
 > > ~~~
 > > MODEL INFO:
-> > Observations: 7373 (2627 missing obs. deleted)
-> > Dependent Variable: TotChol
+> > Observations: 3882 (6118 missing obs. deleted)
+> > Dependent Variable: BPSysAve
 > > Type: OLS linear regression 
 > > 
 > > MODEL FIT:
-> > F(1,7371) = 267.009, p = 0.000
-> > R² = 0.035
-> > Adj. R² = 0.035 
+> > F(1,3880) = 1427.097, p = 0.000
+> > R² = 0.269
+> > Adj. R² = 0.269 
 > > 
 > > Standard errors: OLS
-> > ----------------------------------------------------------
-> >                      Est.    2.5%   97.5%   t val.       p
-> > ----------------- ------- ------- ------- -------- -------
-> > (Intercept)         4.063   3.968   4.157   84.503   0.000
-> > BMI                 0.028   0.025   0.031   16.340   0.000
-> > ----------------------------------------------------------
+> > ---------------------------------------------------------------
+> >                       Est.     2.5%     97.5%    t val.       p
+> > ----------------- -------- -------- --------- --------- -------
+> > (Intercept)         99.396   98.368   100.424   189.614   0.000
+> > AgeMonths            0.036    0.035     0.038    37.777   0.000
+> > ---------------------------------------------------------------
 > > ~~~
 > > {: .output}
 > > 
-> > Since $R^2 = 0.035$, our model accounts for 3.5% of the variation in
-> > `TotChol`. This is quite close to $0$, so our model does not
-> > perform much better than a model that always predicts the mean
-> > of `TotChol`, regardless of `BMI`. 
+> > Since $R^2 = 0.27$, our model accounts for 27% of the variation in
+> > `BPSysAve`. Our model performs better than a model that always predicts
+> > the mean, but not much better. 
 > {: .solution}
 {: .challenge}
 
@@ -167,7 +166,7 @@ The representativeness assumption states that the *sample* is representative of 
 > 
 > > ## Solution
 > > 1. Since our case of interest is US adults and our data is a sample from the US population, our model generalises to the case of interest and we are not violating this aspect of the validity assumption.  
-> > 2. Since the relationshop between age and BMI might differ between individuals in the US and South-America, we may not be able to generalise our results in this way. Our model may violate the representativeness assumption if we try to generalise to individuals in South-America. 
+> > 2. Since the relationship between age and BMI might differ between individuals in the US and South-America, we may not be able to generalise our results in this way. Our model may violate the representativeness assumption if we try to generalise to individuals in South-America. 
 > {: .solution}
 {: .challenge}
 
@@ -215,15 +214,17 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > of the dependent variable can also sometimes be an effective solution
 > to non-linearity.
 > 
+> Earlier in this lesson we worked with `Weight` and `Height` in adults. Here,
+> we will work with these variables in children. 
 > Firstly, fit a linear regression model of Weight (`Weight`) as a function
-> of Height (`Height`) in individuals with an Age (`Age`) below 19. 
+> of Height (`Height`) in children (participants below the Age (`Age`) of 18). 
 > Create an effect plot using `jtools`, ensuring
 > that `point.alpha` is set to `0.2`. 
 > > ## Solution
 > > 
 > > ~~~
 > > child_Weight_Height_lm <- dat %>%
-> >   filter(Age < 19) %>%
+> >   filter(Age < 18) %>%
 > >   lm(formula = Weight ~ Height)
 > > 
 > > effect_plot(child_Weight_Height_lm, pred = Height, 
@@ -242,12 +243,12 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > to `log(Weight)`. Then create an effect plot using `jtools`, ensuring that 
 > `point.alpha` is set to `0.2`. Is the relationship between `log(Weight)` and 
 > `Height` different from the relationship between `Weight` and `Height` in 
-> individuals with an age below 19?
+> children?
 > > ## Solution
 > > 
 > > ~~~
 > > child_logWeight_Height_lm <- dat %>%
-> >   filter(Age < 19) %>%
+> >   filter(Age < 18) %>%
 > >   lm(formula = log(Weight) ~ Height)
 > > 
 > > effect_plot(child_logWeight_Height_lm, pred = Height, 
@@ -273,7 +274,6 @@ This assumption states that the residuals must be independent of one another. Th
 > 
 > A) We are modeling the effect of a fitness program on people's fitness level. Our data consists of weekly fitness measurements on the same group of individuals.   
 > B) We are modeling the effect of dementia prevention treatments on life expectancy, with each participant  coming from one of five care homes. Our data consists of life expectancy, whether an individual was on a dementia prevention treatment and the care home that the individual was in.  
-> 
 > C) We are modeling the effect of income on home size in a random sample of the adult UK population.
 > 
 > > ## Solution
@@ -286,7 +286,7 @@ This assumption states that the residuals must be independent of one another. Th
 ### 5. Equal variance of errors (homoscedasticity)
 This assumption states that the magnitude of variation in the residuals is not different across the fitted values or any explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
 
-For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model. We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
+For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model (the adult model, fit in episode 2). We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
 
 We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. In both of these plots, we add a line that approximately tracks the mean of the residuals across the fitted values and explanatory variable using `geom_smooth()`. The two plots are brought together into one plotting region using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
