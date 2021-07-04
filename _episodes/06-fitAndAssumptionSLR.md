@@ -121,7 +121,7 @@ account for much of the variation in the explanatory variable.
 > > ~~~
 > > {: .output}
 > > 
-> > Since $R^2 = 0.27$, our model accounts for 27% of the variation in
+> > Since $R^2 = 0.269$, our model accounts for approximately 27% of the variation in
 > > `BPSysAve`. Our model performs better than a model that always predicts
 > > the mean, but not much better. 
 > {: .solution}
