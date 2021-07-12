@@ -27,6 +27,7 @@ execises: 10
 
 In this episode we will study linear regression with one categorical variable with more than two levels. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
+## Exploring the relationship between a continuous variable and a multi-level categorical variable
 Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()` and `between()`. We then initiate a plotting object using `ggplot()`, with the data passed on by the pipe. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
 
 
@@ -73,6 +74,7 @@ dat %>%
 > {: .solution}
 {: .challenge}
 
+## Fitting and interpreting a simple linear regression model with one multi-level categorical variable
 We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. The intercept in the `summ()` output is the estimated mean for the baseline, i.e. for participants that are looking for work. The `WorkNotWorking` estimate is the estimated average difference in `Age` between participants that are not working and are looking for work. Similarly, the `WorkWorking` is the estimated average difference in `Age` between participants that are working and are looking for work.
 
 
@@ -172,7 +174,7 @@ WorkWorking             5.620    3.859    7.380    6.258   0.000
 > {: .solution}
 {: .challenge}
 
-
+## Visualising a simple linear regression model with one multi-level categorical variable
 Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.1` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean Age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
 
 

@@ -35,6 +35,7 @@ library(dplyr)
 
 In this episode we will study linear regression with one continuous explanatory variable. As explained in the previous episode, the explanatory variable is required to have a linear relationship with the outcome variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
+## Exploring the relationship between two continuous variables
 Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot()`. The data is passed on to `ggplot()` using the pipe. We then select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Note that the warning message "Removed 320 rows containing missing values (geom_point)" means that there are participants without recorded height and/or weight data.
 
 ```{r Height vs Weight plot}
@@ -71,7 +72,7 @@ dat %>%
 {: .challenge}
 
 
-
+## Fitting and interpreting a simple linear regression model with one continuous explanatory variable
 Since there is no abnormal shape to the scatterplot (e.g. curvature or multiple clusters), we can proceed with fitting our linear regression model. First, we subset our data using `filter()`. We then fit the simple linear regression model with the `lm()` command. Within the command, the model is denoted by `formula = outcome variable ~ explanatory variable`. 
 
 ```{r fit Weigth vs Height}
@@ -140,6 +141,7 @@ summ(Weight_Height_lm, confint = TRUE, digits = 3)
 > {: .solution}
 {: .challenge}
 
+## Visualising a simple linear regression model with one continuous explanatory variable
 We can also interpret the model through a line overlayed onto the previous scatterplot. We can obtain such a plot using `effect_plot()` from the `jtools` package. We provide the name of our model, followed by a specification of the explanatory variable of interest with `pred = Height`. Our current model has one explanatory variable, but in later lessons we will work with multiple explanatory variables. We also include a confidence interval around our line using `interval = TRUE` and include the original data using `plot.points = TRUE`. Finally, we specify a red color for our line using `colors = "red"`. 
 
 ```{r effect plot weight vs height}

@@ -29,6 +29,7 @@ execises: 10
 
 In this episode we will study linear regression with one two-level categorical variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
+## Exploring the relationship between a continuous variable and a two-level categorical variable
 Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether someone who has smoked > 100 cigarettes in their life is currently smoking. `TotChol` describes the total HDL cholesterol in someone's blood. In the code below, we first remove rows with missing values using `drop_na()` from the `tidyr` package. We then initiate a plotting object using `ggplot`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `TotChol` in the two groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()`.
 
 
@@ -74,6 +75,7 @@ dat %>%
 > {: .solution}
 {: .challenge}
 
+## Fitting and interpreting a simple linear regression model with one two-level categorical variable
 We proceed to fit a linear regression model using the `lm()` command, as we did in the previous episode. The model is then interpreted using `summ()`. 
 
 Note that even though we are using the same equation of the simple linear regression model ($E(y) = \beta_0 + \beta_1 \times x_1$), our interpretation of the `summ()` output differs slightly from our interpretation in the previous episode. Recall that our categorical explanatory variable has two levels, `"No"` and `"Yes"`. One of these is taken by the model as the baseline (`"No"`), the other as the contrast (`"Yes"`). The first level alphabetically is chosen by R as the baseline, unless specified otherwise. 
@@ -174,6 +176,7 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 > {: .solution}
 {: .challenge}
 
+## Visualising a simple linear regression model with one two-level categorical variable
 Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.1` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
 
 

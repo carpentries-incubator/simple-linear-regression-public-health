@@ -18,6 +18,7 @@ execises: 10
 
 
 
+## Questions that can be addressed with simple linear regression
 Simple linear regression is commonly used, but when is it appropriate to apply this method? Broadly speaking, simple linear regression may be suitable when the following conditions hold:
 
 * You seek a *model* of the relationship between one *continuous* dependent variable and one *continuous* or *categorical* explanatory variable. 
@@ -52,6 +53,8 @@ Simple linear regression is commonly used, but when is it appropriate to apply t
 > {: .solution}
 {: .challenge}
 
+
+## The simple linear regression equation
 The simple linear regression model can be described by the following equation:
 
 $$

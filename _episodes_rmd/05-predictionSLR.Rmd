@@ -26,6 +26,7 @@ library(jtools)
 
 One of the features of linear regression is prediction: a model presents predicted mean values for the outcome variable for any values of the explanatory variables. We have already seen this in the previous episodes through our `effect_plot()` outputs, which showed mean predicted responses as straight lines (episode 2) or individual points for levels of a categorical variable (episodes 3 & 4). Here, we will see how to obtain predicted values and the uncertainty surrounding them.
 
+## Calculating predictions manually
 First, we can calculate a predicted value manually. From the `summ()` output associated with our `Weight_Height_lm` model from episode 2, we can write the model as $E(\text{Weight}_i) = \beta_0 + \beta_1 \times \text{Height}_i = -70.194 + 0.901 \times \text{Height}_i$. The output can be found again below. If we take a height of 165 cm, then our model predicts an average weight of $-70.194 + 0.901 \times 165 = 78.471$ kg. 
 
 ```{r weight vs height model}
@@ -47,6 +48,7 @@ summ(Weight_Height_lm)
 > {: .solution}
 {: .challenge}
 
+## Making predictions using make_predictions()
 Using the `make_predictions()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `make_predictions()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
 
 To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `tibble` with the values 150, 160, 170 and 180. We then provide `make_predictions()` with this `tibble`, alongside the model from which we wish to have predictions. By default, 95% confidence intervals are returned.
