@@ -8,7 +8,7 @@ objectives:
   - "Use the predict function to generate predictions from a simple linear regression model."
 keypoints:
 - Predictions of the mean in the outcome variable can be manually calculated using the model's equation.
-- Predictions of multiple means in the outcome variable alongside 95% CIs can be obtained using the `predict()` function. 
+- Predictions of multiple means in the outcome variable alongside 95% CIs can be obtained using the `make_predictions()` function. 
 questions:
   - How can predictions be manually obtained from a simple linear regression model?
   - How can R be used to obtain predictions from a simple linear regression model?
@@ -20,6 +20,7 @@ execises: 10
 
 One of the features of linear regression is prediction: a model presents predicted mean values for the outcome variable for any values of the explanatory variables. We have already seen this in the previous episodes through our `effect_plot()` outputs, which showed mean predicted responses as straight lines (episode 2) or individual points for levels of a categorical variable (episodes 3 & 4). Here, we will see how to obtain predicted values and the uncertainty surrounding them.
 
+## Calculating predictions manually
 First, we can calculate a predicted value manually. From the `summ()` output associated with our `Weight_Height_lm` model from episode 2, we can write the model as $E(\text{Weight}_i) = \beta_0 + \beta_1 \times \text{Height}_i = -70.194 + 0.901 \times \text{Height}_i$. The output can be found again below. If we take a height of 165 cm, then our model predicts an average weight of $-70.194 + 0.901 \times 165 = 78.471$ kg. 
 
 
@@ -66,9 +67,10 @@ Height                0.90   0.02    37.39   0.00
 > {: .solution}
 {: .challenge}
 
-Using the `predict()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `predict()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
+## Making predictions using make_predictions()
+Using the `make_predictions()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `make_predictions()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
 
-To use `predict()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `tibble` with the values 150, 160, 170 and 180. We then provide `predict()` with this `tibble`, alongside the model from which we wish to have predictions and `interval = "confidence"` to obtain 95% confidence intervals. 
+To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `tibble` with the values 150, 160, 170 and 180. We then provide `make_predictions()` with this `tibble`, alongside the model from which we wish to have predictions. By default, 95% confidence intervals are returned.
 
 We see that the model predicts and average weight of 64.88 kg for an individual with a height of 150 cm, with a 95% confidence interval of [63.90, 65.87]. 
 
@@ -76,24 +78,26 @@ We see that the model predicts and average weight of 64.88 kg for an individual 
 ~~~
 Heights <- tibble(Height = c(150, 160, 170, 180))
 
-predict(Weight_Height_lm, newdata = Heights, interval = "confidence")
+make_predictions(Weight_Height_lm, new_data = Heights)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-       fit      lwr      upr
-1 64.88400 63.89927 65.86874
-2 73.88923 73.27338 74.50509
-3 82.89446 82.41009 83.37883
-4 91.89969 91.16776 92.63163
+# A tibble: 4 x 4
+  Height Weight  ymax  ymin
+   <dbl>  <dbl> <dbl> <dbl>
+1    150   64.9  65.9  63.9
+2    160   73.9  74.5  73.3
+3    170   82.9  83.4  82.4
+4    180   91.9  92.6  91.2
 ~~~
 {: .output}
 
 
 >## Exercise
->Using the `predict` function, obtain the expected mean Urine Flow levels
+>Using the `make_predictions()` function, obtain the expected mean Urine Flow levels
 >predicted by the `UrineFlow_UrineVol_lm` model for individuals with a Urine Volume
 > of 50, 100, 150 and 200 mL. Obtain confidence intervals for these predictions. 
 How are these confidence intervals interpreted?
@@ -104,18 +108,20 @@ How are these confidence intervals interpreted?
 > > 
 > > UrineVolumes <- data.frame(UrineVol1 = c(50, 100, 150, 200))
 > > 
-> > predict(UrineFlow_UrineVol_lm, newdata = UrineVolumes, interval = "confidence")
+> > make_predictions(UrineFlow_UrineVol_lm, new_data = UrineVolumes)
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> >         fit       lwr       upr
-> > 1 0.5385081 0.5139938 0.5630224
-> > 2 0.8552720 0.8351781 0.8753658
-> > 3 1.1720359 1.1506992 1.1933725
-> > 4 1.4887998 1.4613149 1.5162846
+> > # A tibble: 4 x 4
+> >   UrineVol1 UrineFlow1  ymax  ymin
+> >       <dbl>      <dbl> <dbl> <dbl>
+> > 1        50      0.539 0.563 0.514
+> > 2       100      0.855 0.875 0.835
+> > 3       150      1.17  1.19  1.15 
+> > 4       200      1.49  1.52  1.46 
 > > ~~~
 > > {: .output}
 > > Recall that 95% of 95% confidence intervals are expected to contain the 
