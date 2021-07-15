@@ -17,9 +17,6 @@ library(Hmisc)
 To obtain the data for this lesson, run the following code:
 
 ~~~
-library(NHANES)
-library(dplyr)
-
 # proportions representing a simple random sample
 prop <- as.numeric(table(NHANES$Race1)/nrow(NHANES))
 
