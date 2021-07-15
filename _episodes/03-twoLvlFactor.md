@@ -190,6 +190,33 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 
 <img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot" alt="plot of chunk SmokeNow vs TotChol effect_plot" width="612" style="display: block; margin: auto;" />
 
+> ## Notes on `jitter` and `point.alpha`
+> Including `jitter = 0.3` results in points being *randomly* jittered. 
+> Therefore, your plot will differ slightly from the one shown above. 
+> Re-running the code will also give a slightly different jitter. 
+> If you would want to fix the `jitter` to one randomisation, 
+> you could run a `set.seed()` command ahead of `effect_plot`.
+> `set.seed()` takes one positive value, which specifies the randomisation. This
+> can be any positive value. For example, if you run the code below, your 
+> jitter will match the one shown on this page:
+> 
+> 
+> ~~~
+> set.seed(20) #fix the jitter to a particular pattern
+> effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
+>             plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+>   xlab("Participant has not given up smoking") +
+>   ylab("Total HDL Cholesterol")
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot with set seed-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot with set seed" alt="plot of chunk SmokeNow vs TotChol effect_plot with set seed" width="612" style="display: block; margin: auto;" />
+> 
+> Including `point.alpha = 0.1` introduces opacity into the plotted points.
+> As a result, if many points are plotted on top of each other, this area
+> shows up with darker dots. Including opacity allows us to see where many of 
+> the points lie, which is handy with big public health data sets. 
+{: .callout}
 
 > ## Exercise  
 > Use the `jtools` package to visualise the model of `BPSysAve` as a 
