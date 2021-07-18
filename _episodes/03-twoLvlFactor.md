@@ -16,10 +16,10 @@ keypoints:
 - The intercept estimates the mean in the outcome variable for the baseline group. The other parameter estimates the difference in the means in the outcome variable between the baseline and contrast group.
 - Use `effect_plot()` to visualise the estimated means per group along with their 95% CIs. 
 questions: 
-- How can we explore the relationship between one continuous variable and one multi-level categorical variable prior to fitting a simple linear regression?
+- How can we explore the relationship between one continuous variable and one two-level categorical variable prior to fitting a simple linear regression?
 - How can we fit a simple linear regression model with one two-level categorical explanatory variable in R?
 - How does the use of the simple linear regression equation differ between the continuous and categorical explanatory variable cases?
-- How can the parameters of this model interpreted in R?
+- How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
 execises: 10
@@ -67,7 +67,8 @@ dat %>%
 > >   geom_violin() +
 > >   stat_summary(fun = "mean", size = 0.2) +
 > >   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) +
-> >   xlab("Physically Active")
+> >   xlab("Physically Active") +
+> >   ylab("Average Systolic Blood Pressure")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -88,7 +89,8 @@ where $x_1 = 1$ if a participant has continued to smoke and 0 otherwise (i.e. th
 
 
 ~~~
-TotChol_SmokeNow_lm <- lm(formula = TotChol ~ SmokeNow, data = dat)
+TotChol_SmokeNow_lm <- dat %>%
+  lm(formula = TotChol ~ SmokeNow)
 
 summ(TotChol_SmokeNow_lm, confint = TRUE, digits = 3)
 ~~~
@@ -168,21 +170,21 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 > > ~~~
 > > {: .output}
 > > 
-> > A) 122.892  
-> > B) Decrease by 5.002  
-> > C) $E(\text{BPSysAve}) = 122.892 - 5.002 \times \text{PhysActive}$, 
-> > where $\text{PhysActive} = 0$ if an individual is not physically active
-> > and $\text{PhysActive} = 1$ if an individual is physically active. 
+> > A) 122.892 mmHg  
+> > B) Decrease by 5.002 mmHg    
+> > C) $E(\text{BPSysAve}) = 122.892 - 5.002 \times x_1$, 
+> > where $x_1 = 0$ if an individual is not physically active
+> > and $x_1 = 1$ if an individual is physically active. 
 > {: .solution}
 {: .challenge}
 
 ## Visualising a simple linear regression model with one two-level categorical variable
-Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.1` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
 
 
 ~~~
 effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
-            plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+            plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
   xlab("Participant has not given up smoking") +
   ylab("Total HDL Cholesterol")
 ~~~
@@ -204,7 +206,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > ~~~
 > set.seed(20) #fix the jitter to a particular pattern
 > effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
->             plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+>             plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
 >   xlab("Participant has not given up smoking") +
 >   ylab("Total HDL Cholesterol")
 > ~~~
@@ -212,7 +214,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > 
 > <img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot with set seed-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot with set seed" alt="plot of chunk SmokeNow vs TotChol effect_plot with set seed" width="612" style="display: block; margin: auto;" />
 > 
-> Including `point.alpha = 0.1` introduces opacity into the plotted points.
+> Including `point.alpha = 0.2` introduces opacity into the plotted points.
 > As a result, if many points are plotted on top of each other, this area
 > shows up with darker dots. Including opacity allows us to see where many of 
 > the points lie, which is handy with big public health data sets. 
@@ -230,7 +232,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > > 
 > > ~~~
 > > effect_plot(BPSysAve_PhysActive_lm, pred = PhysActive,
-> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
+> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
 > >   xlab("Physically Active") +
 > >   ylab("Average Systolic Blood Pressure")
 > > ~~~

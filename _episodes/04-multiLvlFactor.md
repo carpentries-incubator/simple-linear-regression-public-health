@@ -28,7 +28,7 @@ execises: 10
 In this episode we will study linear regression with one categorical variable with more than two levels. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
 ## Exploring the relationship between a continuous variable and a multi-level categorical variable
-Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()` and `between()`. We then initiate a plotting object using `ggplot()`, with the data passed on by the pipe. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the x-axis label using `xlab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
+Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()` and `between()`. We then initiate a plotting object using `ggplot()`, with the data passed on by the pipe. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
 
 
 ~~~
@@ -39,6 +39,7 @@ dat %>%
   stat_summary(fun = "mean", size = 0.2) +
   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) + 
   xlab("Working status") + 
+  ylab("Age (years)") +
   scale_x_discrete(labels = c('Looking','Not Working','Working'))
 ~~~
 {: .language-r}
@@ -48,12 +49,12 @@ dat %>%
 > ## Exercise  
 > You have been asked to model the relationship between frequency of
 > days where individuals feel depressed and weight in the NHANES data.
-> Use the ggplot2 package to create an exploratory plot, 
-> ensuring that it includes the following elements:  
+> Use the ggplot2 package to create an exploratory plot, with NAs dropped from `Depressed`,
+> ensuring the plot includes the following elements:  
 > 1. Weight (`Weight`) on the y-axis and number of days with
 > depressed feelings (`Depressed`) on the x-axis, from the NHANES data.  
 > 2. This data shown as a violin plot.  
-> 3. The y-axis labelled as "Age" and the x-axis labelled as 
+> 3. The y-axis labelled as "Age (years)" and the x-axis labelled as 
 > "Number of days a week with depressed feelings".
 >
 > > ## Solution
@@ -66,7 +67,8 @@ dat %>%
 > >   geom_violin() +
 > >   stat_summary(fun = "mean", size = 0.2) +
 > >   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) +
-> >   xlab("Number of days a week with depressed feelings")
+> >   xlab("Number of days a week with depressed feelings") +
+> >   ylab("Age (years)")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -111,10 +113,17 @@ WorkWorking             5.620    3.859    7.380    6.258   0.000
 ~~~
 {: .output}
 
+The model can therefore be written as:
+
+$$E(Age) = 34.208 + 4.398 \times x_1 + 5.620 \times x_2,$$
+
+where $x_1 = 1$ if an individual is not working and $x_1 = 0$ otherwise.
+Similarly, $x_2 = 1$ if an individual is working and $x_2 = 0$ otherwise. 
+
 > ## Exercise  
 > 1. Using the `lm()` command, fit a simple linear regression of Weight 
 > as a function of number of days a week feeling depressed (`Depressed`). 
-> Name this `lm` object `Weight_Depressed_lm`.  
+> Ensure that NAs are dropped from `Depressed`. Name this `lm` object `Weight_Depressed_lm`.  
 > 2. Using the `summ()` function from the `jtools` package,
 > answer the following questions:
 >   
@@ -131,7 +140,7 @@ WorkWorking             5.620    3.859    7.380    6.258   0.000
 > > 
 > > ~~~
 > > Weight_Depressed_lm <- dat %>%
-> >   drop_na(c(Depressed, Weight)) %>%
+> >   drop_na(c(Depressed)) %>%
 > >   lm(formula = Weight ~ Depressed)
 > > 
 > > summ(Weight_Depressed_lm, confint = TRUE, digits = 3)
@@ -142,7 +151,7 @@ WorkWorking             5.620    3.859    7.380    6.258   0.000
 > > 
 > > ~~~
 > > MODEL INFO:
-> > Observations: 5512
+> > Observations: 5512 (61 missing obs. deleted)
 > > Dependent Variable: Weight
 > > Type: OLS linear regression 
 > > 
@@ -165,24 +174,25 @@ WorkWorking             5.620    3.859    7.380    6.258   0.000
 > > A) 81.37  
 > > B) Increase by 1.26 and 2.65 for several depressed days and most 
 > > depressed days, respectively.
-> > C) $E(\text{BPSysAve}) = 81.37 + 1.26 \times \text{depressedSeveral} + 
-> > 2.65 \times \text{depressedMost}$, 
-> > where $\text{depressedSeveral} = 1$ if an individual belongs to this group
-> > and $\text{depressedSeveral} = 0$ otherwise. Analogously, 
-> > $\text{depressedMost} = 1$ if an individual belongs to this group and 
-> > $\text{depressedMost} = 0$ otherwise.
+> > C) $E(\text{Weight}) = 81.37 + 1.26 \times x_1 + 
+> > 2.65 \times x_2$, 
+> > where $x_1 = 1$ if an individual is depressed several days a week 
+> > and $x_1 = 0$ otherwise. Analogously, 
+> > $x_2 = 1$ if an individual is depressed most days a week and 
+> > $x_2 = 0$ otherwise.
 > {: .solution}
 {: .challenge}
 
 ## Visualising a simple linear regression model with one multi-level categorical variable
-Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.1` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean Age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean Age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
 
 
 ~~~
 effect_plot(Age_Work_lm, pred = Work,
-            plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
-  scale_x_discrete(name = "Working status",
-    labels = c('Looking','Not Working','Working'))
+            plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+  xlab("Working status") + 
+  ylab("Age (years)") +
+  scale_x_discrete(labels = c('Looking','Not Working','Working'))
 ~~~
 {: .language-r}
 
@@ -200,8 +210,9 @@ effect_plot(Age_Work_lm, pred = Work,
 > > 
 > > ~~~
 > > effect_plot(Weight_Depressed_lm, pred = Depressed, 
-> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.1) +
-> >   xlab("Number of days with depressed feelings")
+> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+> >   xlab("Number of days feeling depressed") +
+> >   ylab("Weight (kg)")
 > > ~~~
 > > {: .language-r}
 > > 
