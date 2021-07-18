@@ -29,14 +29,16 @@ execises: 10
 In this episode we will study linear regression with one continuous explanatory variable. As explained in the previous episode, the explanatory variable is required to have a linear relationship with the outcome variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
 ## Exploring the relationship between two continuous variables
-Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot()`. The data is passed on to `ggplot()` using the pipe. We then select the variables of interest inside `aes()`. Finally, we create a scatterplot using `geom_point()`. Note that the warning message "Removed 320 rows containing missing values (geom_point)" means that there are participants without recorded height and/or weight data.
+Let us take `Weight` and `Height` of adults as an example. In the code below, we select adult participants with the command `filter(Age > 17)`. We then initiate a plotting object using `ggplot()`. The data is passed on to `ggplot()` using the pipe. We then select the variables of interest inside `aes()`. In the next line we create a scatterplot using `geom_point()`. Finally, we modify the x and y axis labels using `xlab()` and `ylab()`. Note that the warning message "Removed 320 rows containing missing values (geom_point)" means that there are participants without recorded height and/or weight data.
 
 
 ~~~
 dat %>%
   filter(Age > 17) %>%
   ggplot(aes(x = Height, y = Weight)) +
-  geom_point()
+  geom_point() +
+  xlab("Height (cm)") +
+  ylab("Weight (kg)")
 ~~~
 {: .language-r}
 
@@ -69,7 +71,7 @@ Warning: Removed 320 rows containing missing values (geom_point).
 > > dat %>%
 > >   filter(Age > 17) %>%
 > >   ggplot(aes(x = AgeMonths, y = BPSysAve)) +
-> >   geom_point(alpha = 0.4) +
+> >   geom_point() +
 > >   ylab("Average systolic blood pressure (mmHg)") +
 > >   xlab("Age (months)")
 > > ~~~
@@ -94,28 +96,6 @@ Weight_Height_lm <- dat %>%
 We will interpret our results through a summary table and through a plot. The summary table can be obtained using the `summ()` function from the `jtools` package. We provide the function with the name of our model (`Weight_Height_lm`). We can also specify that we want confidence intervals for our parameter estimates using `confint = TRUE`. Finally, we specify that we want estimates with three digits past the decimal with `digits = 3`.  
 
 We will come to interpreting the `Model Fit` section in a later episode. For now, take a look at the parameter estimates at the bottom of the output. We see that the intercept (i.e. $\beta_0$) is estimated at -70.19 and the effect of `Height` (i.e. $\beta_1$) is estimated at 0.901. The model therefore predicts an average increase in `Weight` of 0.901 kg for every cm increase in `Height`.   
-
-> ## Interpretation of the 95% CI and p-value of `Height`
-> 
-> If *prior to fitting our model* we were interested in testing the hypotheses 
-> $H_0: \beta_1 = 0$ vs $H_1: \beta \neq 0$, we could check the 95% CI 
-> for `Height`. Recall that 95% of 95% CIs are expected to contain the true population 
-> mean. Since this 95% CI does not contain 0, we would be fairly confident in rejecting 
-> $H_0$ in favour of $H_1$. Alternatively, since the p-value is less than 0.05, 
-> we could reject $H_0$ on those grounds. 
->
-> Note that the `summ()` output below shows `p = 0.000`. P values are never
-> truely zero. The interpretation of `p = 0.000` is therefore that 
-> `p < 0.001`, as the p-value was rounded to three digits. 
->
-> Often the null hypothesis tested by `summ()`, $H_0: \beta_1 = 0$, is not very 
-> interesting, as it is rare that we expect a variable to have an effect of 0. 
-> Therefore, it is usually not necessary to pay great attention to the 
-> p-value. On the other hand, the 95% CI can still be useful, as it provides an estimate
-> of the *uncertainty* around our estimate for $\beta_1$. The narrower the 95% CI, 
-> the more certain we are that our estimate for $\beta_1$ is close to the population 
-> mean for $\beta_1$. 
-{: .callout}
 
 
 ~~~
@@ -146,13 +126,40 @@ Height                0.901     0.853     0.948    37.393   0.000
 ~~~
 {: .output}
 
+We can therefore write the formula as:
+
+$$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
+
+> ## Interpretation of the 95% CI and p-value of `Height`
+> 
+> If *prior to fitting our model* we were interested in testing the hypotheses 
+> $H_0: \beta_1 = 0$ vs $H_1: \beta \neq 0$, we could check the 95% CI 
+> for `Height`. Recall that 95% of 95% CIs are expected to contain the true population 
+> mean. Since this 95% CI does not contain 0, we would be fairly confident in rejecting 
+> $H_0$ in favour of $H_1$. Alternatively, since the p-value is less than 0.05, 
+> we could reject $H_0$ on those grounds. 
+>
+> Note that the `summ()` output below shows `p = 0.000`. P values are never
+> truely zero. The interpretation of `p = 0.000` is therefore that 
+> `p < 0.001`, as the p-value was rounded to three digits. 
+>
+> Often the null hypothesis tested by `summ()`, $H_0: \beta_1 = 0$, is not very 
+> interesting, as it is rare that we expect a variable to have an effect of 0. 
+> Therefore, it is usually not necessary to pay great attention to the 
+> p-value. On the other hand, the 95% CI can still be useful, as it provides an estimate
+> of the *uncertainty* around our estimate for $\beta_1$. The narrower the 95% CI, 
+> the more certain we are that our estimate for $\beta_1$ is close to the population 
+> mean for $\beta_1$. 
+{: .callout}
+
+
 > ## Exercise  
 > Now that you have confirmed that the relationship between `BPSysAve`
 > and `AgeMonths` does not appear to deveate from linearity in the NHANES data, 
 > you can proceed to fitting a simple linear regression model.  
 >   
 > 1. Using the `lm()` command, fit a simple linear regression of average systolic blood pressure
-> (`BPSysAve`) as a function of age in months (`AgeMonths`). 
+> (`BPSysAve`) as a function of age in months (`AgeMonths`) in adults. 
 > Name this `lm` object `BPSysAve_AgeMonths_lm`.  
 > 2. Using the `summ` function from the `jtools` package, answer the following questions:
 >   
@@ -206,12 +213,14 @@ Height                0.901     0.853     0.948    37.393   0.000
 {: .challenge}
 
 ## Visualising a simple linear regression model with one continuous explanatory variable
-We can also interpret the model through a line overlayed onto the previous scatterplot. We can obtain such a plot using `effect_plot()` from the `jtools` package. We provide the name of our model, followed by a specification of the explanatory variable of interest with `pred = Height`. Our current model has one explanatory variable, but in later lessons we will work with multiple explanatory variables. We also include a confidence interval around our line using `interval = TRUE` and include the original data using `plot.points = TRUE`. Finally, we specify a red color for our line using `colors = "red"`. 
+We can also interpret the model through a line overlayed onto the previous scatterplot. We can obtain such a plot using `effect_plot()` from the `jtools` package. We provide the name of our model, followed by a specification of the explanatory variable of interest with `pred = Height`. Our current model has one explanatory variable, but in later lessons we will work with multiple explanatory variables. We also include a confidence interval around our line using `interval = TRUE` and include the original data using `plot.points = TRUE`. Finally, we specify a red color for our line using `colors = "red"`. As before, we can edit the x and y axis labels. 
 
 
 ~~~
 effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
-            interval = TRUE, colors = "red")
+            interval = TRUE, colors = "red") +
+  xlab("Height (cm)") +
+  ylab("Weight (kg)")
 ~~~
 {: .language-r}
 

@@ -100,7 +100,8 @@ of the model used.
 > > ## Solution
 > > 
 > > ~~~
-> > BPSysAve_AgeMonths_lm <- lm(formula = BPSysAve ~ AgeMonths, data = dat)
+> > BPSysAve_AgeMonths_lm <- dat %>%
+> >     lm(formula = BPSysAve ~ AgeMonths)
 > > 
 > > summ(BPSysAve_AgeMonths_lm, confint = TRUE, digits = 3)
 > > ~~~

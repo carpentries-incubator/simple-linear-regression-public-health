@@ -21,7 +21,7 @@ execises: 10
 One of the features of linear regression is prediction: a model presents predicted mean values for the outcome variable for any values of the explanatory variables. We have already seen this in the previous episodes through our `effect_plot()` outputs, which showed mean predicted responses as straight lines (episode 2) or individual points for levels of a categorical variable (episodes 3 & 4). Here, we will see how to obtain predicted values and the uncertainty surrounding them.
 
 ## Calculating predictions manually
-First, we can calculate a predicted value manually. From the `summ()` output associated with our `Weight_Height_lm` model from episode 2, we can write the model as $E(\text{Weight}_i) = \beta_0 + \beta_1 \times \text{Height}_i = -70.194 + 0.901 \times \text{Height}_i$. The output can be found again below. If we take a height of 165 cm, then our model predicts an average weight of $-70.194 + 0.901 \times 165 = 78.471$ kg. 
+First, we can calculate a predicted value manually. From the `summ()` output associated with our `Weight_Height_lm` model from episode 2, we can write the model as $E(\text{Weight}) = \beta_0 + \beta_1 \times \text{Height} = -70.194 + 0.901 \times \text{Height}$. The output can be found again below. If we take a height of 165 cm, then our model predicts an average weight of $-70.194 + 0.901 \times 165 = 78.471$ kg. 
 
 
 ~~~
@@ -57,22 +57,22 @@ Height                0.90   0.02    37.39   0.00
 {: .output}
 
 >## Exercise
->Given the `summ` output from our `UrineFlow_UrineVol_lm` model, 
+>Given the `summ` output from our `BPSysAve_AgeMonths_lm` model, 
 >the model can be described
->as $E(\text{UrineFlow}_i) = \beta_0 + \beta_1 \times \text{UrineVol}_i = 0.222 + 0.006 \times \text{UrineVol}_i$. 
->What level of Urine Flow does the model predict, on average, 
->for an individual with a Urine Volume of 100 mL?
+>as $E(\text{BPSysAve}) = \beta_0 + \beta_1 \times \text{Age (months)} = 101.812 + 0.033 \times \text{Age (months)}$. 
+>What level of average systolic blood pressure does the model predict, on average, 
+>for an individual with an age of 480 months?
 > > ## Solution
-> > $0.222 + 100 * 0.006 = 0.822 mL/min$.
+> > $101.812 + 0.033 * 480 = 117.652 \text{mmHg}$.
 > {: .solution}
 {: .challenge}
 
-## Making predictions using make_predictions()
+## Making predictions using `make_predictions()`
 Using the `make_predictions()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `make_predictions()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
 
 To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `tibble` with the values 150, 160, 170 and 180. We then provide `make_predictions()` with this `tibble`, alongside the model from which we wish to have predictions. By default, 95% confidence intervals are returned.
 
-We see that the model predicts and average weight of 64.88 kg for an individual with a height of 150 cm, with a 95% confidence interval of [63.90, 65.87]. 
+We see that the model predicts and average weight of 64.88 kg for an individual with a height of 150 cm, with a 95% confidence interval of [63.9, 65.9]. 
 
 
 ~~~
@@ -97,18 +97,20 @@ make_predictions(Weight_Height_lm, new_data = Heights)
 
 
 >## Exercise
->Using the `make_predictions()` function, obtain the expected mean Urine Flow levels
->predicted by the `UrineFlow_UrineVol_lm` model for individuals with a Urine Volume
-> of 50, 100, 150 and 200 mL. Obtain confidence intervals for these predictions. 
+>Using the `make_predictions()` function, obtain the expected mean average systolic blood pressure levels
+>predicted by the `BPSysAve_AgeMonths_lm` model for individuals with an age
+> of 300, 400, 500 and 600 months. Obtain confidence intervals for these predictions. 
 How are these confidence intervals interpreted?
 > > ## Solution
 > > 
 > > ~~~
-> > UrineFlow_UrineVol_lm <- lm(formula = UrineFlow1 ~ UrineVol1, data = dat)
+> > BPSysAve_AgeMonths_lm <- dat %>% 
+> >   filter(Age > 17) %>%
+> >   lm(formula = BPSysAve ~ AgeMonths)
 > > 
-> > UrineVolumes <- data.frame(UrineVol1 = c(50, 100, 150, 200))
+> > ages <- tibble(AgeMonths = c(300, 400, 500, 600))
 > > 
-> > make_predictions(UrineFlow_UrineVol_lm, new_data = UrineVolumes)
+> > make_predictions(BPSysAve_AgeMonths_lm, new_data = ages)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -116,12 +118,12 @@ How are these confidence intervals interpreted?
 > > 
 > > ~~~
 > > # A tibble: 4 x 4
-> >   UrineVol1 UrineFlow1  ymax  ymin
-> >       <dbl>      <dbl> <dbl> <dbl>
-> > 1        50      0.539 0.563 0.514
-> > 2       100      0.855 0.875 0.835
-> > 3       150      1.17  1.19  1.15 
-> > 4       200      1.49  1.52  1.46 
+> >   AgeMonths BPSysAve  ymax  ymin
+> >       <dbl>    <dbl> <dbl> <dbl>
+> > 1       300     112.  113.  111.
+> > 2       400     115.  116.  114.
+> > 3       500     118.  119.  118.
+> > 4       600     121.  122.  121.
 > > ~~~
 > > {: .output}
 > > Recall that 95% of 95% confidence intervals are expected to contain the 
