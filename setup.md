@@ -119,6 +119,7 @@ The variable names and the associated descriptions can be found in the table bel
 | SexNumPartnLife | Number of opposite sex partners participant has had any kind of sex with over their lifetime. Reported for participants aged 18 to 69 years.                                                                                                                                                   |
 | SexNumPartYear  | Number of opposite sex partners participant has had any kind of sex with over the past 12 months. Reported for participants aged 18 to 59 years.                                                                                                                                               |
 | SameSex         | Participant has had any kind of sex with a same sex partner. Reported for participants aged 18 to 69 years ad Yes or No.                                                                                                                                                                       |
+| FEV1         | Baseline 1st Test Spirometry, Forced Expiratory Volume in the first 1.0 second, in mL.                                                                                                         |
 | SexOrientation  | Participant's sexual orientation (self-described). Reported for participants aged 18 to 59 years. One of Heterosexual, Homosexual, Bisexual.                                                                                                                                                   |
 
 
