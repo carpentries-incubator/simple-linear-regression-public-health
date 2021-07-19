@@ -241,8 +241,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > we will work with these variables in children. 
 > Firstly, fit a linear regression model of Weight (`Weight`) as a function
 > of Height (`Height`) in children (participants below the Age (`Age`) of 18). 
-> Create an effect plot using `jtools`, ensuring
-> that `point.alpha` is set to `0.2`. 
+> Then, create an effect plot using `effect_plot()`.   
 > > ## Solution
 > > ```{r non-linearity challenge part 1, warning = FALSE}
 > > child_Weight_Height_lm <- dat %>%
@@ -259,8 +258,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > 
 > We will explore the log transformation as a potential solution. Fit a linear
 > regression model as before, however change `Weight` in the `lm()` command
-> to `log(Weight)`. Then create an effect plot using `jtools`, ensuring that 
-> `point.alpha` is set to `0.2`. Is the relationship between `log(Weight)` and 
+> to `log(Weight)`. Then create an `effect_plot`. Is the relationship between `log(Weight)` and 
 > `Height` different from the relationship between `Weight` and `Height` in 
 > children?
 > > ## Solution
