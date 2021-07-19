@@ -56,7 +56,7 @@ dat %>%
 > ensuring that it includes the following elements:  
 > 1. Average systolic blood pressure (`BPSysAve`) on the y-axis and age
 > (`AgeMonths`) on the x-axis, from the NHANES data, only including data from individuals over the age of 17.  
-> 2. These data presented using a scatterplot.  
+> 2. These data are presented using a scatterplot.  
 > 3. The y-axis labelled as "Average systolic blood pressure (mmHg)" and the x-axis labelled
 > as "Age (months)". 
 >
