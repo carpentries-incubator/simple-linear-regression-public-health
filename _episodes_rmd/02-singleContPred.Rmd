@@ -7,17 +7,17 @@ objectives:
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: 
-- As a first check of suitability, construct a scatterplot between the continuous variables.
-- Use `lm()` to fit the simple linear regression model.
+- As a first check of suitability, examine the relationship between the continuous variables using a scatterplot.
+- Use `lm()` to fit a simple linear regression model.
 - Use `summ()` to obtain parameter estimates for the model.
 - Use `effect_plot()` to visualise the model. 
 questions: 
-- How can we assess whether two continuous variables may be suitable for simple linear regression?
+- How can we assess whether simple linear regression is a suitable way to model the relationship between two continuous variables?
 - How can we fit a simple linear regression model with one continuous explanatory variable in R?
 - How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 ```{r, include=FALSE}
@@ -54,9 +54,9 @@ dat %>%
 > that the relationship between these
 > variables appears linear. Use the ggplot2 package to create a plot,
 > ensuring that it includes the following elements:  
-> 1. average systolic blood pressure (`BPSysAve`) on the y-axis and age
+> 1. Average systolic blood pressure (`BPSysAve`) on the y-axis and age
 > (`AgeMonths`) on the x-axis, from the NHANES data, only including data from individuals over the age of 17.  
-> 2. This data shown as a scatterplot.  
+> 2. These data presented using a scatterplot.  
 > 3. The y-axis labelled as "Average systolic blood pressure (mmHg)" and the x-axis labelled
 > as "Age (months)". 
 >
@@ -83,9 +83,9 @@ Weight_Height_lm <- dat %>%
   lm(formula = Weight ~ Height)
 ```
 
-We will interpret our results through a summary table and through a plot. The summary table can be obtained using the `summ()` function from the `jtools` package. We provide the function with the name of our model (`Weight_Height_lm`). We can also specify that we want confidence intervals for our parameter estimates using `confint = TRUE`. Finally, we specify that we want estimates with three digits past the decimal with `digits = 3`.  
+We will interpret our results using a summary table and a plot. The summary table can be obtained using the `summ()` function from the `jtools` package. We provide the function with the name of our model (`Weight_Height_lm`). We can also specify that we want confidence intervals for our parameter estimates using `confint = TRUE`. Finally, we specify that we want estimates with three digits after the decimal point with `digits = 3`.  
 
-We will come to interpreting the `Model Fit` section in a later episode. For now, take a look at the parameter estimates at the bottom of the output. We see that the intercept (i.e. $\beta_0$) is estimated at -70.19 and the effect of `Height` (i.e. $\beta_1$) is estimated at 0.901. The model therefore predicts an average increase in `Weight` of 0.901 kg for every cm increase in `Height`.   
+We will come to interpreting the `Model Fit` section in a later episode. For now, take a look at the parameter estimates at the bottom of the output. We see that the intercept (i.e. $\beta_0$) is estimated at -70.194 and the effect of `Height` (i.e. $\beta_1$) is estimated at 0.901. The model therefore predicts an average increase in `Weight` of 0.901 kg for every 1 cm increase in `Height`.   
 
 ```{r summ Weight_Height_lm}
 summ(Weight_Height_lm, confint = TRUE, digits = 3)
@@ -105,7 +105,7 @@ $$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
 > we could reject $H_0$ on those grounds. 
 >
 > Note that the `summ()` output below shows `p = 0.000`. P values are never
-> truely zero. The interpretation of `p = 0.000` is therefore that 
+> truly zero. The interpretation of `p = 0.000` is therefore that 
 > `p < 0.001`, as the p-value was rounded to three digits. 
 >
 > Often the null hypothesis tested by `summ()`, $H_0: \beta_1 = 0$, is not very 
@@ -120,7 +120,7 @@ $$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
 
 > ## Exercise  
 > Now that you have confirmed that the relationship between `BPSysAve`
-> and `AgeMonths` does not appear to deveate from linearity in the NHANES data, 
+> and `AgeMonths` does not appear to deviate from linearity in the NHANES data, 
 > you can proceed to fitting a simple linear regression model.  
 >   
 > 1. Using the `lm()` command, fit a simple linear regression of average systolic blood pressure
@@ -134,7 +134,7 @@ $$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
 > a one-unit increase in age?  
 > C) Given these two values and the names of the response and explanatory
 > variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
-> \times x$ be adapted to represent your model? 
+> \times x_1$ be adapted to represent your model? 
 >
 > > ## Solution
 > > 
@@ -153,7 +153,7 @@ $$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
 {: .challenge}
 
 ## Visualising a simple linear regression model with one continuous explanatory variable
-We can also interpret the model through a line overlayed onto the previous scatterplot. We can obtain such a plot using `effect_plot()` from the `jtools` package. We provide the name of our model, followed by a specification of the explanatory variable of interest with `pred = Height`. Our current model has one explanatory variable, but in later lessons we will work with multiple explanatory variables. We also include a confidence interval around our line using `interval = TRUE` and include the original data using `plot.points = TRUE`. Finally, we specify a red color for our line using `colors = "red"`. As before, we can edit the x and y axis labels. 
+We can also interpret the model using a line overlayed onto the previous scatterplot. We can obtain such a plot using `effect_plot()` from the `jtools` package. We provide the name of our model, followed by a specification of the explanatory variable of interest with `pred = Height`. Our current model has one explanatory variable, but in later lessons we will work with multiple explanatory variables so this option will be more useful. We also include a confidence interval around our line using `interval = TRUE` and include the original data using `plot.points = TRUE`. Finally, we specify a red colour for our line using `colors = "red"`. As before, we can edit the x and y axis labels. 
 
 ```{r effect plot weight vs height}
 effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
@@ -164,7 +164,7 @@ effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
 
 
 > ## Exercise  
-> You have been asked to report on your simple linear regression model at 
+> You have been asked to report on your simple linear regression model, examining systolic blood pressure and age, at 
 > the next lab meeting. To help your colleagues interpret the model, you
 > decide to produce a figure. Make this figure using the jtools package.
 > Ensure that the x and y axes are correctly labelled.
