@@ -10,19 +10,19 @@ objectives:
 - Use the jtools package to interpret the model output.
 - Use the jtools and ggplot2 packages to visualise the resulting model.
 keypoints: 
-- As a first exploration of the data, construct a violin plot between the two variables.
-- Use `lm()` to fit the simple linear regression model.
+- As a first exploration of the data, construct a violin plot describing the relationship between the two variables.
+- Use `lm()` to fit a simple linear regression model.
 - Use `summ()` to obtain parameter estimates for the model.
 - The intercept estimates the mean in the outcome variable for the baseline group. The other parameter estimates the difference in the means in the outcome variable between the baseline and contrast group.
 - Use `effect_plot()` to visualise the estimated means per group along with their 95% CIs. 
 questions: 
-- How can we explore the relationship between one continuous variable and one two-level categorical variable prior to fitting a simple linear regression?
+- How can we explore the relationship between one continuous variable and one categorical variable with two groups prior to fitting a simple linear regression?
 - How can we fit a simple linear regression model with one two-level categorical explanatory variable in R?
 - How does the use of the simple linear regression equation differ between the continuous and categorical explanatory variable cases?
 - How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -30,7 +30,7 @@ execises: 10
 In this episode we will study linear regression with one two-level categorical variable. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
 ## Exploring the relationship between a continuous variable and a two-level categorical variable
-Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether someone who has smoked > 100 cigarettes in their life is currently smoking. `TotChol` describes the total HDL cholesterol in someone's blood. In the code below, we first remove rows with missing values using `drop_na()` from the `tidyr` package. We then initiate a plotting object using `ggplot`. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `TotChol` in the two groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()`.
+Let us take `SmokeNow` and `TotChol` as an example. `SmokeNow` describes whether someone who has smoked > 100 cigarettes in their life is currently smoking. `TotChol` describes the total HDL cholesterol in someone's blood. In the code below, we first remove rows with missing values using `drop_na()` from the `tidyr` package. We then initiate a plotting object using `ggplot`. We select the variables of interest inside `aes()`. We then make a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `TotChol` in the two groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()`.
 
 
 ~~~
@@ -40,7 +40,7 @@ dat %>%
   geom_violin() +
   stat_summary(fun = "mean", size = 0.2) +
   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) + 
-  xlab("Participant has not given up smoking") +
+  xlab("Participant still smoking") +
   ylab("Total HDL Cholesterol")
 ~~~
 {: .language-r}
@@ -53,8 +53,8 @@ dat %>%
 > blood pressure and physical activity in the NHANES data. Use the ggplot2
 > package to create an exploratory plot, 
 > ensuring that it includes the following elements:  
-> 1. Average Systolic Blood Pressure (`BPSysAve`) on the y-axis and physical activity (`PhysActive`) on the x-axis, from the NHANES data.  
-> 2. This data shown as a violin plot.  
+> 1. Average systolic blood pressure (`BPSysAve`) on the y-axis and physical activity (`PhysActive`) on the x-axis, from the NHANES data.  
+> 2. These data presented using a violin plot.  
 > 3. The y-axis labelled as "Average Systolic Blood Pressure" and the x-axis labelled as "Physically Active".
 >
 > > ## Solution
@@ -83,7 +83,7 @@ Note that even though we are using the same equation of the simple linear regres
 
 The intercept in the `summ()` output is the estimated mean for the baseline, i.e. for participants that stopped smoking. The `SmokeNowYes` estimate is the estimated average difference in `TotChol` between participants that stopped smoking and participants that did not stop smoking. We can therefore write the equation for this model as:
 
-$$E(\text{Total cholesterol}) = 5.053 + 0.008 \times x_1$$,
+$$E(\text{Total HDL cholesterol}) = 5.053 + 0.008 \times x_1$$,
 
 where $x_1 = 1$ if a participant has continued to smoke and 0 otherwise (i.e. the participant stopped smoking). 
 
@@ -121,8 +121,8 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 
 
 > ## Exercise  
-> 1. Using the `lm()` command, fit a simple linear regression of Average 
-> Systolic Blood Pressure (`BPSysAve`)  
+> 1. Using the `lm()` command, fit a simple linear regression of average 
+> systolic blood pressure (`BPSysAve`)  
 > as a function of physical activity (`PhysActive`). Name this `lm` 
 > object `BPSysAve_PhysActive_lm`.  
 > 2. Using the `summ()` function from the `jtools` package,
@@ -130,12 +130,12 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 >   
 > A) What average systolic blood pressure does the model predict, 
 > on average,
-> for an individual who is characterised as not physically active?  
+> for an individual who is not physically active?  
 > B) By how much is average systolic blood pressure expected to change, 
 > on average, for a physically active individual?  
 > C) Given these two values and the names of the response and explanatory
 > variables, how can the general equation $E(y) = \beta_0 + {\beta}_1 
-> \times x$ be adapted to represent this model?
+> \times x_1$ be adapted to represent this model?
 > 
 > > ## Solution
 > > 
@@ -178,14 +178,14 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 > {: .solution}
 {: .challenge}
 
-## Visualising a simple linear regression model with one two-level categorical variable
-Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
+## Visualising a simple linear regression model with one two-level categorical explanatory variable
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total HDL Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
 
 
 ~~~
 effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
             plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
-  xlab("Participant has not given up smoking") +
+  xlab("Participant still smoking") +
   ylab("Total HDL Cholesterol")
 ~~~
 {: .language-r}
@@ -207,7 +207,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > set.seed(20) #fix the jitter to a particular pattern
 > effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 >             plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
->   xlab("Participant has not given up smoking") +
+>   xlab("Participant still smoking") +
 >   ylab("Total HDL Cholesterol")
 > ~~~
 > {: .language-r}

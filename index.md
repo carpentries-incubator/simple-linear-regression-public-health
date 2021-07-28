@@ -8,7 +8,7 @@ This lesson was designed for researchers interested in working with public healt
 
 This lesson provides an introduction to simple linear regression. The episodes cover the concept of simple
 linear regression, the use of simple linear regression with various types of predictor variables 
-(single continuous variable, single two-group factor variable and single factor variable with more than two groups),
+(single continuous variable, single factor variable with two groups and single factor variable with more than two groups),
 predictions of the mean and the assessment of model fit and assumptions. 
 
 > ## Getting started
