@@ -149,6 +149,7 @@ of the model used.
 > > ## Solution
 > > ```{r R-squared challenge}
 > > BPSysAve_AgeMonths_lm <- dat %>%
+> >     filter(Age > 17) %>%
 > >     lm(formula = BPSysAve ~ AgeMonths)
 > > 
 > > summ(BPSysAve_AgeMonths_lm, confint = TRUE, digits = 3)
