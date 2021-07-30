@@ -238,8 +238,8 @@ effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
 > > ~~~
 > > effect_plot(BPSysAve_AgeMonths_lm, pred = AgeMonths, plot.points = TRUE,
 > >             interval = TRUE, colors = "red") +
-> >   xlab("Average systolic blood pressure (mmHg)") + 
-> >   ylab("Age (months)")
+> >   xlab("Age (months)") + 
+> >   ylab("Average systolic blood pressure (mmHg)")
 > > ~~~
 > > {: .language-r}
 > > 
