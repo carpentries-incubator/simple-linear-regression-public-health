@@ -13,7 +13,7 @@ questions:
   - How can predictions be manually obtained from a simple linear regression model?
   - How can R be used to obtain predictions from a simple linear regression model?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -58,8 +58,10 @@ Height                0.90   0.02    37.39   0.00
 
 >## Exercise
 >Given the `summ` output from our `BPSysAve_AgeMonths_lm` model, 
->the model can be described
->as $E(\text{BPSysAve}) = \beta_0 + \beta_1 \times \text{Age (months)} = 101.812 + 0.033 \times \text{Age (months)}$. 
+>the model can be described as
+>
+>$E(\text{BPSysAve}) = \beta_0 + \beta_1 \times \text{Age (months)} = 101.812 + 0.033 \times \text{Age (months)}$.  
+>
 >What level of average systolic blood pressure does the model predict, on average, 
 >for an individual with an age of 480 months?
 > > ## Solution
@@ -72,7 +74,7 @@ Using the `make_predictions()` function brings two advantages. First, when calcu
 
 To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Height`. In the code below, we create a `tibble` with the values 150, 160, 170 and 180. We then provide `make_predictions()` with this `tibble`, alongside the model from which we wish to have predictions. By default, 95% confidence intervals are returned.
 
-We see that the model predicts and average weight of 64.88 kg for an individual with a height of 150 cm, with a 95% confidence interval of [63.9, 65.9]. 
+We see that the model predicts an average weight of 64.88 kg for an individual with a height of 150 cm, with a 95% confidence interval of [63.9kg, 65.9kg]. 
 
 
 ~~~
@@ -85,7 +87,7 @@ make_predictions(Weight_Height_lm, new_data = Heights)
 
 
 ~~~
-# A tibble: 4 x 4
+# A tibble: 4 × 4
   Height Weight  ymax  ymin
    <dbl>  <dbl> <dbl> <dbl>
 1    150   64.9  65.9  63.9
@@ -97,10 +99,11 @@ make_predictions(Weight_Height_lm, new_data = Heights)
 
 
 >## Exercise
->Using the `make_predictions()` function, obtain the expected mean average systolic blood pressure levels
+>1. Using the `make_predictions()` function, obtain the expected mean average systolic blood pressure levels
 >predicted by the `BPSysAve_AgeMonths_lm` model for individuals with an age
-> of 300, 400, 500 and 600 months. Obtain confidence intervals for these predictions. 
-How are these confidence intervals interpreted?
+> of 300, 400, 500 and 600 months.  
+>2. Obtain 95% confidence intervals for these predictions.  
+>3. How are these confidence intervals interpreted? 
 > > ## Solution
 > > 
 > > ~~~
@@ -117,7 +120,7 @@ How are these confidence intervals interpreted?
 > > 
 > > 
 > > ~~~
-> > # A tibble: 4 x 4
+> > # A tibble: 4 × 4
 > >   AgeMonths BPSysAve  ymax  ymin
 > >       <dbl>    <dbl> <dbl> <dbl>
 > > 1       300     112.  113.  111.

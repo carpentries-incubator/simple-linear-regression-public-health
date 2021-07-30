@@ -11,9 +11,9 @@ keypoints:
   - The components of the model describe the mean of the dependent variable as a function of the explanatory variables, the mean of the dependent variable at the 0-point of the explanatory variable and the effect of the explanatory variable on the mean of dependent variable. 
 questions:
   - What type of variables are required for simple linear regression?
-  - What do each of the componenets in the equation of a simple linear regression model represent?
+  - What do each of the components in the equation of a simple linear regression model represent?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -26,30 +26,30 @@ Simple linear regression is commonly used, but when is it appropriate to apply t
 
 > ## Exercise  
 > A colleague has started working with the NHANES data set. They approach 
-> you for advice on the use of simple linear regression on this data. 
+> you for advice on the use of simple linear regression on these data. 
 > Assuming that the assumptions of the simple linear regression model hold, which
 > of the following questions could potentially be tackled with a simple 
 > linear regression model? Think closely about the outcome and explanatory
 > variables, between which a relationship will be modelled to answer the 
-> research questions.
+> research question.
 >   
 > A) Does home ownership (whether a participant's home is owned or rented)
-> vary across income bracket in the general US population?  
-> B) Is there an association between BMI and pulse in the general US population?  
-> C) Do teenagers on average have a higher pulse than adults in the 
+> vary across income brackets in the general US population?  
+> B) Is there an association between BMI and pulse rate in the general US population?  
+> C) Do teenagers on average have a higher pulse rate than adults in the 
 > general US population?
 > 
 > > ## Solution
 > > A) The outcome variable is home ownership and the explanatory variable is 
 > > income bracket.
-> > Since home ownership is a categorical outcome variable, this question is not 
-> > suited for simple linear regression.  
-> > B) Since both variables are continous, this question may be suited 
-> > for simple linear regression.  
-> > C) The outcome variable is pulse and the explanatory variable is age group
+> > Since home ownership is a categorical outcome variable, simple linear regression is not 
+> > a suitable way to answer this question.  
+> > B) Since both variables are continous, simple linear regression may be
+> > a suitable way to answer this question.  
+> > C) The outcome variable is pulse rate and the explanatory variable is age group
 > > (teenager vs adult). Since the outcome variable is 
 > > continuous and the explanatory variable is categorical, 
-> > this question may be suited to simple linear regression.
+> > simple linear regression may be a suitable way to answer this question.
 > {: .solution}
 {: .challenge}
 
@@ -68,7 +68,9 @@ Before fitting the model, we have access to $y$ and $x_1$ values for each observ
 
 > ## Exercise  
 > We are asked to study the effect of participant's age on their BMI. We are given the following equation of a simple linear regression to use:  
+> 
 > $$E(y) = \beta_0 + \beta_1 \times x_1$$.    
+> 
 > Match the following components of this simple linear regression model to their
 > descriptions:  
 > 1. $E(y)$  

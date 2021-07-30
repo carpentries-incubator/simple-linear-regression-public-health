@@ -9,7 +9,7 @@ objectives:
   - "Use the jtools package to interpret the model output."
   - "Use the jtools and ggplot2 packages to visualise the resulting model."
 keypoints:
-- As a first exploration of the data, construct a violin plot between the two variables.
+- As a first exploration of the data, construct a violin plot to describe the relationship between the two variables.
 - Use `lm()` to fit the simple linear regression model.
 - Use `summ()` to obtain parameter estimates for the model.
 - The intercept estimates the mean in the outcome variable for the baseline group. The other parameters estimate the differences in the means in the outcome variable between the baseline and contrast groups.
@@ -17,10 +17,10 @@ keypoints:
 questions:
 - How can we explore the relationship between one continuous variable and one multi-level categorical variable prior to fitting a simple linear regression?
 - How can we fit a simple linear regression model with one multi-level categorical explanatory variable in R?
-- How can the parameters of this model interpreted in R?
+- How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -28,7 +28,7 @@ execises: 10
 In this episode we will study linear regression with one categorical variable with more than two levels. We can explore the relationship between two variables ahead of fitting a model using the `ggplot2` package.
 
 ## Exploring the relationship between a continuous variable and a multi-level categorical variable
-Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()` and `between()`. We then initiate a plotting object using `ggplot()`, with the data passed on by the pipe. We select the variables of interest inside `aes()`. We then call for a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
+Let us take `Work` and `Age` as an example. `Work` describes whether someone is looking for work, not working or working. In the code below, we first subset our data for working age individuals using `filter()` and `between()`. We then initiate a plotting object using `ggplot()`, with the data passed on to the plot command by the pipe. We select the variables of interest inside `aes()`. We then create a violin plot using `geom_violin`. The shapes of the objects are representative of the distributions of `Age` in the three groups. We overlay the means and their 95% confidence intervals using `stat_summary()`. Finally, we change the axis labels using `xlab()` and `ylab()` and the x-axis ticks using `scale_x_discrete()`. This latter step ensures that the `NotWorking` data is labelled as `Not Working`, i.e. with a space. 
 
 
 ~~~
@@ -47,13 +47,13 @@ dat %>%
 <img src="../fig/rmd-04-explore Work vs Age-1.png" title="plot of chunk explore Work vs Age" alt="plot of chunk explore Work vs Age" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
-> You have been asked to model the relationship between frequency of
+> You have been asked to model the relationship between the frequency of
 > days where individuals feel depressed and weight in the NHANES data.
 > Use the ggplot2 package to create an exploratory plot, with NAs dropped from `Depressed`,
 > ensuring the plot includes the following elements:  
 > 1. Weight (`Weight`) on the y-axis and number of days with
 > depressed feelings (`Depressed`) on the x-axis, from the NHANES data.  
-> 2. This data shown as a violin plot.  
+> 2. These data presented using a violin plot.  
 > 3. The y-axis labelled as "Age (years)" and the x-axis labelled as 
 > "Number of days a week with depressed feelings".
 >
@@ -128,7 +128,7 @@ Similarly, $x_2 = 1$ if an individual is working and $x_2 = 0$ otherwise.
 > answer the following questions:
 >   
 > A) What average weight does the model predict, on average,
-> for an individual who is characterised as not experiencing depressed days?  
+> for an individual who is not experiencing depressed days?  
 > B) By how much is weight expected to change, 
 > on average, for each other level of `Depressed`?  
 > C) Given these two values and the names of the response and explanatory
@@ -173,7 +173,7 @@ Similarly, $x_2 = 1$ if an individual is working and $x_2 = 0$ otherwise.
 > > 
 > > A) 81.37  
 > > B) Increase by 1.26 and 2.65 for several depressed days and most 
-> > depressed days, respectively.
+> > depressed days, respectively.    
 > > C) $E(\text{Weight}) = 81.37 + 1.26 \times x_1 + 
 > > 2.65 \times x_2$, 
 > > where $x_1 = 1$ if an individual is depressed several days a week 
@@ -184,7 +184,7 @@ Similarly, $x_2 = 1$ if an individual is working and $x_2 = 0$ otherwise.
 {: .challenge}
 
 ## Visualising a simple linear regression model with one multi-level categorical variable
-Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean Age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
 
 
 ~~~
@@ -199,11 +199,11 @@ effect_plot(Age_Work_lm, pred = Work,
 <img src="../fig/rmd-04-effect_plot age vs work-1.png" title="plot of chunk effect_plot age vs work" alt="plot of chunk effect_plot age vs work" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
-> Use the `jtools` package to visualise the model of `Weight` as a 
-> function of `Depressed`.  
-> Ensure that the x-axis is labelled as "Number of days feeling depressed" 
-> and the y-axis is labelled as "Weight".
-> How does this plot relate to the output given by `summ`?
+> 1. Use the `jtools` package to visualise the model of `Weight` as a 
+> function of `Depressed`.   
+> 2. Ensure that the x-axis is labelled as "Number of days feeling depressed" 
+> and the y-axis is labelled as "Weight".  
+> 3. How does this plot relate to the output given by `summ`?
 >
 > > ## Solution
 > > 

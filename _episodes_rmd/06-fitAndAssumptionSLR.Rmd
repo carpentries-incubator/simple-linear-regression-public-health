@@ -16,8 +16,8 @@ questions:
   - "What does $R^2$ quantify and how is it interpreted?"
   - "What are the six assumptions of simple linear regression?"
   - "How do I check if any of these assumptions are violated?"
-teaching: 10
-exercises: 10
+teaching: 40
+exercises: 80
 ---
 
 ```{r, include=FALSE}

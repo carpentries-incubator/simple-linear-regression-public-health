@@ -12,12 +12,14 @@ keypoints:
   - "Assessing model fit is the process of visually checking whether the model fits the data sufficiently well."
   - "$R^2$ quantifies the proportion of variation in the response variable explained by the explanatory variable. An $R^2$ close to 1 indicates that most variation is accounted for by the model, while an $R^2$ close to 0 indicates that the model does not perform much better than predicting the mean of the response."
   - "The six assumptions of the simple linear regression model are validity, representativeness, linearity and additivity, independence of errors, homoscedasticity of the residuals and normality of the residuals."
+  - "We can check the assumptions of a simple linear regression model by carefully considering our research question, the data set that we are using and by visualising our model parameters."
 questions:
   - "What does it mean to assess model fit?"
   - "What does $R^2$ quantify and how is it interpreted?"
   - "What are the six assumptions of simple linear regression?"
-teaching: 10
-execises: 10
+  - "How do I check if any of these assumptions are violated?"
+teaching: 40
+exercises: 80
 ---
 
 
@@ -37,7 +39,7 @@ ways to assess model fit, we will cover two main components:
 1. Calculation of the variance in the response variable explained by the model, $R^2$.
 2. Assessment of the assumptions of the simple linear regression model. 
 
-Both these components rely on the use of *residuals*. Recall that our model
+Both of these components rely on the use of *residuals*. Recall that our model
 is characterized by a line, which predicts a value for the outcome variable
 for each value of the explanatory variable. The *difference* between an observed
 outcome and a predicted outcome is a residual. Therefore, our model has as many
@@ -93,10 +95,10 @@ of the model used.
 
 
 >## Exercise
->Find the R-squared value for the `summ` output of our `BPSysAve_AgeMonths_lm` model from 
->[episode 2](https://carpentries-incubator.github.io/simple-linear-regression-public-health/02-singleContPred).
->What proportion of variation in average systolic blood pressure is explained by age in our model? 
->Does our model account for most of the variation in `BPSysAve`?
+>1. Find the R-squared value for the `summ` output of our `BPSysAve_AgeMonths_lm` model from 
+>[episode 2](https://carpentries-incubator.github.io/simple-linear-regression-public-health/02-singleContPred).   
+>2. What proportion of variation in average systolic blood pressure is explained by age in our model?  
+>3. Does our model account for most of the variation in `BPSysAve`?  
 > > ## Solution
 > > 
 > > ~~~
@@ -140,14 +142,14 @@ of the model used.
 
 ## Assessing the assumptions of simple linear regression
 Simple linear regression has six assumptions. We will discuss these below 
-and explore an application of each through a challenge.
+and explore how to check that they are not violated through a series of challenges with applied examples.
 
 ### 1. Validity 
 The validity assumption states that the model is appropriate for the research question. This may sound obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
 
 A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
 B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable. While not discussed in this lesson, inclusion of more than one explanatory variable is covered in the [multiple linear regression for public health](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/) lesson.   
-C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using out `Pulse` vs `PhysActive` model. Neither would it be appropriate to use the model, which was constructed using people of all ages, if we were specifically interested the effect of physical activity on pulse in those aged 70+. In both examples, we would need a model constructed on different data to answer the research question.  
+C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using our `Pulse` vs `PhysActive` model. Neither would it be appropriate to use the model, which was constructed using people of all ages, if we were specifically interested in the effect of physical activity on pulse rate in those aged 70+. In both examples, we would need a model constructed using different data to answer the research question.  
 
 >## Exercise
 > You are asked to model the effect of age on general health of South-Americans. 
@@ -164,10 +166,10 @@ C) Does the model generalise to our *case of interest*? For example, it would no
 
 
 ### 2. Representativeness
-The representativeness assumption states that the *sample* is representative of the *population* to which we are generalising our findings. More specifically, the individuals from which our sample is formed are representative of the population of interest. While validity covered the relationship between our sample and the case of interest, representativeness covers the relationship between our model and another population of interest. For example, let's say we used a subset of the NHANES data to study the relationship between physical activity and pulse in 70+ individuals in the US. Since we used a subset appropriate to our research question, our model has validity. Our model may also be representative of 70+ individuals in the UK, in which case we could generalise our results without violating the representativeness assumption. However, our model is not representative of adults of all ages, so we cannot use it to generalise to that population. 
+The representativeness assumption states that the *sample* is representative of the *population* to which we are generalising our findings. More specifically, the individuals from which our sample is formed are representative of the population of interest. While validity covered the relationship between our sample and the case of interest, representativeness covers the relationship between our model and another population of interest. For example, let's say we used a subset of the NHANES data to study the relationship between physical activity and pulse rate in 70+ individuals in the US. Since we used a subset appropriate to our research question, our model has validity. Our model may also be representative of 70+ individuals in the UK, in which case we could generalise our results without violating the representativeness assumption. However, our model is not representative of adults of all ages, so we cannot use it to generalise to that population. 
 
 >## Exercise
-> You are asked to model the effect of age on BMI of individuals in the US. 
+> You are asked to model the effect of age on the BMI of individuals in the US. 
 > A colleague proposes that you fit a simple linear regression to the NHANES data,
 > using `BMI` as the outcome variable and `Age` as the explanatory variable.
 >
@@ -184,7 +186,7 @@ The representativeness assumption states that the *sample* is representative of 
 ### 3. Linearity and additivity
 This assumption states that our outcome variable has a linear, additive relationship with the explanatory variables.  
 
-The *linearity* component means that each explanatory variable needs to be modeled through a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the exploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
+The *linearity* component means that each explanatory variable needs to have a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the exploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
 
 
 ~~~
@@ -277,14 +279,19 @@ The *additivity* component means that the effect of any explanatory variable on 
 ### 4. Independent errors
 This assumption states that the residuals must be independent of one another. This assumption is violated when observations are not a random sample of the population, i.e. when observations are non-independent. Two common types of non-independence, and their common solutions, are:
 
-* Observations in our data can be grouped. For example, participants in a national health survey can be grouped by their region of residence. Therefore, observations from individuals from the same region will be non-independent. As a result, the residuals will also not be independent. If there are a few levels in our grouping variable (say, less than 6) then we might choose to include the grouping variable as an explanatory variable in our model. If the grouping variable has more levels, we may choose to include the variable as a random effect, a component of mixed effect models (not discussed here).
-* Our data contains repeated measurements on the same individuals. For example, we measure individual's weights four times over the course of a year. Here our data contains four non-independent observations per individual. As a result, the residuals will also not be independent. This can be overcome using random effects, which are a component of mixed effects models (not discussed here).
+1. Observations in our data can be grouped. For example, participants in a national health survey can be grouped by their region of residence. Therefore, observations from individuals from the same region will be non-independent. As a result, the residuals will also not be independent. 
+
+**Common solution:** If there are a few levels in our grouping variable (say, less than 6) then we might choose to include the grouping variable as an explanatory variable in our model. If the grouping variable has more levels, we may choose to include the variable as a random effect, a component of mixed effect models (not discussed here).
+
+2. Our data contains repeated measurements on the same individuals. For example, we measure individual's weights four times over the course of a year. Here our data contains four non-independent observations per individual. As a result, the residuals will also not be independent. 
+
+**Common solution:** This can be overcome using random effects, which are a component of mixed effects models (not discussed here).
 
 >## Exercise
 > In which of the following scenarios would the independent errors assumption likely be violated?
 > 
 > A) We are modeling the effect of a fitness program on people's fitness level. Our data consists of weekly fitness measurements on the same group of individuals.   
-> B) We are modeling the effect of dementia prevention treatments on life expectancy, with each participant  coming from one of five care homes. Our data consists of life expectancy, whether an individual was on a dementia prevention treatment and the care home that the individual was in.  
+> B) We are modeling the effect of dementia prevention treatments on life expectancy, with each participant  coming from one of five care homes. Our data consists of: life expectancy, whether an individual was on a dementia prevention treatment and the care home that the individual was in.  
 > C) We are modeling the effect of income on home size in a random sample of the adult UK population.
 > 
 > > ## Solution
@@ -297,7 +304,7 @@ This assumption states that the residuals must be independent of one another. Th
 ### 5. Equal variance of errors (homoscedasticity)
 This assumption states that the magnitude of variation in the residuals is not different across the fitted values or any explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
 
-For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model (the adult model, fit in episode 2). We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$Height`.
+For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model (the adult model, fit in episode 2). We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$model`.
 
 We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. In both of these plots, we add a line that approximately tracks the mean of the residuals across the fitted values and explanatory variable using `geom_smooth()`. The two plots are brought together into one plotting region using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
@@ -331,7 +338,8 @@ assumption has been violated.
 
 
 >## Exercise
-> Create diagnistic plots to check for heteroscedasticity in our `BPSysAve_AgeMonths_lm` model. Do you believe the equal variance assumption has been violated?
+> 1. Create diagnistic plots to check for heteroscedasticity in our `BPSysAve_AgeMonths_lm` model. 
+> 2. Do you believe the equal variance assumption has been violated?
 >
 > > ## Solution
 > > 
@@ -343,7 +351,7 @@ assumption has been violated.
 > > p1 <- ggplot(residualData, aes(x = fitted, y = resid)) +
 > >   geom_point(alpha = 0.1) +
 > >   geom_smooth() +
-> >   ylab("Residual") +
+> >   ylab("Residuals") +
 > >   xlab("Fitted values") 
 > > 
 > > p2 <- ggplot(residualData, aes(x = agemonths, y = resid)) +
@@ -371,7 +379,7 @@ assumption has been violated.
 ### 6. Normality of errors
 This assumption states that the errors follow a Normal distribution. When this assumption is strongly violated, predictions from the model are less reliable. Small deviations from normality may pose less of an issue. One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
 
-For example, looking at a histogram of the residuals of out `Height_Weight_lm` model reveals a distribution that is slightly skewed. Since this is not a strong deviation from normality, we do not have to worry about violating the assumption. 
+For example, looking at a histogram of the residuals of our `Height_Weight_lm` model reveals a distribution that is slightly skewed. Since this is not a strong deviation from normality, we do not have to worry about violating the assumption. 
 
 
 ~~~
@@ -387,7 +395,8 @@ ggplot(residuals, aes(x=resid)) +
 <img src="../fig/rmd-06-check normality example-1.png" title="plot of chunk check normality example" alt="plot of chunk check normality example" width="612" style="display: block; margin: auto;" />
 
 >## Exercise
-> Construct a histogram of the residuals of the `TotChol_SmokeNow_lm` model. Does the distribution suggest that the normality assumption is violated?
+> 1. Construct a histogram of the residuals of the `TotChol_SmokeNow_lm` model.  
+> 2. Does the distribution suggest that the normality assumption is violated?  
 > > ## Solution
 > > 
 > > ~~~
