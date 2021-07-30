@@ -16,8 +16,8 @@ questions:
 - How can we fit a simple linear regression model with one continuous explanatory variable in R?
 - How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
-teaching: 10
-exercises: 10
+teaching: 15
+exercises: 25
 ---
 
 ```{r, include=FALSE}
@@ -173,8 +173,8 @@ effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
 > > ```{r}
 > > effect_plot(BPSysAve_AgeMonths_lm, pred = AgeMonths, plot.points = TRUE,
 > >             interval = TRUE, colors = "red") +
-> >   xlab("Average systolic blood pressure (mmHg)") + 
-> >   ylab("Age (months)")
+> >   xlab("Age (months)") + 
+> >   ylab("Average systolic blood pressure (mmHg)")
 > > ```
 > {: .solution}
 {: .challenge}

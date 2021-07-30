@@ -21,8 +21,8 @@ questions:
 - How does the use of the simple linear regression equation differ between the continuous and categorical explanatory variable cases?
 - How can the parameters of this model be interpreted in R?
 - How can this model be visualised in R?
-teaching: 10
-exercises: 10
+teaching: 15
+exercises: 25
 ---
 
 

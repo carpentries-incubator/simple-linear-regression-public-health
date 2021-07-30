@@ -16,8 +16,8 @@ questions:
   - "What does $R^2$ quantify and how is it interpreted?"
   - "What are the six assumptions of simple linear regression?"
   - "How do I check if any of these assumptions are violated?"
-teaching: 10
-exercises: 10
+teaching: 40
+exercises: 80
 ---
 
 ```{r, include=FALSE}
@@ -308,7 +308,7 @@ This assumption states that the residuals must be independent of one another. Th
 {: .challenge}
 
 ### 5. Equal variance of errors (homoscedasticity)
-This assumption states that the magnitude of variation in the residuals is not different across the fitted values or any explanatory variable. Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
+This assumption states that the magnitude of variation in the residuals is not different across the expected values or any explanatory variable. In the context of this assumption, the expected values are referred to as the "fitted values" (i.e. the expected values obtained by fitting the model). Violation of this assumption can result in unreliable estimates of the standard errors of coefficients, which may impact statistical inference. Predictions from the model may become unreliable too. Transformation can sometimes be used to resolve heteroscedasticity. In other cases, weighted least squares can be used (not discussed in this lesson).  
 
 For example, we can study the relationship between the residuals and the fitted values of our `Height_Weight_lm` model (the adult model, fit in episode 2). We store the residuals, fitted values and explanatory variable in a tibble named `residualData`. The residuals are accessed using `resid()`, the fitted values are accessed using `fitted()` and the explanatory variable (`Height`) is accessed through the `Height` column of `Weight_Height_lm$model`.
 
