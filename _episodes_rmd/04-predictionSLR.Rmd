@@ -18,7 +18,7 @@ exercises: 10
 source("../bin/chunk-options.R")
 #source("../bin/obtain_data.R")
 load("../bin/data.RData")
-knitr_fig_path("05-")
+knitr_fig_path("04-")
 library(ggplot2)
 library(dplyr)
 library(jtools)
