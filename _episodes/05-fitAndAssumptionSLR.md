@@ -98,7 +98,8 @@ of the model used.
 >1. Find the R-squared value for the `summ` output of our `BPSysAve_AgeMonths_lm` model from 
 >[episode 2](https://carpentries-incubator.github.io/simple-linear-regression-public-health/02-singleContPred).   
 >2. What proportion of variation in average systolic blood pressure is explained by age in our model?  
->3. Does our model account for most of the variation in `BPSysAve`?  
+>3. Does our model account for most of the variation in `BPSysAve`?
+> 
 > > ## Solution
 > > 
 > > ~~~
@@ -397,6 +398,7 @@ ggplot(residuals, aes(x=resid)) +
 >## Exercise
 > 1. Construct a histogram of the residuals of the `TotChol_SmokeNow_lm` model.  
 > 2. Does the distribution suggest that the normality assumption is violated?  
+> 
 > > ## Solution
 > > 
 > > ~~~
