@@ -18,7 +18,7 @@ exercises: 10
 
 
 
-One of the features of linear regression is prediction: a model presents predicted mean values for the outcome variable for any values of the explanatory variables. We have already seen this in the previous episodes through our `effect_plot()` outputs, which showed mean predicted responses as straight lines (episode 2) or individual points for levels of a categorical variable (episodes 3 & 4). Here, we will see how to obtain predicted values and the uncertainty surrounding them.
+One of the features of linear regression is prediction: a model presents predicted mean values for the outcome variable for any values of the explanatory variables. We have already seen this in the previous episodes through our `effect_plot()` outputs, which showed mean predicted responses as straight lines (episode 2) or individual points for levels of a categorical variable (episodes 3). Here, we will see how to obtain predicted values and the uncertainty surrounding them.
 
 ## Calculating predictions manually
 First, we can calculate a predicted value manually. From the `summ()` output associated with our `Weight_Height_lm` model from episode 2, we can write the model as $E(\text{Weight}) = \beta_0 + \beta_1 \times \text{Height} = -70.194 + 0.901 \times \text{Height}$. The output can be found again below. If we take a height of 165 cm, then our model predicts an average weight of $-70.194 + 0.901 \times 165 = 78.471$ kg. 
@@ -99,17 +99,16 @@ make_predictions(Weight_Height_lm, new_data = Heights)
 
 
 >## Exercise
->1. Using the `make_predictions()` function, obtain the expected mean average systolic blood pressure levels
->predicted by the `BPSysAve_AgeMonths_lm` model for individuals with an age
-> of 300, 400, 500 and 600 months.  
->2. Obtain 95% confidence intervals for these predictions.  
->3. How are these confidence intervals interpreted? 
+> 1. Using the `make_predictions()` function, obtain the expected mean average systolic blood pressure levels predicted by the `BPSysAve_AgeMonths_lm` model for individuals with an age of 300, 400, 500 and 600 months.  
+> 2. Obtain 95% confidence intervals for these predictions.  
+> 3. How are these confidence intervals interpreted?
+> 
 > > ## Solution
 > > 
 > > ~~~
 > > BPSysAve_AgeMonths_lm <- dat %>% 
-> >   filter(Age > 17) %>%
-> >   lm(formula = BPSysAve ~ AgeMonths)
+> >  filter(Age > 17) %>%
+> >  lm(formula = BPSysAve ~ AgeMonths)
 > > 
 > > ages <- tibble(AgeMonths = c(300, 400, 500, 600))
 > > 
