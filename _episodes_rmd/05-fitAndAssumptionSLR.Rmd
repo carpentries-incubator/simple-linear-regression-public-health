@@ -197,7 +197,7 @@ The validity assumption states that the model is appropriate for the research qu
 
 A) Does the outcome variable reflect the *phenomenon of interest*? For example, it would not be appropriate to take our `Pulse` vs `PhysActive` model as representative of the effect of physical activity on general health.  
 B) Does the model include *all relevant explanatory variables*? For example, we might decide that our model of `TotChol` vs `BMI` requires inclusion of the `SmokeNow` variable. While not discussed in this lesson, inclusion of more than one explanatory variable is covered in the [multiple linear regression for public health](https://carpentries-incubator.github.io/multiple-linear-regression-public-health/) lesson.   
-C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to model the effect of a *change* in physical activity on pulse using our `Pulse` vs `PhysActive` model. Neither would it be appropriate to use the model, which was constructed using people of all ages, if we were specifically interested in the effect of physical activity on pulse rate in those aged 70+. In both examples, we would need a model constructed using different data to answer the research question.  
+C) Does the model generalise to our *case of interest*? For example, it would not be appropriate to use our `Pulse` vs `PhysActive` model, which was constructed using people of all ages, if we were specifically interested in the effect of physical activity on pulse rate in those aged 70+. A subsample of the NHANES data may allow us to answer the research question.  
 
 >## Exercise
 > You are asked to model the effect of age on general health of South-Americans. 
@@ -214,22 +214,41 @@ C) Does the model generalise to our *case of interest*? For example, it would no
 
 
 ### 2. Representativeness
-The representativeness assumption states that the *sample* is representative of the *population* to which we are generalising our findings. More specifically, the individuals from which our sample is formed are representative of the population of interest. While validity covered the relationship between our sample and the case of interest, representativeness covers the relationship between our model and another population of interest. For example, let's say we used a subset of the NHANES data to study the relationship between physical activity and pulse rate in 70+ individuals in the US. Since we used a subset appropriate to our research question, our model has validity. Our model may also be representative of 70+ individuals in the UK, in which case we could generalise our results without violating the representativeness assumption. However, our model is not representative of adults of all ages, so we cannot use it to generalise to that population. 
+The representativeness assumption states that the *sample* is representative of the *population* to which we are generalising our findings. For example, if we were studying the relationship between physical activity and pulse rate in US adults using the NHANES data, we could assume that our sample is representative of our population of interest. However, if we were to use data from a survey of care homes, our data would not be representative of our population of interest: we would have an overrepresentation of older people, compared to the US adult population. 
+
+In combination with the *case of interest* criterium of the *validity* assumption, we therefore ask:
+1. Are the individuals on which our data was collected a subset of the population of individuals which we are interested in studying? This is a component of validity.  
+2. Is our sample of individuals representative of the population of interest in terms of the number of individuals in relevant categories, e.g. ages? This is representativeness. 
+
+Note that when the representativeness assumption is violated, this can be solved 
+by including the misrepresented feature as an explanatory variable in the model.
+For example, if the sample and the population have different age distributions,
+age can be included as a variable in the model. Linear regression with
+multiple explanatory variables is covered in the 
+[multiple linear regression lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health).
+
 
 >## Exercise
-> You are asked to model the effect of age on the BMI of individuals in the US. 
-> A colleague proposes that you fit a simple linear regression to the NHANES data,
-> using `BMI` as the outcome variable and `Age` as the explanatory variable.
+> One of your colleagues is asked to model the effect of income on dissertation grade
+> in final year undergraduate students. They decide to survey 500 students at
+> your university, asking them for their income and
+> recording their grade upon completion of the thesis. 
 >
-> 1. Does the model generalise to your case of interest?  
-> 2. Could you generalise the results of your model to individuals in South-America?  
+> A) Would fitting a model of thesis grade as a function of income using 
+> this data violate the case of interest criterium of the validity assumption?
+>
+> After completing the survey, your colleague finds that the proportion of participants
+> identifying as female in the data is 70%. Presume it is known that at
+> your university, 55% of final year undergraduate students identify as female. 
+> 
+> B) Would fitting a model of thesis grade as a function of income using 
+> this data violate the representativeness assumption? 
 > 
 > > ## Solution
-> > 1. Since our case of interest is US adults and our data is a sample from the US population, our model generalises to the case of interest and we are not violating this aspect of the validity assumption.  
-> > 2. Since the relationship between age and BMI might differ between individuals in the US and South-America, we may not be able to generalise our results in this way. Our model may violate the representativeness assumption if we try to generalise to individuals in South-America. 
+> > A) Since the sample appears to be a subset of the population of interest, the case of interest criterium would not be violated.  
+> > B) Since the sample is not representative of the population of interest, the representativeness assumption would be violated. Including a variable for gender may solve the violation. See the [multiple linear regression lesson](https://carpentries-incubator.github.io/multiple-linear-regression-public-health) for details on how to include multiple variables in linear regression. 
 > {: .solution}
 {: .challenge}
-
 
 ### 3. Linearity and additivity
 This assumption states that our outcome variable has a linear, additive relationship with the explanatory variables.  
