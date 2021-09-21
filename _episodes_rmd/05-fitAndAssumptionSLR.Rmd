@@ -130,7 +130,32 @@ close to 1 indicates that the data does not scatter much around the model
 line. Therefore, our model accounts for most of the variation in the explanatory 
 variable. An $R^2$ close to 0 indicates that our model does not predict much
 better than the mean of the response variable. Therefore, our model does not
-account for much of the variation in the explanatory variable. 
+account for much of the variation in the explanatory variable. See for example 
+plots below. The points in the left plot lie closer to the line, so the model explains more of the variation and the
+$R^2$ value is higher. 
+
+```{r examples of R squared, echo = FALSE, message = FALSE}
+set.seed(123)
+diff <- runif(1000, -10, 10)
+
+fakeDat <- tibble(explanatory = runif(1000, 5, 25)) %>%
+  mutate(response1 = explanatory * 0.4 + 1/2 * diff,
+         response2 = explanatory * 0.4 +  0.9 * diff) %>%
+  pivot_longer(cols = c(response1, response2),
+               names_to = "version",
+               values_to = "response") %>%
+  mutate(version = recode_factor(version, `response1` = "R^2 == 0.35", `response2` = "R^2 == 0.13"))
+
+ggplot(fakeDat, aes(x = explanatory, y = response)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~ version,
+             labeller = label_parsed) +
+  xlab("Explanatory variable") +
+  ylab("Response variable") + 
+  theme(strip.text.x = element_text(size = 13))
+```
+
 
 The cut-off for a "good" $R^2$ value varies by research question and data set.
 There are scenarios in which explaining 10% of the variation in an outcome
