@@ -304,11 +304,11 @@ The *additivity* component means that the effect of any explanatory variable on 
 ### 4. Independent errors
 This assumption states that the residuals must be independent of one another. This assumption is violated when observations are not a random sample of the population, i.e. when observations are non-independent. Two common types of non-independence, and their common solutions, are:
 
-1. Observations in our data can be grouped. For example, participants in a national health survey can be grouped by their region of residence. Therefore, observations from individuals from the same region will be non-independent. As a result, the residuals will also not be independent. 
+A) Observations in our data can be grouped. For example, participants in a national health survey can be grouped by their region of residence. Therefore, observations from individuals from the same region will be non-independent. As a result, the residuals will also not be independent. 
 
 **Common solution:** If there are a few levels in our grouping variable (say, less than 6) then we might choose to include the grouping variable as an explanatory variable in our model. If the grouping variable has more levels, we may choose to include the variable as a random effect, a component of mixed effect models (not discussed here).
 
-2. Our data contains repeated measurements on the same individuals. For example, we measure individual's weights four times over the course of a year. Here our data contains four non-independent observations per individual. As a result, the residuals will also not be independent. 
+B) Our data contains repeated measurements on the same individuals. For example, we measure individual's weights four times over the course of a year. Here our data contains four non-independent observations per individual. As a result, the residuals will also not be independent. 
 
 **Common solution:** This can be overcome using random effects, which are a component of mixed effects models (not discussed here).
 
