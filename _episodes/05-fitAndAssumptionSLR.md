@@ -83,7 +83,12 @@ close to 1 indicates that the data does not scatter much around the model
 line. Therefore, our model accounts for most of the variation in the explanatory 
 variable. An $R^2$ close to 0 indicates that our model does not predict much
 better than the mean of the response variable. Therefore, our model does not
-account for much of the variation in the explanatory variable. 
+account for much of the variation in the explanatory variable. See for example 
+plots below. The points in the left plot lie closer to the line, so the model explains more of the variation and the
+$R^2$ value is higher. 
+
+<img src="../fig/rmd-05-examples of R squared-1.png" title="plot of chunk examples of R squared" alt="plot of chunk examples of R squared" width="612" style="display: block; margin: auto;" />
+
 
 The cut-off for a "good" $R^2$ value varies by research question and data set.
 There are scenarios in which explaining 10% of the variation in an outcome
