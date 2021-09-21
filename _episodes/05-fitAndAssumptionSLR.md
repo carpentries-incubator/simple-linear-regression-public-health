@@ -211,7 +211,7 @@ multiple explanatory variables is covered in the
 ### 3. Linearity and additivity
 This assumption states that our outcome variable has a linear, additive relationship with the explanatory variables.  
 
-The *linearity* component means that each explanatory variable needs to have a linear relationship with the outcome variable. We learned to check for this relationship before fitting our model, through the exploratory plots at the start of the previous episodes. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
+The *linearity* component means that our outcome variable is described by a linear function of the explanatory variable(s). On a practical level, this means that the line produced by our model should match the shape of the data. We learned to check that the relationship between our two variables is linear through the exploratory plots. For an example where the linearity assumption is violated, see the plot below. The relationship between `BPDiaAve` and `AgeMonths` is non-linear and our model fails to capture this non-linear relationship. 
 
 
 ~~~
