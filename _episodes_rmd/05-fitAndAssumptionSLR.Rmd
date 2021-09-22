@@ -181,7 +181,8 @@ of the model used.
 > > summ(BPSysAve_AgeMonths_lm, confint = TRUE, digits = 3)
 > > ```
 > > 
-> > Since $R^2 = 0.269$, our model accounts for approximately 27% of the variation in
+> > Since $R^2 = `{r} summary(BPSysAve_AgeMonths_lm)$r.squared`$, our model accounts for
+> > approximately 27% of the variation in
 > > `BPSysAve`. Our model explains 27% of the variation on `BPSysAve`, which
 > > a model that always predicts the mean would not. 
 > {: .solution}
