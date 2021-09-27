@@ -179,12 +179,12 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 {: .challenge}
 
 ## Visualising a simple linear regression model with one two-level categorical explanatory variable
-Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total HDL Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = c(0.3, 0)` and `point.alpha = 0.2` so that points are spread out HORIZONTALLY and so that multiple overlayed points create a darker colour, respectively. The resulting plot differs from the scatterplot obtained in the previous episode. Here, the plot shows the mean Total HDL Cholesterol estimates for each level of `SmokeNow`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.  
 
 
 ~~~
 effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
-            plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+            plot.points = TRUE, jitter = c(0.3, 0), point.alpha = 0.2) +
   xlab("Participant still smoking") +
   ylab("Total HDL Cholesterol")
 ~~~
@@ -193,7 +193,8 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 <img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot" alt="plot of chunk SmokeNow vs TotChol effect_plot" width="612" style="display: block; margin: auto;" />
 
 > ## Notes on `jitter` and `point.alpha`
-> Including `jitter = 0.3` results in points being *randomly* jittered. 
+> Including `jitter = c(0.3, 0)` results in points being *randomly* 
+> jittered horizontally. 
 > Therefore, your plot will differ slightly from the one shown above. 
 > Re-running the code will also give a slightly different jitter. 
 > If you would want to fix the `jitter` to one randomisation, 
@@ -206,7 +207,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > ~~~
 > set.seed(20) #fix the jitter to a particular pattern
 > effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
->             plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+>             plot.points = TRUE, jitter = c(0.3, 0), point.alpha = 0.2) +
 >   xlab("Participant still smoking") +
 >   ylab("Total HDL Cholesterol")
 > ~~~
@@ -232,7 +233,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > > 
 > > ~~~
 > > effect_plot(BPSysAve_PhysActive_lm, pred = PhysActive,
-> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+> > plot.points = TRUE, jitter = c(0.3, 0), point.alpha = 0.2) +
 > >   xlab("Physically Active") +
 > >   ylab("Average Systolic Blood Pressure")
 > > ~~~
