@@ -131,11 +131,11 @@ Similarly, $x_2 = 1$ if an individual is working and $x_2 = 0$ otherwise.
 {: .challenge}
 
 ## Visualising a simple linear regression model with one multi-level categorical variable
-Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = 0.3` and `point.alpha = 0.2` so that points are spread out and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
+Finally, we visually inspect the parameter estimates provided by our model. Again we can use `effect_plot()` from the `jtools` package. We include `jitter = c(0.3, 0)` and `point.alpha = 0.2` so that points are spread out horizontally and so that multiple overlayed points create a darker colour, respectively. The plot shows the mean age estimates for each level of `Work`, with their 95% confidence intervals. This allows us to see how different the means are predicted to be and within what range we can expect the true population means to fall.
 
 ```{r effect_plot age vs work}
 effect_plot(Age_Work_lm, pred = Work,
-            plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+            plot.points = TRUE, jitter = c(0.3, 0), point.alpha = 0.2) +
   xlab("Working status") + 
   ylab("Age (years)") +
   scale_x_discrete(labels = c('Looking','Not Working','Working'))
@@ -152,7 +152,7 @@ effect_plot(Age_Work_lm, pred = Work,
 > > 
 > > ```{r}
 > > effect_plot(Weight_Depressed_lm, pred = Depressed, 
-> > plot.points = TRUE, jitter = 0.3, point.alpha = 0.2) +
+> > plot.points = TRUE, jitter = c(0.3, 0), point.alpha = 0.2) +
 > >   xlab("Number of days feeling depressed") +
 > >   ylab("Weight (kg)")
 > > ```
