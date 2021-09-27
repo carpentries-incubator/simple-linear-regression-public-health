@@ -70,7 +70,7 @@ dat %>%
 > >   stat_summary(fun = "mean", size = 0.2) +
 > >   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.2) +
 > >   xlab("Number of days a week with depressed feelings") +
-> >   ylab("Age (years)")
+> >   ylab("Weight")
 > > ```
 > {: .solution}
 {: .challenge}
