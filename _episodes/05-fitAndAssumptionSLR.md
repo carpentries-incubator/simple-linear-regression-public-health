@@ -139,7 +139,9 @@ of the model used.
 > > ~~~
 > > {: .output}
 > > 
-> > Since $R^2 = 0.269$, our model accounts for approximately 27% of the variation in
+> > Since $R^2 = 0.153$,
+> > our model accounts for
+> > approximately 27% of the variation in
 > > `BPSysAve`. Our model explains 27% of the variation on `BPSysAve`, which
 > > a model that always predicts the mean would not. 
 > {: .solution}
