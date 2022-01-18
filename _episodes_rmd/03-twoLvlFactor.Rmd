@@ -116,7 +116,8 @@ summ(TotChol_SmokeNow_lm, confint = TRUE, digits = 3)
 > > ## Solution
 > > 
 > > ```{r}
-> > BPSysAve_PhysActive_lm <- lm(formula = BPSysAve ~ PhysActive, data = dat)
+> > BPSysAve_PhysActive_lm <- dat %>% 
+> >   lm(formula = BPSysAve ~ PhysActive)
 > > 
 > > summ(BPSysAve_PhysActive_lm, confint = TRUE, digits = 3)
 > > ```
