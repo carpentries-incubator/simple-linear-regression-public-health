@@ -183,8 +183,8 @@ of the model used.
 > > 
 > > Since $R^2 = `r round(summary(BPSysAve_AgeMonths_lm)$r.squared, digits = 3)`$,
 > > our model accounts for
-> > approximately 27% of the variation in
-> > `BPSysAve`. Our model explains 27% of the variation on `BPSysAve`, which
+> > approximately `r round(summary(BPSysAve_AgeMonths_lm)$r.squared, digits = 2) * 100`% of the variation in
+> > `BPSysAve`. Our model explains `r round(summary(BPSysAve_AgeMonths_lm)$r.squared, digits = 2) * 100`% of the variation on `BPSysAve`, which
 > > a model that always predicts the mean would not. 
 > {: .solution}
 {: .challenge}
