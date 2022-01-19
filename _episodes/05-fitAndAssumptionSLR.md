@@ -73,17 +73,17 @@ hypothetical data.
 
 <img src="../fig/rmd-05-R squared extremes visualised-1.png" title="plot of chunk R squared extremes visualised" alt="plot of chunk R squared extremes visualised" width="612" style="display: block; margin: auto;" />
 
-When a model accounts for all of the variation in the explanatory variable,
+When a model accounts for all of the variation in the outcome variable,
 the line goes perfectly through the data points. When a model does not account
-for any of the variation in the explanatory variable, the model predicts 
+for any of the variation in the outcome variable, the model predicts 
 the mean of the outcome variable, regardless of the explanatory variable. 
 
 Usually our $R^2$ value will lie somewhere between these two extremes. An $R^2$
 close to 1 indicates that the data does not scatter much around the model
-line. Therefore, our model accounts for most of the variation in the explanatory 
+line. Therefore, our model accounts for most of the variation in the outcome 
 variable. An $R^2$ close to 0 indicates that our model does not predict much
 better than the mean of the response variable. Therefore, our model does not
-account for much of the variation in the explanatory variable. See for example 
+account for much of the variation in the outcome variable. See for example 
 plots below. The points in the left plot lie closer to the line, so the model explains more of the variation and the
 $R^2$ value is higher. 
 
