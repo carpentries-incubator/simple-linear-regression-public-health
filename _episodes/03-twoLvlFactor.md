@@ -141,7 +141,8 @@ SmokeNowYes         0.008   -0.078   0.094     0.175   0.861
 > > 
 > > 
 > > ~~~
-> > BPSysAve_PhysActive_lm <- lm(formula = BPSysAve ~ PhysActive, data = dat)
+> > BPSysAve_PhysActive_lm <- dat %>% 
+> >   lm(formula = BPSysAve ~ PhysActive)
 > > 
 > > summ(BPSysAve_PhysActive_lm, confint = TRUE, digits = 3)
 > > ~~~
