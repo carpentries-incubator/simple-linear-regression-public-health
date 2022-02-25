@@ -28,7 +28,9 @@ exercises: 80
 
 In this episode we will learn what is meant by model fit, how to interpret the
 $R^2$ measure of model fit and how to assess whether our model meets the 
-assumptions of simple linear regression. 
+assumptions of simple linear regression. This episode was inspired by
+chapter 11 of the book Regression and Other Stories (see 
+[here](https://users.aalto.fi/~ave/ROS.pdf) for a pdf copy).
 
 ## Using residuals to assess model fit
 Broadly speaking, when we assess model fit we are checking whether our model
@@ -150,7 +152,7 @@ of the model used.
 
 ## Assessing the assumptions of simple linear regression
 Simple linear regression has six assumptions. We will discuss these below 
-and explore how to check that they are not violated through a series of challenges with applied examples.
+and explore how to check that they are not violated through a series of challenges with applied examples. 
 
 ### 1. Validity 
 The validity assumption states that the model is appropriate for the research question. This may sound obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
