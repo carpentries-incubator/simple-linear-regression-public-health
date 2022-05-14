@@ -425,9 +425,12 @@ assumption has been violated.
 {: .challenge}
 
 ### 6. Normality of errors
-This assumption states that the errors follow a Normal distribution. When this assumption is strongly violated, predictions from the model are less reliable. Small deviations from normality may pose less of an issue. One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
+This assumption states that the errors follow a Normal distribution. When this assumption is strongly violated, predictions of individual data points from the model are less reliable. Small deviations from normality may pose less of an issue.  One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
 
 For example, looking at a histogram of the residuals of our `Height_Weight_lm` model reveals a distribution that is slightly skewed. Since this is not a strong deviation from normality, we do not have to worry about violating the assumption. 
+
+Note that if a model includes a grouping variable (e.g. a two-level categorical variable), the normality of the residuals is to be checked separately for each group. 
+Also note that in the previous episode, we only covered prediction of the mean, not of individual data points. A deviation of the residuals from normality is usually not a concern for predictions of the mean. 
 
 ```{r check normality example, message = FALSE}
 residuals <- tibble(resid = resid(Weight_Height_lm))

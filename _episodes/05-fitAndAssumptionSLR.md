@@ -28,7 +28,9 @@ exercises: 80
 
 In this episode we will learn what is meant by model fit, how to interpret the
 $R^2$ measure of model fit and how to assess whether our model meets the 
-assumptions of simple linear regression. 
+assumptions of simple linear regression. This episode was inspired by
+chapter 11 of the book Regression and Other Stories (see 
+[here](https://users.aalto.fi/~ave/ROS.pdf) for a pdf copy).
 
 ## Using residuals to assess model fit
 Broadly speaking, when we assess model fit we are checking whether our model
@@ -73,17 +75,17 @@ hypothetical data.
 
 <img src="../fig/rmd-05-R squared extremes visualised-1.png" title="plot of chunk R squared extremes visualised" alt="plot of chunk R squared extremes visualised" width="612" style="display: block; margin: auto;" />
 
-When a model accounts for all of the variation in the explanatory variable,
+When a model accounts for all of the variation in the outcome variable,
 the line goes perfectly through the data points. When a model does not account
-for any of the variation in the explanatory variable, the model predicts 
+for any of the variation in the outcome variable, the model predicts 
 the mean of the outcome variable, regardless of the explanatory variable. 
 
 Usually our $R^2$ value will lie somewhere between these two extremes. An $R^2$
 close to 1 indicates that the data does not scatter much around the model
-line. Therefore, our model accounts for most of the variation in the explanatory 
+line. Therefore, our model accounts for most of the variation in the outcome 
 variable. An $R^2$ close to 0 indicates that our model does not predict much
 better than the mean of the response variable. Therefore, our model does not
-account for much of the variation in the explanatory variable. See for example 
+account for much of the variation in the outcome variable. See for example 
 plots below. The points in the left plot lie closer to the line, so the model explains more of the variation and the
 $R^2$ value is higher. 
 
@@ -141,8 +143,8 @@ of the model used.
 > > 
 > > Since $R^2 = 0.153$,
 > > our model accounts for
-> > approximately 27% of the variation in
-> > `BPSysAve`. Our model explains 27% of the variation on `BPSysAve`, which
+> > approximately 15% of the variation in
+> > `BPSysAve`. Our model explains 15% of the variation on `BPSysAve`, which
 > > a model that always predicts the mean would not. 
 > {: .solution}
 {: .challenge}
@@ -150,7 +152,7 @@ of the model used.
 
 ## Assessing the assumptions of simple linear regression
 Simple linear regression has six assumptions. We will discuss these below 
-and explore how to check that they are not violated through a series of challenges with applied examples.
+and explore how to check that they are not violated through a series of challenges with applied examples. 
 
 ### 1. Validity 
 The validity assumption states that the model is appropriate for the research question. This may sound obvious, but it is easy to come to unreliable conclusions because of inappropriate model choice. Validity is assessed in three ways:  
@@ -404,9 +406,12 @@ assumption has been violated.
 {: .challenge}
 
 ### 6. Normality of errors
-This assumption states that the errors follow a Normal distribution. When this assumption is strongly violated, predictions from the model are less reliable. Small deviations from normality may pose less of an issue. One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
+This assumption states that the errors follow a Normal distribution. When this assumption is strongly violated, predictions of individual data points from the model are less reliable. Small deviations from normality may pose less of an issue.  One way to check this assumption is to plot a histogram of the residuals and to ask whether it looks strongly non-normal (e.g. bimodal or uniform).
 
 For example, looking at a histogram of the residuals of our `Height_Weight_lm` model reveals a distribution that is slightly skewed. Since this is not a strong deviation from normality, we do not have to worry about violating the assumption. 
+
+Note that if a model includes a grouping variable (e.g. a two-level categorical variable), the normality of the residuals is to be checked separately for each group. 
+Also note that in the previous episode, we only covered prediction of the mean, not of individual data points. A deviation of the residuals from normality is usually not a concern for predictions of the mean. 
 
 
 ~~~
