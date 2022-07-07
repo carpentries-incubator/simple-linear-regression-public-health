@@ -133,7 +133,7 @@ $$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
 > ## Interpretation of the 95% CI and p-value of `Height`
 > 
 > If *prior to fitting our model* we were interested in testing the hypotheses 
-> $H_0: \beta_1 = 0$ vs $H_1: \beta \neq 0$, we could check the 95% CI 
+> $H_0: \beta_1 = 0$ vs $H_1: \beta_1 \neq 0$, we could check the 95% CI 
 > for `Height`. Recall that 95% of 95% CIs are expected to contain the true population 
 > mean. Since this 95% CI does not contain 0, we would be fairly confident in rejecting 
 > $H_0$ in favour of $H_1$. Alternatively, since the p-value is less than 0.05, 
