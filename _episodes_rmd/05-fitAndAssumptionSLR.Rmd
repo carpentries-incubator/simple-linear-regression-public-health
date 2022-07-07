@@ -33,18 +33,6 @@ library(tidyr)
 library(latex2exp)
 ```
 
-```{r models from previous episodes, echo = FALSE}
-Weight_Height_lm <- dat %>%
-  filter(Age > 17) %>%
-  lm(formula = Weight ~ Height)
-
-TotChol_SmokeNow_lm <- lm(formula = TotChol ~ SmokeNow, data = dat)
-
-BPSysAve_AgeMonths_lm <- dat %>% 
- filter(Age > 17) %>%
- lm(formula = BPSysAve ~ AgeMonths)
-```
-
 In this episode we will learn what is meant by model fit, how to interpret the
 $R^2$ measure of model fit and how to assess whether our model meets the 
 assumptions of simple linear regression. This episode was inspired by
@@ -264,7 +252,7 @@ BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths, data = dat)
 
 effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
             plot.points = TRUE, interval = TRUE,
-            colors = c("red")) +
+            colors = "red") +
   ylab("Combined diastolic blood pressure") +
   xlab("Age in Months")
 ```
@@ -276,7 +264,7 @@ BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), d
 
 effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
             plot.points = TRUE, interval = TRUE,
-            colors = c("red")) +
+            colors = "red") +
   ylab("Combined diastolic blood pressure") +
   xlab("Age in Months") 
 ```
@@ -302,7 +290,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > 
 > > effect_plot(child_Weight_Height_lm, pred = Height, 
 > >                   plot.points = TRUE, interval = TRUE,
-> >                   colors = c("red")) 
+> >                   colors = "red") 
 > > ```  
 > {: .solution}
 > 
@@ -321,7 +309,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > 
 > > effect_plot(child_logWeight_Height_lm, pred = Height, 
 > >                   plot.points = TRUE, interval = TRUE,
-> >                   colors = c("red")) 
+> >                   colors = "red")
 > > ```
 > > 
 > > The non-linear relationship has now been transformed into a more linear 
@@ -364,6 +352,10 @@ For example, we can study the relationship between the residuals and the fitted 
 We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory variable plot named `p2`. In both of these plots, we add a line that approximately tracks the mean of the residuals across the fitted values and explanatory variable using `geom_smooth()`. The two plots are brought together into one plotting region using `p1 + p2`, where the `+` relies on the `patchwork` package being loaded. 
 
 ```{r heteroscedasticity example, message = FALSE}
+Weight_Height_lm <- dat %>%
+  filter(Age > 17) %>%
+  lm(formula = Weight ~ Height)
+
 residualData <- tibble(resid = resid(Weight_Height_lm),
                     fitted = fitted(Weight_Height_lm),
                     height = Weight_Height_lm$model$Height)
@@ -395,6 +387,10 @@ assumption has been violated.
 >
 > > ## Solution
 > > ```{r heteroscedasticity challenge, warning = FALSE, message = FALSE}
+> > BPSysAve_AgeMonths_lm <- dat %>%
+> > filter(Age > 17) %>%
+> > lm(formula = BPSysAve ~ AgeMonths)
+> > 
 > > residualData <- tibble(resid = resid(BPSysAve_AgeMonths_lm),
 > >                     fitted = fitted(BPSysAve_AgeMonths_lm),
 > >                     agemonths = BPSysAve_AgeMonths_lm$model$AgeMonths)
@@ -447,6 +443,8 @@ ggplot(residuals, aes(x=resid)) +
 > 
 > > ## Solution
 > > ```{r check normality challenge, message = FALSE}
+> > TotChol_SmokeNow_lm <- lm(formula = TotChol ~ SmokeNow, data = dat)
+> > 
 > > residuals <- tibble(resid = resid(TotChol_SmokeNow_lm))
 > > 
 > > ggplot(residuals, aes(x=resid)) +
