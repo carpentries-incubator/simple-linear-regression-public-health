@@ -221,7 +221,7 @@ BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths, data = dat)
 
 effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
             plot.points = TRUE, interval = TRUE,
-            colors = c("red")) +
+            colors = "red") +
   ylab("Combined diastolic blood pressure") +
   xlab("Age in Months")
 ~~~
@@ -237,7 +237,7 @@ BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), d
 
 effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
             plot.points = TRUE, interval = TRUE,
-            colors = c("red")) +
+            colors = "red") +
   ylab("Combined diastolic blood pressure") +
   xlab("Age in Months") 
 ~~~
@@ -267,7 +267,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > 
 > > effect_plot(child_Weight_Height_lm, pred = Height, 
 > >                   plot.points = TRUE, interval = TRUE,
-> >                   colors = c("red")) 
+> >                   colors = "red") 
 > > ~~~
 > > {: .language-r}
 > > 
@@ -290,7 +290,7 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > 
 > > effect_plot(child_logWeight_Height_lm, pred = Height, 
 > >                   plot.points = TRUE, interval = TRUE,
-> >                   colors = c("red")) 
+> >                   colors = "red")
 > > ~~~
 > > {: .language-r}
 > > 
