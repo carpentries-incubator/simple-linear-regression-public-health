@@ -24,8 +24,6 @@ exercises: 80
 
 
 
-
-
 In this episode we will learn what is meant by model fit, how to interpret the
 $R^2$ measure of model fit and how to assess whether our model meets the 
 assumptions of simple linear regression. This episode was inspired by
@@ -339,6 +337,10 @@ We create a residuals vs. fitted plot named `p1` and a residuals vs. explanatory
 
 
 ~~~
+Weight_Height_lm <- dat %>%
+  filter(Age > 17) %>%
+  lm(formula = Weight ~ Height)
+
 residualData <- tibble(resid = resid(Weight_Height_lm),
                     fitted = fitted(Weight_Height_lm),
                     height = Weight_Height_lm$model$Height)
@@ -373,6 +375,10 @@ assumption has been violated.
 > > ## Solution
 > > 
 > > ~~~
+> > BPSysAve_AgeMonths_lm <- dat %>%
+> > filter(Age > 17) %>%
+> > lm(formula = BPSysAve ~ AgeMonths)
+> > 
 > > residualData <- tibble(resid = resid(BPSysAve_AgeMonths_lm),
 > >                     fitted = fitted(BPSysAve_AgeMonths_lm),
 > >                     agemonths = BPSysAve_AgeMonths_lm$model$AgeMonths)
@@ -433,6 +439,8 @@ ggplot(residuals, aes(x=resid)) +
 > > ## Solution
 > > 
 > > ~~~
+> > TotChol_SmokeNow_lm <- lm(formula = TotChol ~ SmokeNow, data = dat)
+> > 
 > > residuals <- tibble(resid = resid(TotChol_SmokeNow_lm))
 > > 
 > > ggplot(residuals, aes(x=resid)) +
