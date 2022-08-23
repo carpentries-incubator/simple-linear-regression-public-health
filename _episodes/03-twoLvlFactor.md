@@ -47,6 +47,16 @@ dat %>%
 
 <img src="../fig/rmd-03-SmokeNow vs TotChol violin-1.png" title="plot of chunk SmokeNow vs TotChol violin" alt="plot of chunk SmokeNow vs TotChol violin" width="612" style="display: block; margin: auto;" />
 
+> ## Notes on the `fun` and `fun.data` arguments in `stat_summary()`
+> The `fun` and `fun.data` arguments both apply statistical operations to data
+but do slightly different things. `fun` takes data as vectors and will return
+single values for each these vectors. In the above example, we calculate the
+mean for each vector (each `SmokeNow` group). `fun.data` expects a dataset
+(which may be a simple vector) and provides three values for each dataset: `y`,
+`ymin` and `ymax`. In our case, ymin is lower bound of the confidence interval
+and ymax is the upper bound of the confidence interval. 
+{: .callout}
+
 
 > ## Exercise  
 > You have been asked to model the relationship between average systolic
