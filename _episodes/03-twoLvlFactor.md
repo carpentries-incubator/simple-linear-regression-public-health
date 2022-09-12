@@ -45,7 +45,7 @@ dat %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-SmokeNow vs TotChol violin-1.png" title="plot of chunk SmokeNow vs TotChol violin" alt="plot of chunk SmokeNow vs TotChol violin" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-SmokeNow vs TotChol violin-1.png" alt="plot of chunk SmokeNow vs TotChol violin" width="612" style="display: block; margin: auto;" />
 
 > ## Notes on the `fun` and `fun.data` arguments in `stat_summary()`
 > The `fun` and `fun.data` arguments both apply statistical operations to data
@@ -82,7 +82,7 @@ and ymax is the upper bound of the confidence interval.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -201,7 +201,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot" alt="plot of chunk SmokeNow vs TotChol effect_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot-1.png" alt="plot of chunk SmokeNow vs TotChol effect_plot" width="612" style="display: block; margin: auto;" />
 
 > ## Notes on `jitter` and `point.alpha`
 > Including `jitter = c(0.3, 0)` results in points being *randomly* 
@@ -224,7 +224,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot with set seed-1.png" title="plot of chunk SmokeNow vs TotChol effect_plot with set seed" alt="plot of chunk SmokeNow vs TotChol effect_plot with set seed" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-03-SmokeNow vs TotChol effect_plot with set seed-1.png" alt="plot of chunk SmokeNow vs TotChol effect_plot with set seed" width="612" style="display: block; margin: auto;" />
 > 
 > Including `point.alpha = 0.2` introduces opacity into the plotted points.
 > As a result, if many points are plotted on top of each other, this area
@@ -250,7 +250,7 @@ effect_plot(TotChol_SmokeNow_lm, pred = SmokeNow,
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 > > 
 > > This plot shows the mean estimates for `BPSysAve` for the two groups, 
 > > alongside their 95% confidence intervals. The mean estimates are 
