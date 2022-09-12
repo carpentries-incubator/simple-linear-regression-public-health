@@ -157,7 +157,7 @@ We can also interpret the model using a line overlayed onto the previous scatter
 
 ```{r effect plot weight vs height}
 effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
-            interval = TRUE, colors = "red") +
+            interval = TRUE, line.colors = "magenta") +
   xlab("Height (cm)") +
   ylab("Weight (kg)")
 ```
@@ -172,7 +172,7 @@ effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
 > > ## Solution
 > > ```{r}
 > > effect_plot(BPSysAve_AgeMonths_lm, pred = AgeMonths, plot.points = TRUE,
-> >             interval = TRUE, colors = "red") +
+> >             interval = TRUE, line.colors = "magenta") +
 > >   xlab("Age (months)") + 
 > >   ylab("Average systolic blood pressure (mmHg)")
 > > ```
