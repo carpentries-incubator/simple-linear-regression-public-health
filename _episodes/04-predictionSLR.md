@@ -88,12 +88,12 @@ make_predictions(Weight_Height_lm, new_data = Heights)
 
 ~~~
 # A tibble: 4 × 4
-  Height Weight  ymax  ymin
+  Height Weight  ymin  ymax
    <dbl>  <dbl> <dbl> <dbl>
-1    150   64.9  65.9  63.9
-2    160   73.9  74.5  73.3
-3    170   82.9  83.4  82.4
-4    180   91.9  92.6  91.2
+1    150   64.9  63.9  65.9
+2    160   73.9  73.3  74.5
+3    170   82.9  82.4  83.4
+4    180   91.9  91.2  92.6
 ~~~
 {: .output}
 
@@ -120,12 +120,12 @@ make_predictions(Weight_Height_lm, new_data = Heights)
 > > 
 > > ~~~
 > > # A tibble: 4 × 4
-> >   AgeMonths BPSysAve  ymax  ymin
+> >   AgeMonths BPSysAve  ymin  ymax
 > >       <dbl>    <dbl> <dbl> <dbl>
-> > 1       300     112.  113.  111.
-> > 2       400     115.  116.  114.
-> > 3       500     118.  119.  118.
-> > 4       600     121.  122.  121.
+> > 1       300     112.  111.  113.
+> > 2       400     115.  114.  116.
+> > 3       500     118.  118.  119.
+> > 4       600     121.  121.  122.
 > > ~~~
 > > {: .output}
 > > Recall that 95% of 95% confidence intervals are expected to contain the 
