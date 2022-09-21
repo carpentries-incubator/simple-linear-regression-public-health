@@ -52,7 +52,7 @@ residual, for an individual with a weight greater than predicted by the model.
 To the left side, we see a shorter red vertical line. This is a relatively small
 residual, for an individual with a weight close to that predicted by the model.
 
-<img src="../fig/rmd-05-residual example-1.png" title="plot of chunk residual example" alt="plot of chunk residual example" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-residual example-1.png" alt="plot of chunk residual example" width="612" style="display: block; margin: auto;" />
 
 ## Measuring model fit using $R^2$
 A commonly used summary statistic for model fit is $R^2$, which quantifies the
@@ -71,7 +71,7 @@ Below is a plot of hypothetical data, with two regression lines. The blue line g
 through the data points, while the red line is horizontal at the mean of the 
 hypothetical data.
 
-<img src="../fig/rmd-05-R squared extremes visualised-1.png" title="plot of chunk R squared extremes visualised" alt="plot of chunk R squared extremes visualised" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-R squared extremes visualised-1.png" alt="plot of chunk R squared extremes visualised" width="612" style="display: block; margin: auto;" />
 
 When a model accounts for all of the variation in the outcome variable,
 the line goes perfectly through the data points. When a model does not account
@@ -87,7 +87,7 @@ account for much of the variation in the outcome variable. See for example
 plots below. The points in the left plot lie closer to the line, so the model explains more of the variation and the
 $R^2$ value is higher. 
 
-<img src="../fig/rmd-05-examples of R squared-1.png" title="plot of chunk examples of R squared" alt="plot of chunk examples of R squared" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-examples of R squared-1.png" alt="plot of chunk examples of R squared" width="612" style="display: block; margin: auto;" />
 
 
 The cut-off for a "good" $R^2$ value varies by research question and data set.
@@ -221,13 +221,13 @@ BPDiaAve_AgeMonths_lm <- lm(formula = BPDiaAve ~ AgeMonths, data = dat)
 
 effect_plot(BPDiaAve_AgeMonths_lm, pred = AgeMonths, 
             plot.points = TRUE, interval = TRUE,
-            colors = "red") +
+            line.colors = "magenta") +
   ylab("Combined diastolic blood pressure") +
   xlab("Age in Months")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-non-linearity example part 1-1.png" title="plot of chunk non-linearity example part 1" alt="plot of chunk non-linearity example part 1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-non-linearity example part 1-1.png" alt="plot of chunk non-linearity example part 1" width="612" style="display: block; margin: auto;" />
 
 Adding a squared term to our model, designated by `I(AgeMonths^2)`, allows our model to capture the non-linear relationship, as the following plot shows. Thus, the model with formula `BPDiaAve ~ AgeMonths + I(AgeMonths^2)` does not appear to violate the linearity assumption.  
 
@@ -237,13 +237,13 @@ BPDiaAve_AgeMonthsSQ_lm <- lm(formula = BPDiaAve ~ AgeMonths + I(AgeMonths^2), d
 
 effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths, 
             plot.points = TRUE, interval = TRUE,
-            colors = "red") +
+            line.colors = "magenta") +
   ylab("Combined diastolic blood pressure") +
   xlab("Age in Months") 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-non-linearity example part 2-1.png" title="plot of chunk non-linearity example part 2" alt="plot of chunk non-linearity example part 2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-non-linearity example part 2-1.png" alt="plot of chunk non-linearity example part 2" width="612" style="display: block; margin: auto;" />
 
 >## Exercise
 > In the example above we saw that squaring an explanatory variable can correct
@@ -267,11 +267,11 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > 
 > > effect_plot(child_Weight_Height_lm, pred = Height, 
 > >                   plot.points = TRUE, interval = TRUE,
-> >                   colors = "red") 
+> >                   line.colors = "magenta") 
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-non-linearity challenge part 1-1.png" title="plot of chunk non-linearity challenge part 1" alt="plot of chunk non-linearity challenge part 1" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-non-linearity challenge part 1-1.png" alt="plot of chunk non-linearity challenge part 1" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 > 
 > There is curvature in the data, which makes a straight line unsuitable. 
@@ -290,11 +290,11 @@ effect_plot(BPDiaAve_AgeMonthsSQ_lm, pred = AgeMonths,
 > > 
 > > effect_plot(child_logWeight_Height_lm, pred = Height, 
 > >                   plot.points = TRUE, interval = TRUE,
-> >                   colors = "red")
+> >                   line.colors = "magenta")
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-non-linearity challenge part 2-1.png" title="plot of chunk non-linearity challenge part 2" alt="plot of chunk non-linearity challenge part 2" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-non-linearity challenge part 2-1.png" alt="plot of chunk non-linearity challenge part 2" width="612" style="display: block; margin: auto;" />
 > > 
 > > The non-linear relationship has now been transformed into a more linear 
 > > relationship by taking the log transformation of the response variable. 
@@ -361,7 +361,7 @@ p1 + p2
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-heteroscedasticity example-1.png" title="plot of chunk heteroscedasticity example" alt="plot of chunk heteroscedasticity example" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-heteroscedasticity example-1.png" alt="plot of chunk heteroscedasticity example" width="612" style="display: block; margin: auto;" />
 
 Since there is no obvious pattern in the residuals along the fitted values or
 the explanatory variable, there is no reason to suspect that the equal variance
@@ -399,7 +399,7 @@ assumption has been violated.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-heteroscedasticity challenge-1.png" title="plot of chunk heteroscedasticity challenge" alt="plot of chunk heteroscedasticity challenge" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-heteroscedasticity challenge-1.png" alt="plot of chunk heteroscedasticity challenge" width="612" style="display: block; margin: auto;" />
 > > 
 > > The variation in the residuals does somewhat increase with an increase in
 > > fitted values and an increase in `AgeMonths`. Therefore, this model may
@@ -430,7 +430,7 @@ ggplot(residuals, aes(x=resid)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-check normality example-1.png" title="plot of chunk check normality example" alt="plot of chunk check normality example" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-check normality example-1.png" alt="plot of chunk check normality example" width="612" style="display: block; margin: auto;" />
 
 >## Exercise
 > 1. Construct a histogram of the residuals of the `TotChol_SmokeNow_lm` model.  
@@ -450,7 +450,7 @@ ggplot(residuals, aes(x=resid)) +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-check normality challenge-1.png" title="plot of chunk check normality challenge" alt="plot of chunk check normality challenge" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-check normality challenge-1.png" alt="plot of chunk check normality challenge" width="612" style="display: block; margin: auto;" />
 > > 
 > > Since the distribution is only slightly skewed, we do not have to worry about violating the normality assumption. 
 > {: .solution}

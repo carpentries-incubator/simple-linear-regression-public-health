@@ -49,7 +49,7 @@ Warning: Removed 320 rows containing missing values (geom_point).
 ~~~
 {: .warning}
 
-<img src="../fig/rmd-02-Height vs Weight plot-1.png" title="plot of chunk Height vs Weight plot" alt="plot of chunk Height vs Weight plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-Height vs Weight plot-1.png" alt="plot of chunk Height vs Weight plot" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
 > You have been asked to model the relationship between average systolic blood pressure
@@ -77,7 +77,7 @@ Warning: Removed 320 rows containing missing values (geom_point).
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-explore BPSysAve vs AgeMonths-1.png" title="plot of chunk explore BPSysAve vs AgeMonths" alt="plot of chunk explore BPSysAve vs AgeMonths" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-explore BPSysAve vs AgeMonths-1.png" alt="plot of chunk explore BPSysAve vs AgeMonths" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -133,7 +133,7 @@ $$E(\text{Weight}) = -70.19 + 0.901 \times \text{Height}$$
 > ## Interpretation of the 95% CI and p-value of `Height`
 > 
 > If *prior to fitting our model* we were interested in testing the hypotheses 
-> $H_0: \beta_1 = 0$ vs $H_1: \beta \neq 0$, we could check the 95% CI 
+> $H_0: \beta_1 = 0$ vs $H_1: \beta_1 \neq 0$, we could check the 95% CI 
 > for `Height`. Recall that 95% of 95% CIs are expected to contain the true population 
 > mean. Since this 95% CI does not contain 0, we would be fairly confident in rejecting 
 > $H_0$ in favour of $H_1$. Alternatively, since the p-value is less than 0.05, 
@@ -218,13 +218,13 @@ We can also interpret the model using a line overlayed onto the previous scatter
 
 ~~~
 effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
-            interval = TRUE, colors = "red") +
+            interval = TRUE, line.colors = "magenta") +
   xlab("Height (cm)") +
   ylab("Weight (kg)")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-effect plot weight vs height-1.png" title="plot of chunk effect plot weight vs height" alt="plot of chunk effect plot weight vs height" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-effect plot weight vs height-1.png" alt="plot of chunk effect plot weight vs height" width="612" style="display: block; margin: auto;" />
 
 
 > ## Exercise  
@@ -237,13 +237,13 @@ effect_plot(Weight_Height_lm, pred = Height, plot.points = TRUE,
 > > 
 > > ~~~
 > > effect_plot(BPSysAve_AgeMonths_lm, pred = AgeMonths, plot.points = TRUE,
-> >             interval = TRUE, colors = "red") +
+> >             interval = TRUE, line.colors = "magenta") +
 > >   xlab("Age (months)") + 
 > >   ylab("Average systolic blood pressure (mmHg)")
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
