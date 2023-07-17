@@ -57,7 +57,7 @@ dat %>%
 > 1. Weight (`Weight`) on the y-axis and number of days with
 > depressed feelings (`Depressed`) on the x-axis, from the NHANES data.  
 > 2. These data presented using a violin plot.  
-> 3. The y-axis labelled as "Age (years)" and the x-axis labelled as 
+> 3. The y-axis labelled as "Weight" and the x-axis labelled as 
 > "Number of days a week with depressed feelings".
 >
 > > ## Solution
